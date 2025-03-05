@@ -20,13 +20,13 @@
         <li><a href="#">해외 여행</a></li>
       </div>
       <div>
-        <li><a href="#">여행 팁</a></li>
+        <li><a href="#">동행 모집</a></li>
       </div>
       <div>
-        <li><a href="#">맛집 추천</a></li>
+        <li><a href="#">자유게시판</a></li>
       </div>
       <div>
-        <li><a href="#">여행 후기</a></li>
+        <li><a href="#">Q&A</a></li>
       </div>
     </ul>
   </nav>
@@ -42,18 +42,18 @@
     <button class="close-btn">x</button>
   </div>
   <form>
-    <input type="email" class="form-login" id="email" placeholder="아이디" />
-    <input type="password" class="form-login" id="pw" placeholder="비밀번호" />
+    <input oninput="checkemail()" type="email" class="form-login" id="email" placeholder="아이디" />
+    <div class="emailtext"></div>
+    <input oninput="checkpw()" type="password" class="form-login" id="pw" placeholder="비밀번호" />
+    <div class="passtext"></div>
     <div class="login-find-flex">
       <label>
         <input class="check" type="checkbox" />로그인 상태 유지
       </label>
-      <a href="/">ID 찾기</a>
+      <!-- <a href="/">ID 찾기</a> -->
     </div>
-
-    <button class="login-btn">로그인</button>
+    <button class="login-btn" onclick="login(event)">로그인</button>
   </form>
-
 
   <div class="signup-link">
     <span>아직 회원이 아니신가요?</span> <a href="/signup">회원가입하기</a>

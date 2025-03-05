@@ -1,3 +1,7 @@
+// 잘못된 값 입력시 안내
+const emailtext = document.querySelector(".emailtext");
+const passtext = document.querySelector(".passtext");
+
 // 로그인창 띄우기
 document.addEventListener("DOMContentLoaded", function () {
   const loginicon = document.querySelector(".loginicon");
@@ -50,3 +54,74 @@ document.addEventListener("DOMContentLoaded", function () {
 //   }
 //   preScrollTop = nextScrollTop;
 // });
+
+const login = async (event) => {
+  event.preventDefault();
+  // 로그인에 입력한 입력값
+  const email = document.getElementById("email").value;
+  const pw = document.getElementById("pw").value;
+
+  // 유효성 검사
+  if (!email) {
+    emailtext.innerText = "아이디를 입력해주세요";
+  }
+  if (!pw) {
+    passtext.innerText = "비밀번호를 입력해주세요";
+  }
+
+  // 로그인 요청
+  await axios.post("/login", { email, pw }).then((result) => {
+    if (result.data.result) {
+      // // 쿠키에서 토큰 추출하기
+      // const cookies = document.cookie.split(";");
+      // const tokenCookie = cookies.find((item) =>
+      //   item.trim().startsWith("token=")
+      // );
+      // if (!tokenCookie) {
+      //   alert("오류");
+      // }
+      // // 토큰 값만 추출(token= 부분 제거)
+      // const token = tokenCookie.trim().substring(6);
+      verifylogin(result.data.token);
+      // window.location.href = "/";
+    } else {
+      alert(result.data.message);
+    }
+  });
+};
+
+const verifylogin = async (token) => {
+  await axios.post(
+    "/verify",
+    {},
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  if (res.data.result) {
+    alert(res.data.result, "성공");
+
+    // data = `<button type="button" onClick="logout()">로그아웃</button>
+    // <div>${res.data.name}님 환영합니다.</div><br>
+    //   <button onClick="chat()">채팅</button>
+    // `;
+  }
+};
+
+const checkemail = () => {
+  // 로그인에 입력한 입력값
+  const email = document.getElementById("email").value;
+  if (email) {
+    emailtext.innerText = "";
+  }
+};
+
+const checkpw = () => {
+  // 로그인에 입력한 입력값
+  const pw = document.getElementById("pw").value;
+
+  if (pw) {
+    passtext.innerText = "";
+  }
+};
