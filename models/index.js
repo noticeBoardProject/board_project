@@ -18,8 +18,8 @@ const sequelize = new Sequelize(
   config, // 정보전체
 );
 
-// 모델 가져오기
-// db.user = require("./user")(sequelize, DataTypes); // 모델 파일 불러오기
+// 모델 파일 불러오기
+db.users = require("./users.js")(sequelize, DataTypes);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
