@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <link rel="stylesheet" href="/public/CSS/signup.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+</head>
+
+<body>
+  <div class="container">
+    <h2>회원가입</h2>
+    <form>
+      <div class="form-group">
+        <label>아이디</label>
+        <div class="btn-box">
+          <input oninput="checke()" class="inputbox" type="email" jd="email" name="email" placeholder="이메일을 입력해주세요"
+            required />
+          <input class="btn checkbtn" type="button" value="중복 검사" />
+        </div>
+        <div class="text checkemail"></div>
+        <div class="successtext checkemail2"></div>
+      </div>
+      <div class="form-group">
+        <label>비밀번호</label>
+        <input oninput="checkPw()" class="inputbox" type="password" id="pw" name="pw" placeholder="비밀번호를 입력해주세요"
+          required />
+        <span class="password-container" onclick="togglePassword()">
+          <img class="toggle-password" src="/public/image/visibilityoff.svg" />
+        </span>
+        <div class="text checkpw"></div>
+      </div>
+      <!-- <div class="form-group">
+          <label>비밀번호 확인</label>
+          <input class="inputbox" type="password" name="pwcheck" placeholder="비밀번호를 한번 더 입력해주세요" required />
+          </div> -->
+      <div class="form-group">
+        <label>이름</label>
+        <input class="inputbox" type="text" name="name" placeholder="이름을 입력해주세요" required />
+      </div>
+      <div class="form-group">
+        <label>닉네임</label>
+        <input class="inputbox" type="text" name="name" placeholder="닉네임을 입력해주세요" required />
+      </div>
+      <div class="form-group">
+        <label>주소</label>
+        <div class="btn-box">
+          <input class="inputbox" onclick="changeInputText()" id="address" readonly type="text"
+            placeholder="건물명, 도로명, 지번 검색" />
+          <input class="btn" type="button" onclick="changeInputText()" value="주소 검색" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>성별</label>
+        <div class="gender-group">
+          <label><input type="radio" name="gender" value="female" required />여성</label>
+          <label class="gender-input"><input type="radio" name="gender" value="male" required />남성</label>
+        </div>
+      </div>
+      <!-- 생년월일 -->
+      <div class="form-group">
+        <label for="birth">생년월일</label>
+        <div class="info" id="info__birth">
+          <select class="in" name="birth1" class="box" id="birth-year" required>
+            <option disabled selected>출생 연도</option>
+          </select>
+          <select class="in" name="birth2" class="box" id="birth-month" required>
+            <option disabled selected>월</option>
+          </select>
+          <select class="in" name="birth3" class="box" id="birth-day" required>
+            <option disabled selected>일</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>핸드폰 번호</label>
+        <input class="inputbox" type="text" id="phone" name="phone" maxlength="13" placeholder="핸드폰 번호 입력" required />
+        <div id="checkphone"></div>
+      </div>
+      <button type="submit">회원가입</button>
+    </form>
+    <br />
+    <hr>
+    <div>
+      계정이 있으신가요?
+      <a href="/">홈으로</a>
+    </div>
+  </div>
+</body>
+
+<script src="/public/JS/signup.js"></script>
+
+</html>

@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.inputbox,
+button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  background-color: #e6e5e5;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #f1f1f1;
+}
+
+.gender-group {
+  display: flex;
+}
+
+.btn-box {
+  display: flex;
+}
+
+.btn {
+  margin-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  cursor: pointer;
+  background-color: #e6e5e5;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #f1f1f1;
+}
+
+.gender-input {
+  margin-left: 10px;
+}
+
+.password-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  cursor: pointer;
+}
+
+#birth-year,
+#birth-month,
+#birth-day {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#birth-month {
+  margin: 0 3px;
+}
+
+#info__birth {
+  display: flex;
+}
