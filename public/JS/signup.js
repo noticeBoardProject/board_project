@@ -231,10 +231,9 @@ const nickValidCheck = () => {
 
 // 아이디(이메일) 중복 체크
 const emailDupleCheck = async () => {
-  console.log("이메일 중복 체크");
   const mainForm = document.mainForm;
   const email = mainForm.email.value;
-  console.log(email);
+
   if (rightEmailCheck) {
     await axios({
       method: "get",
@@ -242,15 +241,13 @@ const emailDupleCheck = async () => {
       params: { email },
     })
       .then((res) => {
-        if (res.data.email === "") {
-          checkemail1.innerHTML = `아이디를 입력해주세요.`;
+        // console.log("이메일 중복 체크 응답:", res.data);
+        if (!res.data.result) {
+          checkemail1.innerHTML = "중복된 아이디입니다.";
+          checkemail2.innerHTML = "";
         } else {
-          if (s.length > 0) {
-            checkemail1.innerHTML = `중복된 아이디입니다.`;
-          } else {
-            checkemail2.innerHTML = `사용가능한 아이디입니다.`;
-            duplecheck = true;
-          }
+          checkemail2.innerHTML = "사용 가능한 아이디입니다.";
+          checkemail1.innerHTML = "";
         }
       })
       .catch((e) => {
@@ -267,10 +264,10 @@ const emailDupleCheck = async () => {
 
 // 닉네임 중복 체크
 const nickDupleCheck = async () => {
-  console.log("닉네임 중복 체크");
+  // console.log("닉네임 중복 체크");
   const mainForm = document.mainForm;
   const nickname = mainForm.nickname.value;
-  console.log(nickname);
+  
   if (rightNickCheck) {
     await axios({
       method: "get",
@@ -278,15 +275,13 @@ const nickDupleCheck = async () => {
       params: { nickname },
     })
       .then((res) => {
-        if (res.data.nickname === "") {
-          checknick.innerHTML = `닉네임을 입력해주세요.`;
+        // console.log("이메일 중복 체크 응답:", res.data);
+        if (!res.data.result) {
+          checknick.innerHTML = "중복된 닉네임입니다.";
+          checknick2.innerHTML = "";
         } else {
-          if (s.length > 0) {
-            checknick.innerHTML = `중복된 닉네임입니다.`;
-          } else {
-            checknick2.innerHTML = `사용가능한 닉네임입니다.`;
-            duplecheckNick = true;
-          }
+          checknick2.innerHTML = "사용 가능한 닉네임입니다.";
+          checknick.innerHTML = "";
         }
       })
       .catch((e) => {

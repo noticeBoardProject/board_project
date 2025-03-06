@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken"); // 토큰 라이브러리
 const bcrypt = require("bcrypt"); // 암호화 라이브러리
 
 const db = require("../models"); // user 가져오기
+const { where } = require("sequelize");
 const loginModel = db.users; // user 모델 사용
 
 require("dotenv").config();
@@ -10,7 +11,7 @@ const salt = 10; // 해시 slat 값
 
 // 로그인처리 (by email)
 const loginUser = async (req, res) =>{
-  console.log('요청받은 데이터:', req.body);
+  // console.log('요청받은 데이터:', req.body);
   const { email, password } = req.body;
 
   try {
@@ -30,7 +31,7 @@ const loginUser = async (req, res) =>{
 
     // 토큰 발급
     const token = jwt.sign({ id: user.id }, secretKey);
-    console.log("발급된 토큰 :", token);
+    // console.log("발급된 토큰 :", token);
     // 쿠키에 JWT 저장
     res.cookie("token", token, { httpOnly: true });
     res.json({ result: true, message: "로그인 성공", token });
@@ -45,7 +46,7 @@ const loginUser = async (req, res) =>{
 const verifyUser = async (req, res, next) => {
   // 클라이언트 쿠키에서 JWT 가져오기
   const token = req.cookies.token;
-  console.log("쿠키에서 가져옴:", token);
+  // console.log("쿠키에서 가져옴:", token);
 
   try {
     if (!token) {
@@ -82,7 +83,7 @@ const signupUser = async (req, res) =>{
 
       // 비밀번호 해시 암호화
       const hashPw = await bcrypt.hash(password, salt);
-      console.log("해시처리된 pw : ", hashPw);
+      // console.log("해시처리된 pw : ", hashPw);
 
       // db에 저장
       const newUser = await loginModel.create({
@@ -104,4 +105,38 @@ const signupUser = async (req, res) =>{
   }
 };
 
-module.exports = { loginUser, verifyUser, signupUser }; // 테스트용 필요
+// 아이디 중복검사
+const emailDupleCheck = async (req, res) =>{
+  const {email} = req.query;
+  // console.log("이메일 중복 요청 컨트롤러 확인:", email);
+  try{
+    checkUser = await loginModel.findOne({ where: {email}});
+
+    if(checkUser){
+      return res.json({ result: false, message: "이미 존재하는 이메일입니다." });
+    } else{
+      return res.json({ result: true, message: "사용 가능한 이메일입니다." });
+    }
+  } catch (error) {
+    console.error("이메일 중복 체크 오류:", error);
+  }
+}
+
+// 닉네임 중복검사
+const nickDupleCheck = async (req, res) =>{
+  const {nickname} = req.query;
+  // console.log("닉네임 중복 요청 컨트롤러 확인:", nickname);
+  try{
+    checkUser = await loginModel.findOne({ where: {nickname}});
+
+    if(checkUser){
+      return res.json({ result: false, message: "이미 존재하는 닉네임입니다." });
+    } else{
+      return res.json({ result: true, message: "사용 가능한 닉네임입니다." });
+    }
+  } catch (error) {
+    console.error("닉네임 중복 체크 오류:", error);
+  }
+}
+
+module.exports = { loginUser, verifyUser, signupUser, emailDupleCheck, nickDupleCheck };

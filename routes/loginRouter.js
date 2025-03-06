@@ -14,4 +14,10 @@ router.post("/verify", loginMiddleware, (req, res) => {
 // 회원가입 라우터
 router.post("/signup", loginController.signupUser);
 
+// 이메일 중복체크 라우터
+router.get("/DupleCheck/email", loginController.emailDupleCheck);
+
+// 닉네임 중복체크 라우터
+router.get("/DupleCheck/nickname", loginController.nickDupleCheck);
+
 module.exports = router;
