@@ -1,15 +1,11 @@
 {
   "development": {
     "username": "root",
-    "password": "0000",
+    "password": "12345",
     "database": "noticeboard",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
-  "test": {
-
-  },
-  "production": {
-
-  }
+  "test": {},
+  "production": {}
 }

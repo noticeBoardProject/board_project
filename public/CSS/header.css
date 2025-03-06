@@ -34,20 +34,34 @@
 
 .logobox {
   width: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 15px;
   img {
     width: 100%;
   }
 }
 
-/* 로그인 아이콘 */
-.searchicon,
-.loginicon {
-  width: 30px;
-  margin: 0 5px;
+/* 검색 아이콘 */
+.searchicon {
   cursor: pointer;
   img {
-    width: 100%;
+    width: 20px;
   }
+}
+
+/* 로그인 아이콘 */
+.loginicon {
+  cursor: pointer;
+}
+
+.loginbox {
+  margin: 0 15px;
+}
+
+.loginicon:hover {
+  font-weight: bolder;
 }
 
 /* 모달 기본 스타일 */
@@ -56,7 +70,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -60%); /* 처음에는 살짝 위에 위치 */
-  width: 300px;
+  width: 400px;
+  max-height: 400px;
   padding: 20px;
   background: white;
   border-radius: 8px;
@@ -101,14 +116,14 @@
 /* 로그인과 닫기 */
 .login-close {
   position: relative;
-  margin-bottom: 10px;
+  margin: 15px 0;
 }
 
 /* 닫기 버튼 */
 .close-btn {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   background: none;
   border: none;
   font-size: 18px;
@@ -167,7 +182,7 @@
 }
 
 .signup-link {
-  margin-top: 10px;
+  margin: 15px 0;
   font-size: 12px;
   span {
     color: #646f7c;
@@ -209,7 +224,7 @@
   }
 }
 ul {
-  background-color: aquamarine;
+  background-color: rgb(163, 249, 221);
 }
 /* .hide {
   transform: translateY(-100%);
@@ -261,4 +276,156 @@ ul {
   font-size: 12px;
   color: red;
   margin-bottom: 7px;
+}
+
+/* 로그인시 생기는 요소 */
+.login-home {
+  margin: auto 0;
+  width: 130px;
+  height: 80px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  top: 70px;
+  right: 10px;
+  border-radius: 5%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  div {
+    padding: 3px;
+    display: flex;
+  }
+}
+
+.login-nick {
+  display: flex;
+  cursor: pointer;
+}
+
+.myInfobtn,
+.logoutbtn {
+  cursor: pointer;
+  img {
+    margin-right: 3px;
+  }
+}
+
+.myInfobtn:hover,
+.logoutbtn:hover {
+  background-color: #e9e9e9;
+}
+
+.login-homebox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 검색부분 */
+.search-wrap {
+  position: fixed;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  background-color: aliceblue;
+  height: 300px;
+  width: 100%;
+  z-index: 1001;
+}
+
+/* 검색창 활성화 */
+.search-wrap.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 검색창 닫힐 때*/
+.search-wrap.closing {
+  opacity: 0;
+}
+
+.search-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.form-box {
+  width: 50%;
+  border-bottom: solid 3px rgb(62, 61, 61);
+  display: flex;
+  justify-content: space-between;
+}
+
+#search {
+  font-size: 20px;
+  padding: 10px 2px;
+  background-color: transparent;
+  border-style: none;
+  width: 100%;
+}
+
+#search:focus {
+  outline: none;
+}
+
+.close,
+.search-btn {
+  cursor: pointer;
+}
+
+.deltebtn {
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  visibility: hidden;
+  opacity: 0;
+}
+/* 삭제버튼 활성화 */
+.deltebtn.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 삭제버튼 비활성화*/
+.deltebtn.closing {
+  opacity: 0;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+}
+
+.search-btn {
+  width: 25px;
+  margin-left: 10px;
+}
+
+.password-container-login {
+  position: relative;
+}
+
+.toggle-password-login {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  cursor: pointer;
+}
+
+.usernick {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
 }
