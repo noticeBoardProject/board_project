@@ -1,8 +1,11 @@
 const jwt = require("jsonwebtoken"); // 토큰 라이브러리
 const bcrypt = require("bcrypt"); // 암호화 라이브러리
 
-const loginModel = require("../models/users"); // user db 모델
+const db = require("../models"); // user 가져오기
+const loginModel = db.users; // user 모델 사용
 
+require("dotenv").config();
+const secretKey = process.env.JWT_SECRET; // JWT 시크릿 키
 const salt = 10; // 해시 slat 값
 
 // 로그인처리 (by email)
@@ -12,7 +15,7 @@ const loginUser = async (req, res) =>{
 
   try {
     const user = await loginModel.findOne({where: {email: email}});
-    console.log("조회된 유저 정보:", user);
+    // console.log("조회된 유저 정보:", user);
 
     // 사용자 검증
     if(!user){
@@ -27,8 +30,9 @@ const loginUser = async (req, res) =>{
 
     // 토큰 발급
     const token = jwt.sign({ id: user.id }, secretKey);
+    console.log("발급된 토큰 :", token);
     // 쿠키에 JWT 저장
-    res.cookie("토큰", token, { httpOnly: true });
+    res.cookie("token", token, { httpOnly: true });
     res.json({ result: true, message: "로그인 성공", token });
 
   } catch (error) {
@@ -66,8 +70,8 @@ const verifyUser = async (req, res, next) => {
 
 // 회원가입
 const signupUser = async (req, res) =>{
-  console.log("암호화할 데이터:", req.body);
-  const {email, password} = req.body;
+  // console.log("암호화할 데이터:", req.body);
+  const {email, password, username, nickname, address, gender, birth, phone} = req.body;
 
   try{
       // 아이디 중복방지
@@ -78,23 +82,26 @@ const signupUser = async (req, res) =>{
 
       // 비밀번호 해시 암호화
       const hashPw = await bcrypt.hash(password, salt);
-      console.log("입력한 pw : ", password);
       console.log("해시처리된 pw : ", hashPw);
 
       // db에 저장
-      await loginModel.create({email, password:hashPw});
+      const newUser = await loginModel.create({
+        email,
+        password: hashPw,
+        username,
+        nickname,
+        address,
+        gender,
+        birthdate: birth,
+        phone,
+      });
+
+      // console.log("새로운사용자: ", newUser);
       res.json({result: true, message: "회원가입 성공"});
+      
   } catch (error){
       console.error("회원가입 오류:", error);
   }
-}
-
-
-const index = (req, res) => {
-  res.render("main");
-};
-const signup = (req, res) => {
-  res.render("signup");
 };
 
-module.exports = { index, signup, loginUser, verifyUser, signupUser }; // 테스트용 필요
+module.exports = { loginUser, verifyUser, signupUser }; // 테스트용 필요

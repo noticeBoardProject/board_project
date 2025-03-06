@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
 );
 
 // 모델 파일 불러오기
-db.users = require("./users.js")(sequelize, DataTypes);
+db.users = require("./users")(sequelize, DataTypes);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

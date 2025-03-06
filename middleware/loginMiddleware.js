@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken");
 
-const loginModel = require("../models/users"); // db 모델
+const db = require("../models"); // user 가져오기
+const loginModel = db.users; // user 모델 사용
+
+require("dotenv").config();
+const secretKey = process.env.JWT_SECRET; // JWT 시크릿 키
 
 const loginMiddleware = async (req, res, next) => {
     // 클라이언트 쿠키에서 JWT 가져오기

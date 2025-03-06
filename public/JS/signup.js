@@ -59,15 +59,6 @@ document.querySelector(".checkbtn").addEventListener("click", () => {
   // 백엔드에 요청
 });
 
-// 이메일 빈값 확인
-const checke = () => {
-  if (emailinput.value.length === 0) {
-    checkemail.innerHTML = ``;
-    checkemail2.innerHTML = ``;
-    duplecheck = false;
-  }
-};
-
 // '출생 연도' 셀렉트 박스 option 목록 동적 생성
 const birthYearEl = document.querySelector("#birth-year");
 const birthMonthEl = document.querySelector("#birth-month");
@@ -149,4 +140,47 @@ document.getElementById("phone").addEventListener("input", () => {
   } else {
     errorMsg.textContent = "";
   }
+});
+
+// 회원가입 요청
+const signup = async () => {
+  // console.log('회원가입 버튼 클릭됨');
+  const form = document.querySelector("form");
+
+  const birthYear = form.birth1.value; // 연도
+  const birthMonth = form.birth2.value.padStart(2, '0'); // 월 (한 자리 수일 경우 0 추가)
+  const birthDay = form.birth3.value.padStart(2, '0'); // 일 (한 자리 수일 경우 0 추가)
+  const birth = `${birthYear}-${birthMonth}-${birthDay}`; // YYYY-MM-DD 형식으로 합치기
+
+  const email = form.email.value;
+  const pw = form.pw.value;
+  const username = form.username.value;
+  const nickname = form.nickname.value;
+  const address = form.address.value;
+  const gender = form.gender.value;
+  const phone = form.phone.value;
+
+  try {
+      const res = await axios({
+          method: "POST",
+          url: "/signup",
+          data: {email, password:pw, username, nickname, address, gender, birth, phone}
+      });
+
+      // console.log("회원가입 응답:", res.data);
+
+      if(res.data.result) {
+          alert(`회원가입 성공: ${res.data.message}`);
+          window.location.href = "/";
+      } else {
+          alert(`회원가입 실패: ${res.data.message}`);
+      }
+  } catch (error) {
+      console.log("회원가입 중 오류 발생", error);
+  }
+};
+
+document.querySelector("form").addEventListener("submit", function (event) {
+  event.preventDefault();
+  signup();
 });

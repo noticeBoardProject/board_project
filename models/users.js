@@ -3,13 +3,13 @@ module.exports = (sequelize, DataTypes) => {
         "users",
         {
             id: {
-                type: Sequelize.INTEGER,
+                type: DataTypes.INTEGER,
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
             },
             email: {
-                type: Sequelize.STRING(255),
+                type: DataTypes.STRING(255),
                 allowNull: false,
                 unique: true, // 중복 불가
                 validate: {
@@ -17,37 +17,38 @@ module.exports = (sequelize, DataTypes) => {
                 },
             },
             password: {
-                type: Sequelize.STRING(255),
+                type: DataTypes.STRING(255),
                 allowNull: false,
             },
             username: {
-                type: Sequelize.STRING(45),
+                type: DataTypes.STRING(45),
                 allowNull: false,
             },
             nickname: {
-                type: Sequelize.STRING(45),
+                type: DataTypes.STRING(45),
                 allowNull: false,
                 unique: true, // 중복 불가
             },
             address: {
-                type: Sequelize.STRING(255),
+                type: DataTypes.STRING(255),
                 allowNull: false,
             },
             gender: {
-                type: Sequelize.ENUM('male', 'female'),
+                type: DataTypes.ENUM('male', 'female'),
                 allowNull: false,
             },
-            age: {
-                type: Sequelize.DATE,
+            birthdate: {
+                type: DataTypes.DATEONLY, // 날짜만 저장
                 allowNull: false,
             },
             phone: {
-                type: Sequelize.STRING(45),
+                type: DataTypes.STRING(45),
                 unique: true, // 중복 불가
                 allowNull: false,
             },
         },
         {
+            tableName: "users",  // 실제 DB 테이블명
             timestamps: false, // createdAt, updatedAt 자동 생성 방지
         }
     );

@@ -1,3 +1,5 @@
+require("dotenv").config(); // env 파일 사용
+
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -19,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // 라우터
-const loginRouter = require("./routes/loginRoute");
+const loginRouter = require("./routes/loginRouter");
 app.use('/', loginRouter);
 
 app.use("/public", express.static(__dirname + "/public"));
@@ -35,6 +37,11 @@ require("./models/index");
 app.get("/", (req, res) => {
   res.render("main");
 });
+
+// 회원가입 페이지 이동
+app.get("/signup", (rea, res) => {
+  res.render("signup");
+})
 
 // 서버 실행
 app.listen(port, () => {

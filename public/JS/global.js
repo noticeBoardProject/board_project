@@ -70,26 +70,20 @@ const login = async (event) => {
   }
 
   // 로그인 요청
-  await axios.post("/login", { email, pw }).then((result) => {
+  await axios.post("/login", { email, password:pw }).then((result) => {
+    // 토큰이 있을 경우
     if (result.data.result) {
-      // // 쿠키에서 토큰 추출하기
-      // const cookies = document.cookie.split(";");
-      // const tokenCookie = cookies.find((item) =>
-      //   item.trim().startsWith("token=")
-      // );
-      // if (!tokenCookie) {
-      //   alert("오류");
-      // }
-      // // 토큰 값만 추출(token= 부분 제거)
-      // const token = tokenCookie.trim().substring(6);
+      alert("로그인 성공, 토큰 발급됨");
       verifylogin(result.data.token);
-      // window.location.href = "/";
+      console.log("토큰 :", result.data.token);
+      window.location.href = "/"; // 페이지 새로고침
     } else {
-      alert(result.data.message);
+      alert(`로그인 실패: ${result.data.message}`);
     }
   });
 };
 
+// 로그인 검증 요청
 const verifylogin = async (token) => {
   await axios.post(
     "/verify",
@@ -98,15 +92,6 @@ const verifylogin = async (token) => {
       headers: { Authorization: `Bearer ${token}` },
     }
   );
-
-  if (res.data.result) {
-    alert(res.data.result, "성공");
-
-    // data = `<button type="button" onClick="logout()">로그아웃</button>
-    // <div>${res.data.name}님 환영합니다.</div><br>
-    //   <button onClick="chat()">채팅</button>
-    // `;
-  }
 };
 
 const checkemail = () => {
