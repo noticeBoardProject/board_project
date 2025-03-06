@@ -130,7 +130,7 @@ const verifylogin = async (token) => {
       if (res.data.result) {
         // innerHTML로 해당 사람의 닉네임 넣기
         document.querySelector(".loginbox").innerHTML = `
-        <div class="login-nick">
+        <div class="login-nick" onclick="mySet()">
           <img src="/public/image/login.svg">${res.data.user.nickname}<div class="usernick">님</div>
           <img src="/public/image/arrowdrop.svg">
         </div>
@@ -187,48 +187,44 @@ const logout = () => {
   window.location.reload();
 };
 
-if (document.querySelector(".login-nick")) {
-  console.log("로그인했다!!!!!!!!!!");
-  // 로그인했을때 생기는 사람
-  document.querySelector(".login-nick").addEventListener("click", () => {
-    const home = document.querySelector(".login-home");
+const mySet = () => {
+  const home = document.querySelector(".login-home");
 
-    if (home.style.display === "block") {
-      home.style.display = "none";
-    } else {
-      home.style.display = "block";
-    }
-  });
-
-  // 다른 부분을 누르면 없어지도록
-  document.addEventListener("click", (e) => {
-    const home = document.querySelector(".login-home");
-    const nickButton = document.querySelector(".login-nick");
-
-    if (!home.contains(e.target) && e.target !== nickButton) {
-      home.style.display = "none";
-    }
-  });
-}
-
-try {
-  // 쿠키에서 토큰 추출하기
-  const cookies = document.cookie.split(";");
-  const tokenCookie = cookies.find((item) => item.trim().startsWith("token="));
-
-  if (!tokenCookie) {
-    // 토큰이 없으면 로그인 링크 표시
-    document.querySelector(
-      ".loginbox"
-    ).innerHTML = `<div class="loginicon" onclick="loginModal()">
-          로그인
-        </div>`;
+  if (home.style.display === "block") {
+    home.style.display = "none";
   } else {
-    // 토큰 값만 추출(token= 부분 제거)
-    const token = tokenCookie.trim().substring(6);
-    verifylogin(token);
+    home.style.display = "block";
   }
-} catch (error) {
-  console.error("Authentication error:", error);
-  info.innerHTML = `<p>인증 오류가 발생했습니다.</p><a href="/login">로그인</a>`;
-}
+};
+
+// 다른 부분을 누르면 없어지도록
+// document.addEventListener("click", (e) => {
+//   const home = document.querySelector(".login-home");
+//   const nickButton = document.querySelector(".login-nick");
+
+//   if (!home.contains(e.target) && e.target !== nickButton) {
+//     home.style.display = "none";
+//   }
+// });
+
+// try {
+//   // 쿠키에서 토큰 추출하기
+//   const cookies = document.cookie.split(";");
+//   const tokenCookie = cookies.find((item) => item.trim().startsWith("token="));
+
+//   if (!tokenCookie) {
+//     // 토큰이 없으면 로그인 링크 표시
+//     document.querySelector(
+//       ".loginbox"
+//     ).innerHTML = `<div class="loginicon" onclick="loginModal()">
+//           로그인
+//         </div>`;
+//   } else {
+//     // 토큰 값만 추출(token= 부분 제거)
+//     const token = tokenCookie.trim().substring(6);
+//     verifylogin(token);
+//   }
+// } catch (error) {
+//   console.error("Authentication error:", error);
+//   info.innerHTML = `<p>인증 오류가 발생했습니다.</p><a href="/login">로그인</a>`;
+// }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글쓰기</title>
+</head>
+
+<body>
+  <div class="main-wrap">
+    <main class="menu">
+      <form>
+        <!-- 카테고리 선택 -->
+        <select name="category" onchange="">
+          <option value="" disabled selected>카테고리 선택</option>
+          <option value="국내 여행">국내 여행</option>
+          <option value="해외 여행">해외 여행</option>
+          <option value="자유게시판">자유게시판</option>
+          <option value="Q&A">Q&A</option>
+        </select>
+        <!-- 제목 -->
+        <input type="text" name="title" placeholder="제목을 입력하세요" />
+        <!-- 이미지 -->
+        <div class="selectimgbox">
+          <label for="file" id="select-img">
+            <div class="btn-upload">이미지를 선택하세요</div>
+          </label>
+          <input id="file" oninput="binImg()" class="selectimg" type="file" name="files" />
+          <div class="filenamee">선택된 파일 없음</div>
+        </div>
+      </form>
+    </main>
+  </div>
+</body>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+</html>
