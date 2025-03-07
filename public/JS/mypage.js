@@ -32,6 +32,14 @@ const getUserInfo = async () => {
       document.getElementById("address").value = user.address;
       document.getElementById("phone").value = user.phone;
 
+      // 생년월일 select
+      if (user.birthdate) {
+        const [year, month, day] = user.birthdate.split("-");
+        document.getElementById("birth-year").value = year;
+        document.getElementById("birth-month").value = month;
+        document.getElementById("birth-day").value = day;
+      }
+
       // 성별 선택
       if (user.gender === "male") {
         document.getElementById("gender-male").checked = true;
@@ -94,18 +102,67 @@ const checkWrite = () => {
   }
 };
 
+// '출생 연도' 셀렉트 박스 option 목록 동적 생성
+const birthYearEl = document.querySelector("#birth-year");
+const birthMonthEl = document.querySelector("#birth-month");
+const birthDayEl = document.querySelector("#birth-day");
+// option 목록 생성 여부 확인
+isYearOptionExisted = false;
+isMonthOptionExisted = false;
+isDayOptionExisted = false;
+
+// 연도
+birthYearEl.addEventListener("focus", function () {
+  // year 목록 생성되지 않았을 때 (최초 클릭 시)
+  if (!isYearOptionExisted) {
+    isYearOptionExisted = true;
+    for (var i = 1940; i <= 2025; i++) {
+      // option element 생성
+      birthYearEl.innerHTML += `<option value=${i}>${i}</option>`;
+    }
+  }
+});
+
+// 월
+birthMonthEl.addEventListener("focus", function () {
+  // month 목록 생성되지 않았을 때 (최초 클릭 시)
+  if (!isMonthOptionExisted) {
+    isMonthOptionExisted = true;
+    for (var i = 1; i <= 12; i++) {
+      // option element 생성
+      birthMonthEl.innerHTML += `<option value=${i}>${i}</option>`;
+    }
+  }
+});
+
+// 일
+birthDayEl.addEventListener("focus", function () {
+  // day 목록 생성되지 않았을 때 (최초 클릭 시)
+  if (!isDayOptionExisted) {
+    isDayOptionExisted = true;
+    for (var i = 1; i <= 31; i++) {
+      // option element 생성
+      birthDayEl.innerHTML += `<option value=${i}>${i}</option>`;
+    }
+  }
+});
+
 // 회원 정보 수정 요청
 document
   .getElementById("mypage-form")
   .addEventListener("submit", async (event) => {
     event.preventDefault(); // 기본 폼 제출 방지
 
+    const birthYear = document.getElementById("birth-year").value;
+    const birthMonth = document.getElementById("birth-month").value.padStart(2, "0");
+    const birthDay = document.getElementById("birth-day").value.padStart(2, "0");
+    const birthdate = `${birthYear}-${birthMonth}-${birthDay}`;
+
     const updateUser = {
       password: document.getElementById("password").value,
-      username: document.getElementById("username").value,
-      nickname: document.getElementById("nickname").value,
       address: document.getElementById("address").value,
-      phone: document.getElementById("phone").value,
+      gender: document.querySelector('input[name="gender"]:checked').value,
+      birthdate
     };
 
     try {
