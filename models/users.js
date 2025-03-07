@@ -12,13 +12,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING(255),
                 allowNull: false,
                 unique: true, // 중복 불가
-                validate: {
-                    isEmail: true, // 이메일 형식 검사
-                },
             },
             password: {
                 type: DataTypes.STRING(255),
-                allowNull: false,
+                allowNull: true, // 중복 허용 (SNS 로그인 사용자)
             },
             username: {
                 type: DataTypes.STRING(45),
@@ -27,29 +24,33 @@ module.exports = (sequelize, DataTypes) => {
             nickname: {
                 type: DataTypes.STRING(45),
                 allowNull: false,
-                unique: true, // 중복 불가
+                unique: true,
             },
             address: {
                 type: DataTypes.STRING(255),
-                allowNull: false,
+                allowNull: true, // 빈 값 허용
             },
             gender: {
                 type: DataTypes.ENUM('male', 'female'),
-                allowNull: false,
+                allowNull: true, // 빈 값 허용
             },
             birthdate: {
-                type: DataTypes.DATEONLY, // 날짜만 저장
-                allowNull: false,
+                type: DataTypes.DATEONLY,
+                allowNull: true, // 빈 값 허용
             },
             phone: {
                 type: DataTypes.STRING(45),
-                unique: true, // 중복 불가
+                unique: true,
                 allowNull: false,
             },
+            provider: {
+                type: DataTypes.STRING(50),
+                allowNull: true, // 빈 값 허용
+            }
         },
         {
-            tableName: "users",  // 실제 DB 테이블명
-            timestamps: false, // createdAt, updatedAt 자동 생성 방지
+            tableName: "users",
+            timestamps: false,
         }
     );
     return users;

@@ -22,6 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 // 라우터
 const loginRouter = require("./routes/loginRouter");
 app.use("/", loginRouter);
+const snsRouter = require("./routes/snsRouter");
+app.use('/auth', snsRouter);
 
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/imgs", express.static(__dirname + "/imgs"));
