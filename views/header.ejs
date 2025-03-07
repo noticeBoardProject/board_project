@@ -25,9 +25,7 @@
     <div class="headerbox">
       <div class="searchicon" onclick="searchModal()"><img src="/public/image/search.png"></div>
       <div class="loginbox">
-        <!-- <div class="loginicon" onclick="loginModal()">
-          로그인
-        </div> -->
+        <!-- 로그인 동적 생성 -->
       </div>
     </div>
   </div>
@@ -82,13 +80,18 @@
       <label>
         <input class="check" type="checkbox" id="stayLogin" />로그인 상태 유지
       </label>
-      <!-- <a href="/">ID 찾기</a> -->
+      <a href="/">ID/PW 찾기</a>
     </div>
     <button class="login-btn" onclick="login(event)">로그인</button>
   </form>
 
   <div class="signup-link">
     <span>아직 회원이 아니신가요?</span> <a href="/signup">회원가입하기</a>
+  </div>
+
+  <div>
+    <div class="line">소셜 계정으로 간편 로그인</div>
+    <a href="/auth/naver">테스트</a>
   </div>
 
 </div>

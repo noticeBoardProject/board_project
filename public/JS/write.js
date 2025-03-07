@@ -39,9 +39,32 @@ const binCheckImg = (num) => {
   }
 };
 
+// 카테고리 가져오기
+const getCategory = () => {
+  axios({
+    method: "get",
+    url: "/category",
+  })
+    .then((res) => {
+      if (res.data.result) {
+        const categorybox = document.getElementById("category");
+        const category = res.data.category;
+        // 아직 정확하지 않음(예시임)
+        category.map((cate) => {
+          categorybox.innerHTML = `<option value="${cate.id}">${cate.name}</option>`;
+        });
+      } else {
+        alert("카테고리 정보를 불러오지 못했습니다.");
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
 // 게시물 쓰기
 const submitArticle = () => {
-  const category = selectValue;
+  const categoryId = selectValue;
   const title = titleValue.value;
   const imageone = document.getElementById("imageone").files[0];
   const imagetwo = document.getElementById("imagetwo").files[0];
@@ -49,7 +72,7 @@ const submitArticle = () => {
   const content = editor.getMarkdown();
 
   const formData = new FormData();
-  formData.append("category", category);
+  formData.append("categoryId", categoryId);
   formData.append("title", title);
   formData.append("content", content);
 
@@ -66,7 +89,7 @@ const submitArticle = () => {
   axios({
     headers: { "Content-Type": "multipart/form-data" },
     method: "post",
-    url: "/post/article",
+    url: "/post/board",
     data: formData,
   })
     .then((res) => {
@@ -76,3 +99,6 @@ const submitArticle = () => {
       console.log(e);
     });
 };
+
+// 카테고리 불러옴
+getCategory();
