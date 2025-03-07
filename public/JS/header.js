@@ -190,12 +190,21 @@ const verifylogin = async (token) => {
         </div>
         <div class="login-home">
           <div class="login-homebox">
-            <div class="myInfobtn">
-              <img src="/public/image/setting.svg" alt="myInfo" />내 정보
+            <a href="/mypage">
+              <div class="myInfobtn">
+                <img src="/public/image/setting.svg" alt="myInfo" />내 정보
+              </div>
+            </a>
+            <div>
+              <img src="/public/image/logout.svg" alt="write" />내 글
+            </div>
+            <div>
+              <img src="/public/image/logout.svg" alt="like" />좋아요
             </div>
             <div class="logoutbtn" onclick="logout()">
               <img src="/public/image/logout.svg" alt="logout" />로그아웃
             </div>
+            
           </div>
         </div>`;
       }
@@ -254,6 +263,7 @@ const logout = async () => {
   }
 };
 
+// 내 정보나 로그아웃 볼 수 있는 모달
 const mySet = () => {
   const home = document.querySelector(".login-home");
 

@@ -251,7 +251,7 @@
 .login-home {
   margin: auto 0;
   width: 130px;
-  height: 80px;
+  height: 140px;
   padding: 5px;
   border: 1px solid #ccc;
   background-color: white;
@@ -291,6 +291,10 @@
   justify-content: center;
   flex-direction: column;
   height: 100%;
+  a {
+    text-decoration: none;
+    color: black;
+  }
 }
 
 /* 검색부분 */

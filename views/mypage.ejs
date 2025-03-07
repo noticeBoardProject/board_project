@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>내 정보 수정</title>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 정보 수정</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
+
 <body>
     <div class="container">
         <h2>내 정보 수정</h2>
 
-        <form id="mypage-form">
+        <form name="mainForm" id="mypage-form">
             <div>
                 <label>이메일:</label>
                 <input type="email" id="email" readonly> <!-- 수정 불가 -->
@@ -18,7 +20,7 @@
 
             <div>
                 <label>비밀번호:</label>
-                <input type="password" id="password" placeholder="새 비밀번호 입력"> 
+                <input type="password" id="password" placeholder="새 비밀번호 입력">
             </div>
 
             <div>
@@ -26,10 +28,18 @@
                 <input type="text" id="username">
             </div>
 
-            <div>
-                <label>닉네임:</label>
-                <input type="text" id="nickname">
+
+            <div class="form-group">
+                <label>닉네임</label>
+                <div class="btn-box">
+                    <input oninput="nickValidCheck()" id="nickname" class="inputbox" type="text" name="nickname"
+                        placeholder="닉네임을 입력해주세요" required />
+                    <input onclick="nickDupleCheck('mypage')" type="button" value="중복 검사" />
+                </div>
+                <div class="infotext checknick"></div>
+                <div class="successtext checknick2"></div>
             </div>
+
 
             <div>
                 <label>주소:</label>
@@ -53,5 +63,7 @@
     </div>
 
     <script src="/public/JS/mypage.js"></script>
+    <script src="/public/JS/global.js"></script>
 </body>
+
 </html>

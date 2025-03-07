@@ -21,7 +21,7 @@
     <div class="title">
       회원가입
     </div>
-    <form name="mainForm">
+    <form name="mainForm" id="mypage-form">
       <div class="form-box scrollbar">
         <div class="form-group">
           <label>아이디</label>
@@ -61,7 +61,7 @@
           <div class="btn-box">
             <input oninput="nickValidCheck()" id="nickname" class="inputbox" type="text" name="nickname"
               placeholder="닉네임을 입력해주세요" required />
-            <input onclick="nickDupleCheck()" class="btn checkbtn" type="button" value="중복 검사" />
+            <input onclick="nickDupleCheck('signuppage')" class="btn checkbtn" type="button" value="중복 검사" />
           </div>
           <div class="infotext checknick"></div>
           <div class="successtext checknick2"></div>
@@ -105,9 +105,9 @@
       <button class="signupbtn" onclick="signup()" disabled>회원가입</button>
     </form>
   </div>
-</body>
+  <script src="/public/JS/global.js"></script>
+  <script src="/public/JS/signup.js"></script>
 
-<script src="/public/JS/signup.js"></script>
-<script src="/public/JS/global.js"></script>
+</body>
 
 </html>

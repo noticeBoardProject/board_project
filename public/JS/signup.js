@@ -1,13 +1,10 @@
 const checkemail1 = document.querySelector(".checkemail");
 const checkemail2 = document.querySelector(".checkemail2");
-const checknick = document.querySelector(".checknick");
-const checknick2 = document.querySelector(".checknick2");
 const pass = document.getElementById("pws");
 let isPostcodeOpen = false; // 주소 검색 창 상태 변수
 let duplecheck = false; // 중복확인
 let rightEmailCheck = false;
 let duplecheckNick = false; // 중복확인
-let rightNickCheck = false;
 let emailcontent = "";
 let nickcontent = "";
 let binCheck = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -214,29 +211,6 @@ document.getElementById("phone").addEventListener("input", () => {
   checkWrite();
 });
 
-// 닉네임 검사
-const nickValidCheck = () => {
-  duplecheckNick = false;
-  const nickname = document.getElementById("nickname").value;
-  const engPattern = /^[A-Za-z]{1,12}$/; // 영문 최대 12자
-  const korPattern = /^[가-힣]{1,6}$/; // 한글 최대 6자
-  if (nickcontent.length !== nickname) {
-    checknick2.innerText = ``;
-  }
-  if (engPattern.test(nickname) || korPattern.test(nickname)) {
-    checknick.innerText = "";
-    rightNickCheck = true;
-  } else {
-    checknick.innerText =
-      "닉네임은 특수문자/공백 사용불가입니다(최대 글자수: 영문 12자 또는 한글 6자)";
-    if (nickname.length === 0) {
-      checknick.innerText = "";
-      checknick2.innerText = "";
-    }
-    rightNickCheck = false;
-  }
-};
-
 // 아이디(이메일) 중복 체크
 const emailDupleCheck = async () => {
   const mainForm = document.mainForm;
@@ -267,41 +241,6 @@ const emailDupleCheck = async () => {
       checkemail1.innerText = `아이디를 입력해주세요.`;
     } else if (rightEmailCheck === false) {
       checkemail1.innerText = "올바른 메일 형식으로 입력해주세요";
-    }
-  }
-};
-
-// 닉네임 중복 체크
-const nickDupleCheck = async () => {
-  const mainForm = document.mainForm;
-  const nickname = mainForm.nickname.value;
-  nickcontent = nickname; //내용저장
-  if (rightNickCheck) {
-    await axios({
-      method: "get",
-      url: "/DupleCheck/nickname",
-      params: { nickname },
-    })
-      .then((res) => {
-        // console.log("이메일 중복 체크 응답:", res.data);
-        if (!res.data.result) {
-          checknick.innerHTML = "중복된 닉네임입니다.";
-          checknick2.innerHTML = "";
-        } else {
-          checknick2.innerHTML = "사용 가능한 닉네임입니다.";
-          checknick.innerHTML = "";
-          duplecheckNick = true;
-        }
-      })
-      .catch((e) => {
-        console.log("중복 요청 실패");
-      });
-  } else {
-    if (nickname.length === 0) {
-      checknick.innerText = `닉네임을 입력해주세요.`;
-    } else if (rightNickCheck === false) {
-      checknick.innerText =
-        "닉네임은 특수문자/공백 사용불가입니다(최대 글자수: 영문 12자 또는 한글 6자)";
     }
   }
 };
