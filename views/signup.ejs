@@ -21,10 +21,11 @@
     <div class="title">
       회원가입
     </div>
+    <div><span class="essential">*</span> 필수항목</div>
     <form name="mainForm" id="mypage-form">
       <div class="form-box scrollbar">
         <div class="form-group">
-          <label>아이디</label>
+          <label><span class="essential">*</span> 아이디</label>
           <div class="btn-box">
             <input oninput="emailValidCheck()" class="inputbox" type="email" id="email" name="email"
               placeholder="이메일을 입력해주세요" required />
@@ -34,7 +35,7 @@
           <div class="successtext checkemail2"></div>
         </div>
         <div class="form-group">
-          <label>비밀번호</label>
+          <label><span class="essential">*</span> 비밀번호</label>
           <input oninput="checkPw()" class="inputbox" type="password" id="pws" name="pw" placeholder="비밀번호를 입력해주세요"
             required />
           <span class="password-container" onclick="togglePassword('pws','.toggle-password')">
@@ -43,7 +44,7 @@
           <div class="infotext checkpw"></div>
         </div>
         <div class="form-group">
-          <label>비밀번호 확인</label>
+          <label><span class="essential">*</span> 비밀번호 확인</label>
           <input oninput="checkSame()" class="inputbox" type="password" name="pwcheck" id="passcheck"
             placeholder="비밀번호를 한번 더 입력해주세요" required />
           <span class="password-container-check" onclick="togglePassword('passcheck','.toggle-password-check')">
@@ -52,12 +53,12 @@
           <div class="checkpw2 infotext"></div>
         </div>
         <div class="form-group">
-          <label>이름</label>
+          <label><span class="essential">*</span> 이름</label>
           <input oninput="checkname()" id="name" class="inputbox" type="text" name="name" placeholder="이름을 입력해주세요"
             required />
         </div>
         <div class="form-group">
-          <label>닉네임</label>
+          <label><span class="essential">*</span> 닉네임</label>
           <div class="btn-box">
             <input oninput="nickValidCheck()" id="nickname" class="inputbox" type="text" name="nickname"
               placeholder="닉네임을 입력해주세요" required />
@@ -76,28 +77,28 @@
         </div>
         <div class="form-group">
           <label>성별</label>
-          <div oninput="checkgender()" class="gender-group">
-            <label><input type="radio" name="gender" value="female" required />여성</label>
-            <label class="gender-input"><input type="radio" name="gender" value="male" required />남성</label>
+          <div class="gender-group">
+            <label><input type="radio" name="gender" value="female" />여성</label>
+            <label class="gender-input"><input type="radio" name="gender" value="male" />남성</label>
           </div>
         </div>
         <!-- 생년월일 -->
         <div class="form-group">
           <label for="birth">생년월일</label>
           <div class="info" id="info__birth">
-            <select oninput="checkbins('birth-year',5)" class="in" name="birth1" class="box" id="birth-year" required>
+            <select class="in" name="birth1" class="box" id="birth-year">
               <option disabled selected>출생 연도</option>
             </select>
-            <select oninput="checkbins('birth-month',6)" class="in" name="birth2" class="box" id="birth-month" required>
+            <select class="in" name="birth2" class="box" id="birth-month">
               <option disabled selected>월</option>
             </select>
-            <select oninput="checkbins('birth-day',7)" class="in" name="birth3" class="box" id="birth-day" required>
+            <select class="in" name="birth3" class="box" id="birth-day">
               <option disabled selected>일</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label>핸드폰 번호</label>
+          <label><span class="essential">*</span> 핸드폰 번호</label>
           <input class="inputbox" type="text" id="phone" name="phone" maxlength="13" placeholder="핸드폰 번호 입력" required />
           <div id="checkphone" class="infotext"></div>
         </div>

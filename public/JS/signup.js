@@ -1,13 +1,15 @@
 const checkemail1 = document.querySelector(".checkemail");
 const checkemail2 = document.querySelector(".checkemail2");
+const checknick = document.querySelector(".checknick");
+const checknick2 = document.querySelector(".checknick2");
 const pass = document.getElementById("pws");
-let isPostcodeOpen = false; // 주소 검색 창 상태 변수
-let duplecheck = false; // 중복확인
+let duplecheck = false; // 이메일 중복확인
 let rightEmailCheck = false;
-let duplecheckNick = false; // 중복확인
+let duplecheckNick = false; // 닉네임 중복확인
+let rightNickCheck = false;
 let emailcontent = "";
 let nickcontent = "";
-let binCheck = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+let binCheck = [0, 0, 0, 0];
 
 // 이메일 유효성 검사
 const emailValidCheck = () => {
@@ -30,35 +32,6 @@ const emailValidCheck = () => {
     checkemail2.innerText = ``;
     rightEmailCheck = false;
   }
-};
-
-// 주소 검색 창에서 주소 선택 시
-const changeInputText = () => {
-  if (isPostcodeOpen) return; // 이미 떠 있으면 실행하지 않음
-
-  isPostcodeOpen = true; // 창이 열림 상태로 변경
-  const width = 500; //팝업의 너비
-  const height = 600; //팝업의 높이
-  new daum.Postcode({
-    width: width,
-    height: height,
-    theme: {
-      searchBgColor: "#10c4c4", //검색창 배경색
-      queryTextColor: "#FFFFFF", //검색창 글자색
-    },
-    oncomplete: (data) => {
-      document.getElementById("address").value = data.address; // 선택한 주소
-      binCheck[3] = 1;
-      checkWrite();
-      isPostcodeOpen = false; // 창이 닫히면 상태 업데이트
-    },
-    onclose: () => {
-      isPostcodeOpen = false; // 사용자가 닫았을 때 상태 업데이트
-    },
-  }).open({
-    left: window.screen.width / 2 - width / 2,
-    top: window.screen.height / 2 - height / 2,
-  });
 };
 
 // '출생 연도' 셀렉트 박스 option 목록 동적 생성
@@ -153,29 +126,6 @@ const checkname = () => {
   checkWrite();
 };
 
-// 성별 빈값 확인
-const checkgender = () => {
-  const gender = document.querySelector('input[name="gender"]:checked').value;
-
-  if (gender.length === 0) {
-    binCheck[4] = 0;
-  } else {
-    binCheck[4] = 1;
-  }
-  checkWrite();
-};
-
-// 생일 빈값 확인
-const checkbins = (id, num) => {
-  const birth = document.getElementById(id).value;
-  if (birth.length === 0) {
-    binCheck[num] = 0;
-  } else {
-    binCheck[num] = 1;
-  }
-  checkWrite();
-};
-
 // 휴대폰 유효성 검사
 document.getElementById("phone").addEventListener("input", function (event) {
   let value = event.target.value.replace(/[^0-9]/g, ""); // 숫자만 입력 가능
@@ -203,13 +153,36 @@ document.getElementById("phone").addEventListener("input", () => {
     } else {
       errorMsg.textContent = "올바른 휴대폰 번호를 입력해주세요.";
     }
-    binCheck[8] = 0;
+    binCheck[3] = 0;
   } else {
     errorMsg.textContent = "";
-    binCheck[8] = 1;
+    binCheck[3] = 1;
   }
   checkWrite();
 });
+
+// 닉네임 검사
+const nickValidCheck = () => {
+  duplecheckNick = false;
+  const nickname = document.getElementById("nickname").value;
+  const engPattern = /^[A-Za-z]{1,12}$/; // 영문 최대 12자
+  const korPattern = /^[가-힣]{1,6}$/; // 한글 최대 6자
+  if (nickcontent.length !== nickname) {
+    checknick2.innerText = ``;
+  }
+  if (engPattern.test(nickname) || korPattern.test(nickname)) {
+    checknick.innerText = "";
+    rightNickCheck = true;
+  } else {
+    checknick.innerText =
+      "닉네임은 특수문자/공백 사용불가입니다(최대 글자수: 영문, 한글 포함 12자)";
+    if (nickname.length === 0) {
+      checknick.innerText = "";
+      checknick2.innerText = "";
+    }
+    rightNickCheck = false;
+  }
+};
 
 // 아이디(이메일) 중복 체크
 const emailDupleCheck = async () => {
@@ -245,12 +218,47 @@ const emailDupleCheck = async () => {
   }
 };
 
+// 다 썼는지 확인해서 버튼 비활성화/활성화
 const checkWrite = () => {
   const count = binCheck.filter((x) => x === 1);
-  if (count.length === 9) {
+  if (count.length === 4) {
     document.querySelector(".signupbtn").disabled = false;
   } else {
     document.querySelector(".signupbtn").disabled = true;
+  }
+};
+
+// 닉네임 중복 체크
+const nickDupleCheck = async () => {
+  const mainForm = document.mainForm;
+  const nickname = mainForm.nickname.value;
+  nickcontent = nickname; //내용저장
+  if (rightNickCheck) {
+    await axios({
+      method: "get",
+      url: "/DupleCheck/nickname",
+      params: { nickname },
+    })
+      .then((res) => {
+        if (!res.data.result) {
+          checknick.innerHTML = "중복된 닉네임입니다.";
+          checknick2.innerHTML = "";
+        } else {
+          checknick2.innerHTML = "사용 가능한 닉네임입니다.";
+          checknick.innerHTML = "";
+          duplecheckNick = true;
+        }
+      })
+      .catch((e) => {
+        console.log("중복 요청 실패");
+      });
+  } else {
+    if (nickname.length === 0) {
+      checknick.innerText = `닉네임을 입력해주세요.`;
+    } else if (rightNickCheck === false) {
+      checknick.innerText =
+        "닉네임은 특수문자/공백 사용불가입니다(최대 글자수: 영문, 한글 포함 12자)";
+    }
   }
 };
 
