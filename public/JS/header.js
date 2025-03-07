@@ -5,6 +5,58 @@ const passtext = document.querySelector(".passtext");
 const search = document.getElementById("search");
 const deletebtn = document.querySelector(".deltebtn");
 
+const navItems = document.querySelectorAll(".cate");
+
+const checkpw = () => {
+  // 로그인에 입력한 입력값
+  const pw = document.getElementById("pw").value;
+  if (pw) {
+    passtext.innerText = "";
+  }
+};
+
+// 이메일 유효성 검사
+const emailValidCheck = () => {
+  const checkemail1 = document.querySelector(".emailtext");
+  const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
+  const emailinput = document.getElementById("email").value;
+  if (pattern.test(emailinput) === false) {
+    checkemail1.innerText = "올바른 메일 형식으로 입력해주세요";
+  } else {
+    checkemail1.innerText = "";
+  }
+
+  if (emailinput.length === 0) {
+    checkemail1.innerText = ``;
+  }
+};
+
+// 페이지 로드 시 저장된 카테고리 불러오기
+document.addEventListener("DOMContentLoaded", () => {
+  const savedCategory = localStorage.getItem("selectedCategory");
+  if (savedCategory) {
+    navItems.forEach((item) => item.classList.remove("actives"));
+    const activeItem = document.getElementById(savedCategory);
+    if (activeItem) {
+      activeItem.classList.add("actives");
+    }
+  }
+});
+
+// 네비게이션 활성화
+navItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    navItems.forEach((i) => i.classList.remove("actives"));
+    item.classList.add("actives");
+
+    // 선택한 카테고리를 localStorage에 저장
+    localStorage.setItem("selectedCategory", item.id);
+
+    // 이벤트 발생시킴
+    window.dispatchEvent(new Event("categoryChange"));
+  });
+});
+
 window.addEventListener("DOMContentLoaded", () => {
   if (sessionStorage.getItem("openModal") === "true") {
     document.querySelector(".loginicon").click(); // 모달 열기
@@ -97,19 +149,21 @@ const login = async (event) => {
     }
     return;
   }
-  // , stayLogin
+
   // 로그인 요청
   await axios({
     method: "post",
     url: "/login",
-    data: { email, password: pw },
+    data: { email, password: pw, stayLogin },
   })
     .then((res) => {
       // 토큰이 있을 경우
       if (res.data.result) {
         alert("로그인 성공, 토큰 발급됨");
+        // 로그인 상태 유지 체크 시 7일, 아니면 1일 유지
+        const maxAge = stayLogin ? 60 * 60 * 24 * 7 : 60 * 60 * 24;
+        document.cookie = `token=${res.data.token}; path=/; max-age=${maxAge}; Secure`;
         verifylogin(res.data.token);
-        console.log("토큰 :", res.data.token);
         document.querySelector(".close-btn").click();
       } else {
         alert(`로그인 실패: ${res.data.message}`);
@@ -151,40 +205,53 @@ const verifylogin = async (token) => {
     });
 };
 
-const checkpw = () => {
-  // 로그인에 입력한 입력값
-  const pw = document.getElementById("pw").value;
-  if (pw) {
-    passtext.innerText = "";
+// 새로고침 후 JWT 쿠키를 확인하여 로그인 상태 유지
+const checkLoginStatus = async () => {
+  try {
+    await axios({
+      method: "get",
+      url: "/verify",
+      withCredentials: true,
+    }).then((res) => {
+      if (res.data.result) {
+        verifylogin(res.data.token);
+      } else {
+        document.querySelector(".loginbox").innerHTML = `
+          <div class="loginicon" onclick="loginModal()">로그인</div>`;
+      }
+    });
+  } catch (e) {
+    console.log("로그인 상태 확인 실패:", e);
+    document.querySelector(".loginbox").innerHTML = `
+      <div class="loginicon" onclick="loginModal()">로그인</div>`;
   }
 };
 
-// 이메일 유효성 검사
-const emailValidCheck = () => {
-  const checkemail1 = document.querySelector(".emailtext");
-  const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
-  const emailinput = document.getElementById("email").value;
-  if (pattern.test(emailinput) === false) {
-    checkemail1.innerText = "올바른 메일 형식으로 입력해주세요";
-  } else {
-    checkemail1.innerText = "";
-  }
-
-  if (emailinput.length === 0) {
-    checkemail1.innerText = ``;
-  }
-};
+// 페이지 로드 후 로그인 상태 확인
+document.addEventListener("DOMContentLoaded", checkLoginStatus);
 
 // 로그아웃 함수
-const logout = () => {
-  document.querySelector(
-    ".loginbox"
-  ).innerHTML = `<div class="loginicon" onclick="loginModal()">로그인</div>`;
-
-  // 쿠키 삭제
-  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-  // 페이지 새로 고침
-  window.location.reload();
+const logout = async () => {
+  // 서버에서 쿠키 삭제 요청
+  try {
+    await axios({
+      method: "post",
+      url: "logout",
+      withCredentials: true,
+    })
+      .then((res) => {
+        if (res.data.result === true) {
+          document.querySelector(".loginbox").innerHTML = `
+          <div class="loginicon" onclick="loginModal()">로그인</div>`;
+          alert("로그아웃 되었습니다.");
+        }
+      })
+      .catch((e) => {
+        console.log("쿠키삭제 실패:", e);
+      });
+  } catch (e) {
+    console.log("로그아웃 실패:", e);
+  }
 };
 
 const mySet = () => {
@@ -198,33 +265,18 @@ const mySet = () => {
 };
 
 // 다른 부분을 누르면 없어지도록
-// document.addEventListener("click", (e) => {
-//   const home = document.querySelector(".login-home");
-//   const nickButton = document.querySelector(".login-nick");
+const observer = new MutationObserver(() => {
+  const home = document.querySelector(".login-home");
+  const nickButton = document.querySelector(".login-nick");
 
-//   if (!home.contains(e.target) && e.target !== nickButton) {
-//     home.style.display = "none";
-//   }
-// });
+  if (home && nickButton) {
+    document.addEventListener("click", (e) => {
+      if (!home.contains(e.target) && e.target !== nickButton) {
+        home.style.display = "none";
+      }
+    });
+    observer.disconnect();
+  }
+});
 
-// try {
-//   // 쿠키에서 토큰 추출하기
-//   const cookies = document.cookie.split(";");
-//   const tokenCookie = cookies.find((item) => item.trim().startsWith("token="));
-
-//   if (!tokenCookie) {
-//     // 토큰이 없으면 로그인 링크 표시
-//     document.querySelector(
-//       ".loginbox"
-//     ).innerHTML = `<div class="loginicon" onclick="loginModal()">
-//           로그인
-//         </div>`;
-//   } else {
-//     // 토큰 값만 추출(token= 부분 제거)
-//     const token = tokenCookie.trim().substring(6);
-//     verifylogin(token);
-//   }
-// } catch (error) {
-//   console.error("Authentication error:", error);
-//   info.innerHTML = `<p>인증 오류가 발생했습니다.</p><a href="/login">로그인</a>`;
-// }
+observer.observe(document.body, { childList: true, subtree: true });

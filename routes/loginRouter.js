@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const loginController = require("../controller/loginController");
 const loginMiddleware = require("../middleware/loginMiddleware");
@@ -8,11 +8,22 @@ router.post("/login", loginController.loginUser);
 
 // 로그인 검증 라우터
 router.post("/verify", loginMiddleware, (req, res) => {
-    res.json({ result: true, user: req.user });
+  res.json({ result: true, user: req.user });
+});
+
+// 로그아웃
+router.post("/logout", (req, res) => {
+  res.cookie("token", "", { maxAge: 0, httpOnly: true });
+  res.json({ result: true, message: "로그아웃 성공" });
 });
 
 // 회원가입 라우터
 router.post("/signup", loginController.signupUser);
+
+// 로그인 상태 확인
+router.get("/verify", loginMiddleware, (req, res) => {
+  res.json({ result: true, user: req.user });
+});
 
 // 이메일 중복체크 라우터
 router.get("/DupleCheck/email", loginController.emailDupleCheck);

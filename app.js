@@ -4,7 +4,6 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
-const multer = require("multer");
 const fs = require("fs");
 const loginMiddleware = require("./middleware/loginMiddleware");
 
@@ -22,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // 라우터
 const loginRouter = require("./routes/loginRouter");
-app.use('/', loginRouter);
+app.use("/", loginRouter);
 
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/imgs", express.static(__dirname + "/imgs"));
@@ -41,16 +40,16 @@ app.get("/", (req, res) => {
 // 회원가입 페이지 이동
 app.get("/signup", (rea, res) => {
   res.render("signup");
-})
+});
 
 // 작성(수정) 페이지 이동
-app.get("/write", (req, res) =>{
+app.get("/write", (req, res) => {
   res.render("write");
-})
+});
 
 // 내 정보란 페이지 이동
 app.get("/mypage", loginMiddleware, (req, res) => {
-    res.render("mypage");
+  res.render("mypage");
 });
 
 // 서버 실행

@@ -8,12 +8,18 @@ let duplecheck = false; // 중복확인
 let rightEmailCheck = false;
 let duplecheckNick = false; // 중복확인
 let rightNickCheck = false;
+let emailcontent = "";
+let nickcontent = "";
 let binCheck = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 // 이메일 유효성 검사
 const emailValidCheck = () => {
+  duplecheck = false;
   const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
   const emailinput = document.getElementById("email").value;
+  if (emailcontent.length !== emailinput.length) {
+    checkemail2.innerText = ``;
+  }
   if (pattern.test(emailinput) === false) {
     checkemail1.innerText = "올바른 메일 형식으로 입력해주세요";
     rightEmailCheck = false;
@@ -27,7 +33,6 @@ const emailValidCheck = () => {
     checkemail2.innerText = ``;
     rightEmailCheck = false;
   }
-  duplecheck = false;
 };
 
 // 주소 검색 창에서 주소 선택 시
@@ -211,10 +216,13 @@ document.getElementById("phone").addEventListener("input", () => {
 
 // 닉네임 검사
 const nickValidCheck = () => {
+  duplecheckNick = false;
   const nickname = document.getElementById("nickname").value;
   const engPattern = /^[A-Za-z]{1,12}$/; // 영문 최대 12자
   const korPattern = /^[가-힣]{1,6}$/; // 한글 최대 6자
-
+  if (nickcontent.length !== nickname) {
+    checknick2.innerText = ``;
+  }
   if (engPattern.test(nickname) || korPattern.test(nickname)) {
     checknick.innerText = "";
     rightNickCheck = true;
@@ -223,17 +231,17 @@ const nickValidCheck = () => {
       "닉네임은 특수문자/공백 사용불가입니다(최대 글자수: 영문 12자 또는 한글 6자)";
     if (nickname.length === 0) {
       checknick.innerText = "";
+      checknick2.innerText = "";
     }
     rightNickCheck = false;
   }
-  duplecheckNick = false;
 };
 
 // 아이디(이메일) 중복 체크
 const emailDupleCheck = async () => {
   const mainForm = document.mainForm;
   const email = mainForm.email.value;
-
+  emailcontent = email; //값저장
   if (rightEmailCheck) {
     await axios({
       method: "get",
@@ -248,6 +256,7 @@ const emailDupleCheck = async () => {
         } else {
           checkemail2.innerHTML = "사용 가능한 아이디입니다.";
           checkemail1.innerHTML = "";
+          duplecheck = true;
         }
       })
       .catch((e) => {
@@ -264,10 +273,9 @@ const emailDupleCheck = async () => {
 
 // 닉네임 중복 체크
 const nickDupleCheck = async () => {
-  // console.log("닉네임 중복 체크");
   const mainForm = document.mainForm;
   const nickname = mainForm.nickname.value;
-  
+  nickcontent = nickname; //내용저장
   if (rightNickCheck) {
     await axios({
       method: "get",
@@ -282,6 +290,7 @@ const nickDupleCheck = async () => {
         } else {
           checknick2.innerHTML = "사용 가능한 닉네임입니다.";
           checknick.innerHTML = "";
+          duplecheckNick = true;
         }
       })
       .catch((e) => {
@@ -298,13 +307,7 @@ const nickDupleCheck = async () => {
 };
 
 const checkWrite = () => {
-  console.log(binCheck);
-
-  // if (duplecheckNick && duplecheck) {
-
-  // }
   const count = binCheck.filter((x) => x === 1);
-  console.log(count.length);
   if (count.length === 9) {
     document.querySelector(".signupbtn").disabled = false;
   } else {
@@ -314,50 +317,59 @@ const checkWrite = () => {
 
 // 회원가입
 const signup = async () => {
-  // 입력값 가져오기
-  const mainForm = document.mainForm;
+  if (duplecheckNick && duplecheck) {
+    // 입력값 가져오기
+    const mainForm = document.mainForm;
 
-  const birthYear = mainForm.birth1.value; // 연도
-  const birthMonth = mainForm.birth2.value.padStart(2, "0"); // 월 (한 자리 수일 경우 0 추가)
-  const birthDay = mainForm.birth3.value.padStart(2, "0"); // 일 (한 자리 수일 경우 0 추가)
-  const birth = `${birthYear}-${birthMonth}-${birthDay}`; // YYYY-MM-DD 형식으로 합치기
+    const birthYear = mainForm.birth1.value; // 연도
+    const birthMonth = mainForm.birth2.value.padStart(2, "0"); // 월 (한 자리 수일 경우 0 추가)
+    const birthDay = mainForm.birth3.value.padStart(2, "0"); // 일 (한 자리 수일 경우 0 추가)
+    const birth = `${birthYear}-${birthMonth}-${birthDay}`; // YYYY-MM-DD 형식으로 합치기
 
-  const email = mainForm.email.value;
-  const pw = mainForm.pw.value;
-  const username = mainForm.name.value;
-  const nickname = mainForm.nickname.value;
-  const address = mainForm.address.value;
-  const gender = mainForm.gender.value;
-  const phone = mainForm.phone.value;
-  // const phone = phones.replace(/-/g, "");
+    const email = mainForm.email.value;
+    const pw = mainForm.pw.value;
+    const username = mainForm.name.value;
+    const nickname = mainForm.nickname.value;
+    const address = mainForm.address.value;
+    const gender = mainForm.gender.value;
+    const phone = mainForm.phone.value;
+    // const phone = phones.replace(/-/g, "");
 
-  // 회원가입 요청
-  await axios({
-    method: "post",
-    url: "/signup",
-    data: {
-      email,
-      password: pw,
-      username,
-      nickname,
-      address,
-      gender,
-      birth,
-      phone,
-    },
-  })
-    .then((res) => {
-      if (res.data.result) {
-        alert(`회원가입 성공: ${res.data.message}`);
-        sessionStorage.setItem("openModal", "true"); // 세션 스토리지에 저장
-        window.location.href = "http://localhost:3000/";
-      } else {
-        alert(`회원가입 실패: ${res.data.message}`);
-      }
+    // 회원가입 요청
+    await axios({
+      method: "post",
+      url: "/signup",
+      data: {
+        email,
+        password: pw,
+        username,
+        nickname,
+        address,
+        gender,
+        birth,
+        phone,
+      },
     })
-    .catch((error) => {
-      console.log("회원가입 중 오류 발생", error);
-    });
+      .then((res) => {
+        if (res.data.result) {
+          alert(`회원가입 성공: ${res.data.message}`);
+          sessionStorage.setItem("openModal", "true"); // 세션 스토리지에 저장
+          window.location.href = "http://localhost:3000/";
+        } else {
+          alert(`회원가입 실패: ${res.data.message}`);
+        }
+      })
+      .catch((error) => {
+        console.log("회원가입 중 오류 발생", error);
+      });
+  } else {
+    if (!duplecheckNick) {
+      checknick.innerText = "중복검사가 필요합니다.";
+    }
+    if (!duplecheck) {
+      checkemail1.innerText = "중복검사가 필요합니다.";
+    }
+  }
 };
 
 document.querySelector("form").addEventListener("submit", function (event) {

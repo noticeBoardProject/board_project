@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="/public/CSS/write.css" />
   <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <meta charset="UTF-8">
@@ -12,9 +13,9 @@
 <body>
   <div class="main-wrap">
     <main class="menu">
-      <form>
+      <form name="mainForm">
         <!-- 카테고리 선택 -->
-        <select name="category" onchange="">
+        <select id="category" name="category" onchange="changeSelect()">
           <option value="" disabled selected>카테고리 선택</option>
           <option value="국내 여행">국내 여행</option>
           <option value="해외 여행">해외 여행</option>
@@ -22,19 +23,36 @@
           <option value="Q&A">Q&A</option>
         </select>
         <!-- 제목 -->
-        <input type="text" name="title" placeholder="제목을 입력하세요" />
+        <input id="title" type="text" name="title" placeholder="제목을 입력하세요" />
         <!-- 이미지 -->
-        <div class="selectimgbox">
-          <label for="file" id="select-img">
-            <div class="btn-upload">이미지를 선택하세요</div>
-          </label>
-          <input id="file" oninput="binImg()" class="selectimg" type="file" name="files" />
-          <div class="filenamee">선택된 파일 없음</div>
+        <div class="imgflex">
+          <div class="selectimgbox">
+            <label for="image-one" id="select-one">
+              <div class="btn-upload"><img src="/public/image/photo.svg" /></div>
+            </label>
+            <input id="imageone" oninput="binCheckImg('one')" type="file" name="imageone" />
+          </div>
+          <div class="selectimgbox">
+            <label for="image-two" id="select-two">
+              <div class="btn-upload"><img src="/public/image/photo.svg" /></div>
+            </label>
+            <input id="imagetwo" oninput="binCheckImg('two')" type="file" name="imagetwo" />
+          </div>
+          <div class="selectimgbox">
+            <label for="image-three" id="select-three">
+              <div class="btn-upload"><img src="/public/image/photo.svg" /></div>
+            </label>
+            <input id="imagethree" oninput="binCheckImg('three')" type="file" name="imagethree" />
+          </div>
         </div>
+        <!-- 내용 -->
+        <div id="content"></div>
       </form>
     </main>
   </div>
+  <button onclick="submitArticle()">완료</button>
 </body>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="/public/JS/write.js"></script>
 
 </html>

@@ -9,15 +9,9 @@
   display: flex;
   flex-direction: column;
   min-height: 70.5vh;
-  max-width: 800px;
   width: 100%;
   margin: 0 auto;
   padding: 0 10px;
-}
-
-/* 남은 공간 채우기 */
-.flexbox {
-  flex: 1;
 }
 
 /* 헤더 */
@@ -79,6 +73,7 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
 }
 
 /* 모달 활성화 */
@@ -105,6 +100,7 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease;
+  z-index: 999;
 }
 
 /* 오버레이 활성화 */
@@ -208,51 +204,24 @@
     text-align: center;
     list-style-type: none;
     margin: 0 3.13vw;
-    a {
-      font-weight: bolder;
-      text-decoration: none;
-      color: rgb(107, 107, 107);
-    }
-    a:hover {
-      color: black;
-      text-decoration: underline;
-      text-decoration-thickness: 2.5px;
-      text-underline-offset: 26px;
-    }
-    a:active {
-    }
+    color: rgb(107, 107, 107);
+    font-weight: bolder;
+  }
+  li:hover {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+    text-decoration-thickness: 2.5px;
+    text-underline-offset: 17px;
   }
 }
-ul {
-  background-color: rgb(163, 249, 221);
-}
-/* .hide {
-  transform: translateY(-100%);
-  transition: transform 0.3s ease-in-out;
-}
 
-.fix-category {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: white;
-  z-index: 999;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.actives {
+  color: black;
+  text-decoration: underline;
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 17px;
 }
-
-.fix-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: white;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: 0.5s;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-} */
 
 .main-header {
   height: 30px;
@@ -428,4 +397,12 @@ ul {
   font-size: 12px;
   display: flex;
   align-items: center;
+}
+
+.cate {
+  transition: color 0.5s ease;
+}
+
+.cate.actives {
+  color: black;
 }
