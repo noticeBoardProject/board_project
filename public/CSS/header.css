@@ -65,7 +65,7 @@
   left: 50%;
   transform: translate(-50%, -60%); /* 처음에는 살짝 위에 위치 */
   width: 400px;
-  max-height: 400px;
+  max-height: 600px;
   padding: 20px;
   background: white;
   border-radius: 8px;
@@ -113,6 +113,11 @@
 .login-close {
   position: relative;
   margin: 15px 0;
+  div {
+    margin: 30px 0;
+    font-weight: bolder;
+    font-size: 18px;
+  }
 }
 
 /* 닫기 버튼 */
@@ -271,6 +276,9 @@
 .login-nick {
   display: flex;
   cursor: pointer;
+  img {
+    pointer-events: none;
+  }
 }
 
 .myInfobtn,
@@ -401,6 +409,7 @@
   font-size: 12px;
   display: flex;
   align-items: center;
+  pointer-events: none;
 }
 
 .cate {
@@ -412,15 +421,34 @@
 }
 
 .line {
-  font-size: 15px;
+  font-size: 14px;
   color: #5c667b;
-  /* line-height: 24px;
-  text-align: center; */
+  margin-bottom: 15px;
+  position: relative;
 }
 
-.line:before .line:after {
+.line::before,
+.line::after {
+  content: "";
   width: 60px;
   height: 1px;
   background-color: #eaedf4;
   display: inline-block;
+  position: absolute;
+  top: 50%;
+}
+
+.line::before {
+  left: 15px;
+}
+
+.line::after {
+  right: 15px;
+}
+
+.snsLogin {
+  .sns {
+    margin: 0 6px;
+    cursor: pointer;
+  }
 }

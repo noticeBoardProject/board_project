@@ -57,13 +57,6 @@ navItems.forEach((item) => {
   });
 });
 
-window.addEventListener("DOMContentLoaded", () => {
-  if (sessionStorage.getItem("openModal") === "true") {
-    document.querySelector(".loginicon").click(); // 모달 열기
-    sessionStorage.removeItem("openModal"); // 값 삭제
-  }
-});
-
 // 로그인창 띄우기
 const loginModal = () => {
   const modal = document.querySelector(".form-login-box");
@@ -184,7 +177,7 @@ const verifylogin = async (token) => {
       if (res.data.result) {
         // innerHTML로 해당 사람의 닉네임 넣기
         document.querySelector(".loginbox").innerHTML = `
-        <div class="login-nick" onclick="mySet()">
+        <div class="login-nick" onclick="OpenMySet()">
           <img src="/public/image/login.svg">${res.data.user.nickname}<div class="usernick">님</div>
           <img src="/public/image/arrowdrop.svg">
         </div>
@@ -264,7 +257,7 @@ const logout = async () => {
 };
 
 // 내 정보나 로그아웃 볼 수 있는 모달
-const mySet = () => {
+const OpenMySet = () => {
   const home = document.querySelector(".login-home");
 
   if (home.style.display === "block") {
@@ -290,3 +283,18 @@ const observer = new MutationObserver(() => {
 });
 
 observer.observe(document.body, { childList: true, subtree: true });
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (sessionStorage.getItem("openModal") === "true") {
+    loginModal(); // 모달 열기
+    sessionStorage.removeItem("openModal"); // 값 삭제
+  }
+});
+
+const readyAlert = () => {
+  Swal.fire({
+    title: "기능 준비중입니다.",
+    text: "조금만 기다려주세요",
+    icon: "info",
+  });
+};

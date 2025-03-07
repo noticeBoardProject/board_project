@@ -175,3 +175,9 @@ button:hover {
 .essential {
   color: rgb(199, 66, 66);
 }
+
+.essentialbox {
+  font-size: 12px;
+  margin-bottom: 10px;
+  text-align: end;
+}

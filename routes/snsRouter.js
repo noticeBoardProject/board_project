@@ -85,7 +85,7 @@ let kakaoAPI_URL = "";
 
 // 카카오 로그인 페이지로 이동 (url 생성)
 router.get("/kakao", (req, res) => {
-  kakaoAPI_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_ID}&redirect_uri=${kakaoredirectURI}`;
+  kakaoAPI_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_ID}&redirect_uri=${kakaoredirectURI}&prompt=login`;
   res.redirect(kakaoAPI_URL);
 });
 

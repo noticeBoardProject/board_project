@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- 검색창 모달 -->
 <div class="search-wrap">
   <div class="search-header">
@@ -89,9 +91,12 @@
     <span>아직 회원이 아니신가요?</span> <a href="/signup">회원가입하기</a>
   </div>
 
-  <div>
+  <div class="snsLogin">
     <div class="line">소셜 계정으로 간편 로그인</div>
-    <a href="/auth/naver">테스트</a>
+    <a class="sns" href="/auth/naver"><img src="/public/image/naver.svg" alt="naver" /></a>
+    <a class="sns" href="/auth/kakao"><img src="/public/image/kakao.svg" alt="kakao" /></a>
+    <img class="sns" onclick="readyAlert()" src="/public/image/facebook.svg" alt="facebook" />
+    <img class="sns" onclick="readyAlert()" src="/public/image/apple.svg" alt="apple" />
   </div>
 
 </div>
