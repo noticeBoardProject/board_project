@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 정보 수정</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>내 정보 수정</h2>
+
+        <form id="mypage-form">
+            <div>
+                <label>이메일:</label>
+                <input type="email" id="email" readonly> <!-- 수정 불가 -->
+            </div>
+
+            <div>
+                <label>비밀번호:</label>
+                <input type="password" id="password" placeholder="새 비밀번호 입력"> 
+            </div>
+
+            <div>
+                <label>유저:</label>
+                <input type="text" id="username">
+            </div>
+
+            <div>
+                <label>닉네임:</label>
+                <input type="text" id="nickname">
+            </div>
+
+            <div>
+                <label>주소:</label>
+                <input type="text" id="address">
+            </div>
+
+            <div>
+                <label>성별:</label> <!-- 수정 불가 -->
+                <input type="radio" name="gender" value="male" id="gender-male" onclick="return(false);"> 남성
+                <input type="radio" name="gender" value="female" id="gender-female" onclick="return(false);"> 여성
+            </div>
+
+            <div>
+                <label>핸드폰 번호:</label>
+                <input type="text" id="phone">
+            </div>
+
+            <button type="submit">수정하기</button>
+            <div id="update-result"></div> <!-- 결과 메시지 표시 -->
+        </form>
+    </div>
+
+    <script src="/public/JS/mypage.js"></script>
+</body>
+</html>

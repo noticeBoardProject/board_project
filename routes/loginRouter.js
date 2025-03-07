@@ -20,4 +20,10 @@ router.get("/DupleCheck/email", loginController.emailDupleCheck);
 // 닉네임 중복체크 라우터
 router.get("/DupleCheck/nickname", loginController.nickDupleCheck);
 
+// 내 정보 조회
+router.get("/mypage/info", loginMiddleware, loginController.getUserInfo);
+
+// 회원 정보 수정
+router.patch("/mypage/update", loginMiddleware, loginController.updateUserInfo);
+
 module.exports = router;

@@ -13,11 +13,11 @@ const loginMiddleware = async (req, res, next) => {
     if (!token) {
         return res.json({ result: false, message: "토큰 없음" });
     }
-    console.log("받은 토큰:", token);
+    // console.log("받은 토큰:", token);
 
     try {
         const decoded = jwt.verify(token, secretKey); // 서버에서 발급한 토큰인지 검증
-        console.log("검증된 토큰:", decoded);
+        // console.log("검증된 토큰:", decoded);
 
         const user = await loginModel.findOne({where: {id: decoded.id}}); // id로 사용자 조회
         

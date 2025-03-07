@@ -139,4 +139,41 @@ const nickDupleCheck = async (req, res) =>{
   }
 }
 
-module.exports = { loginUser, verifyUser, signupUser, emailDupleCheck, nickDupleCheck };
+// 내 정보 가져오기 
+const getUserInfo = async (req, res) =>{
+  try {
+    const user = await loginModel.findOne({ where: { id: req.user.id } });
+
+    if (!user) {
+        return res.json({ result: false, message: "사용자 정보를 찾을 수 없습니다." });
+    }
+
+    res.json({ result: true, user });
+
+  } catch (error) {
+      console.error("사용자 정보 조회 오류:", error);
+  }
+}
+
+// 내정보란 페이지 정보 수정
+const updateUserInfo = async (req, res) => {
+  try {
+      const { password, username, nickname, address, phone } = req.body;
+
+      const updateUser = { username, nickname, address, phone };
+
+      // 비밀번호 해시 후 저장
+      if (password) {
+          updateUser.password = await bcrypt.hash(password, salt);
+      }
+
+      // DB 업데이트 실행
+      await loginModel.update(updateUser, { where: { id: req.user.id } });
+
+      res.json({ result: true, message: "회원 정보가 성공적으로 수정되었습니다." });
+  } catch (error) {
+      console.error("회원 정보 수정 오류:", error);
+  }
+};
+
+module.exports = { loginUser, verifyUser, signupUser, emailDupleCheck, nickDupleCheck, getUserInfo, updateUserInfo };

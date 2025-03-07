@@ -33,7 +33,7 @@ app.set("views", "./views");
 
 require("./models/index");
 
-// 메인페이지 이동
+// 메인 페이지 이동
 app.get("/", (req, res) => {
   res.render("main");
 });
@@ -42,6 +42,16 @@ app.get("/", (req, res) => {
 app.get("/signup", (rea, res) => {
   res.render("signup");
 })
+
+// 작성(수정) 페이지 이동
+app.get("/write", (req, res) =>{
+  res.render("write");
+})
+
+// 내 정보란 페이지 이동
+app.get("/mypage", loginMiddleware, (req, res) => {
+    res.render("mypage");
+});
 
 // 서버 실행
 app.listen(port, () => {
