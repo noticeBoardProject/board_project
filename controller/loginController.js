@@ -175,9 +175,9 @@ const getUserInfo = async (req, res) => {
 // 내정보란 페이지 정보 수정
 const updateUserInfo = async (req, res) => {
   try {
-    const { password, username, nickname, address, phone } = req.body;
+    const { password, address, gender, birthdate } = req.body;
 
-    const updateUser = { username, nickname, address, phone };
+    const updateUser = { address, gender, birthdate };
 
     // 비밀번호 해시 후 저장
     if (password) {
