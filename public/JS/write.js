@@ -25,7 +25,7 @@ const binCheckImg = (num) => {
   // 파일 객체 가져오기 (파일이 선택되지 않았다면 undefined)
   const fileInput = form[`image${num}`];
   const file = fileInput?.files[0];
-
+  
   if (!file) {
     // 파일이 선택되지 않았을 경우 기본 이미지 유지
     imgpreview.innerHTML = `<div class="preimgbox"><p>이미지를 선택하세요</p></div>`;
@@ -43,16 +43,18 @@ const binCheckImg = (num) => {
 const getCategory = () => {
   axios({
     method: "get",
-    url: "/category",
+    url: "/board/category",
   })
     .then((res) => {
       if (res.data.result) {
         const categorybox = document.getElementById("category");
         const category = res.data.category;
-        // 아직 정확하지 않음(예시임)
-        category.map((cate) => {
-          categorybox.innerHTML = `<option value="${cate.id}">${cate.name}</option>`;
-        });
+
+        category
+          .sort((a, b) => a.id - b.id) // 오름차순 정렬
+          .map((cate) => {
+            categorybox.innerHTML += `<option value="${cate.id}">${cate.name}</option>`;
+          });
       } else {
         alert("카테고리 정보를 불러오지 못했습니다.");
       }
