@@ -1,6 +1,9 @@
 const titleValue = document.getElementById("title");
 let selectValue;
 
+const fileInput = document.getElementById("fileInput");
+const fileList = document.getElementById("fileList");
+
 // 셀렉트 박스 바뀐 값 확인
 const changeSelect = () => {
   const category = document.getElementById("category");
@@ -16,26 +19,65 @@ const editor = new toastui.Editor({
   previewStyle: "vertical",
 });
 
-// 이미지 미리보기
-const binCheckImg = (num) => {
-  const form = document.forms["mainForm"];
-  const imgpreview = document.getElementById(`select-${num}`);
-  const fReader = new FileReader();
+let selectedFiles = []; // 선택한 파일을 저장할 배열
 
-  // 파일 객체 가져오기 (파일이 선택되지 않았다면 undefined)
-  const fileInput = form[`image${num}`];
-  const file = fileInput?.files[0];
-  
-  if (!file) {
-    // 파일이 선택되지 않았을 경우 기본 이미지 유지
-    imgpreview.innerHTML = `<div class="preimgbox"><p>이미지를 선택하세요</p></div>`;
-  } else {
-    // 파일이 존재하면 읽기 진행
-    fReader.readAsDataURL(file);
-    fReader.onloadend = (event) => {
-      const path = event.target.result;
-      imgpreview.innerHTML = `<div class="preimgbox"><img class="preimg preimg${num}" src="${path}" alt="선택한 이미지" /></div>`;
+fileInput.addEventListener("change", handleFileSelect);
+
+function handleFileSelect(event) {
+  const files = Array.from(event.target.files); // 선택한 파일들을 배열로 변환
+
+  files.forEach((file) => {
+    if (selectedFiles.length < 3) {
+      selectedFiles.push(file);
+    }
+  });
+
+  updatePreview();
+
+  // 3개 선택 시 파일 추가 버튼 숨기기
+  if (selectedFiles.length >= 3) {
+    document.querySelector(".btn-upload").style.display = "none";
+  }
+
+  fileInput.value = ""; // 선택된 파일 초기화
+}
+
+const updatePreview = () => {
+  fileList.innerHTML = ""; // 기존 미리보기 초기화
+
+  selectedFiles.forEach((file, index) => {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const img = document.createElement("img");
+      img.src = e.target.result;
+      img.classList.add("preview-image");
+      img.id = `image${index}`;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.innerText = "X";
+      removeBtn.classList.add("remove-btn");
+      removeBtn.onclick = () => removeFile(index);
+
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("image-wrapper");
+      wrapper.appendChild(img);
+      wrapper.appendChild(removeBtn);
+
+      fileList.appendChild(wrapper);
     };
+
+    reader.readAsDataURL(file);
+  });
+};
+
+const removeFile = (index) => {
+  selectedFiles.splice(index, 1); // 배열에서 파일 삭제
+  updatePreview();
+
+  // 파일이 3개 미만이면 다시 파일 추가 버튼 보이기
+  if (selectedFiles.length < 3) {
+    document.querySelector(".btn-upload").style.display = "block";
   }
 };
 
@@ -49,7 +91,7 @@ const getCategory = () => {
       if (res.data.result) {
         const categorybox = document.getElementById("category");
         const category = res.data.category;
-        
+
         categorybox.innerHTML = `<option disabled selected>카테고리 선택</option>`;
         category
           .sort((a, b) => a.id - b.id) // 오름차순 정렬
@@ -69,30 +111,15 @@ const getCategory = () => {
 const submitArticle = () => {
   const categoryId = selectValue;
   const title = titleValue.value;
-  const imageone = document.getElementById("imageone").files[0] || null;
-  const imagetwo = document.getElementById("imagetwo").files[0] || null;
-  const imagethree = document.getElementById("imagethree").files[0] || null;
   const content = editor.getMarkdown();
 
   const formData = new FormData();
+  selectedFiles.forEach((item) => {
+    formData.append("image[]", item);
+  });
   formData.append("categoryId", categoryId);
   formData.append("title", title);
   formData.append("content", content);
-
-  if (imageone) {
-    formData.append("image[]", imageone);
-  }
-  if (imagetwo) {
-    formData.append("image[]", imagetwo);
-  }
-  if (imagethree) {
-    formData.append("image[]", imagethree);
-  }
-
-  // formdata 모든 요소 확인
-  // for (const x of formData.entries()) {
-  //   console.log(x);
-  // };
 
   axios({
     headers: { "Content-Type": "multipart/form-data" },
@@ -101,7 +128,7 @@ const submitArticle = () => {
     data: formData,
   })
     .then((res) => {
-      window.location.href = "http://localhost:3000/";
+      // window.location.href = "http://localhost:3000/";
       console.log("게시글 저장 성공: ", res.data);
     })
     .catch((e) => {

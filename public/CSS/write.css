@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box;
+}
+
+.main-wrap {
+  width: 100%;
+}
+
+.menu {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.form-box {
+  margin: 46px 30px 10px 30px;
+}
+
+.cate-box {
+  position: relative;
+  width: fit-content;
+  margin-bottom: 18px;
+}
+
+#title {
+  width: 100%;
+  outline: none;
+  border: none;
+  font-size: 25px;
+  border-bottom: 1.3px solid #eaedf4;
+  padding-bottom: 20px;
+}
+
+#title::placeholder {
+  color: #8b8b8b;
+}
+
+.footwrap {
+  width: 100%;
+  height: 66px;
+  background-color: #f5f5f5;
+  z-index: 1;
+  text-align: right;
+}
+
+.completebtn {
+  cursor: pointer;
+  margin: 10px;
+  width: 88px;
+  background-color: #000;
+  border: none;
+  color: #fff;
+  border-radius: 20px;
+  line-height: 38px;
+  font-size: 13px;
+}
+
+.completebtn:hover {
+  background-color: rgb(58, 221, 167);
+}
+
+.infobox {
+  display: flex;
+  align-items: center;
+  margin: 30px 0 10px 0;
+  font-size: 13px;
+  img {
+    width: 15px;
+    margin-right: 3px;
+  }
+}
+
+#category {
+  cursor: pointer;
+  width: 170px;
+  height: 30px;
+  padding-left: 7px;
+  border: 1px solid #e9e9e9;
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.dropdown {
+  pointer-events: none;
+  position: absolute;
+  color: #909090;
+  top: 5px;
+  right: 0;
+  width: 20px;
+}
+
+/* 드롭다운 없애기 */
+select::-ms-expand {
+  display: none;
+}
+
+.contentbox {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#content {
+  margin: 0 30px 0 30px;
+}
+
+.preview-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+#fileInput {
+  display: none;
+}
+
+.btn-upload {
+  width: 100px;
+  height: 100px;
+  background-color: #f0f0f0;
+  border: 2px solid #ddd;
+  text-align: center;
+  line-height: 100px;
+}
+
+.btn-upload:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.filebox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#fileList {
+  display: flex;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.remove-btn {
+  position: absolute;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 5px 2px;
+  font-weight: bolder;
+}

@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 const loginRouter = require("./routes/loginRouter");
 app.use("/", loginRouter);
 const snsRouter = require("./routes/snsRouter");
-app.use('/auth', snsRouter);
+app.use("/auth", snsRouter);
 const boardRouter = require("./routes/boardRouter");
 app.use("/board", boardRouter);
 
@@ -54,6 +54,11 @@ app.get("/write", (req, res) => {
 // 내 정보란 페이지 이동
 app.get("/mypage", loginMiddleware, (req, res) => {
   res.render("mypage");
+});
+
+// 아이디/비밀번호 찾기 페이지 이동
+app.get("/findIdPw", (req, res) => {
+  res.render("findIdPw");
 });
 
 // 서버 실행

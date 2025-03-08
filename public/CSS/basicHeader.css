@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#main-header {
+  width: 100%;
+  border-bottom: 1.3px solid #eaedf4;
+}
+
+.headerwrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logobox {
+  width: 63px;
+  img {
+    width: 100%;
+    margin-left: 15px;
+  }
+}
+
+.loginbox {
+  margin-right: 15px;
+}
+
+.login-nick {
+  display: flex;
+  cursor: pointer;
+  img {
+    /* 이벤트 막기 */
+    pointer-events: none;
+  }
+}
+
+.login-home {
+  margin: auto 0;
+  width: 130px;
+  height: 140px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  top: 40px;
+  right: 10px;
+  border-radius: 5%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  div {
+    padding: 3px;
+    display: flex;
+  }
+}
+
+.login-homebox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.myInfobtn,
+.logoutbtn {
+  cursor: pointer;
+  img {
+    margin-right: 3px;
+  }
+}
+
+.myInfobtn:hover,
+.logoutbtn:hover {
+  background-color: #e9e9e9;
+}
