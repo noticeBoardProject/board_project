@@ -49,7 +49,8 @@ const getCategory = () => {
       if (res.data.result) {
         const categorybox = document.getElementById("category");
         const category = res.data.category;
-
+        
+        categorybox.innerHTML = `<option disabled selected>카테고리 선택</option>`;
         category
           .sort((a, b) => a.id - b.id) // 오름차순 정렬
           .map((cate) => {
@@ -68,9 +69,9 @@ const getCategory = () => {
 const submitArticle = () => {
   const categoryId = selectValue;
   const title = titleValue.value;
-  const imageone = document.getElementById("imageone").files[0];
-  const imagetwo = document.getElementById("imagetwo").files[0];
-  const imagethree = document.getElementById("imagethree").files[0];
+  const imageone = document.getElementById("imageone").files[0] || null;
+  const imagetwo = document.getElementById("imagetwo").files[0] || null;
+  const imagethree = document.getElementById("imagethree").files[0] || null;
   const content = editor.getMarkdown();
 
   const formData = new FormData();
@@ -88,14 +89,20 @@ const submitArticle = () => {
     formData.append("image[]", imagethree);
   }
 
+  // formdata 모든 요소 확인
+  // for (const x of formData.entries()) {
+  //   console.log(x);
+  // };
+
   axios({
     headers: { "Content-Type": "multipart/form-data" },
     method: "post",
-    url: "/post/board",
+    url: "/board/post",
     data: formData,
   })
     .then((res) => {
       window.location.href = "http://localhost:3000/";
+      console.log("게시글 저장 성공: ", res.data);
     })
     .catch((e) => {
       console.log(e);
