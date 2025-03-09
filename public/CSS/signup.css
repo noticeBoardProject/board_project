@@ -47,10 +47,6 @@ button {
   transition: background 0.3s ease;
 }
 
-button:hover {
-  background-color: #f1f1f1;
-}
-
 .gender-group {
   display: flex;
 }

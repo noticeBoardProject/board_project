@@ -30,16 +30,18 @@
   padding-bottom: 20px;
 }
 
-#title::placeholder {
+.title::placeholder {
   color: #8b8b8b;
 }
 
 .footwrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   width: 100%;
   height: 66px;
   background-color: #f5f5f5;
   z-index: 1;
-  text-align: right;
 }
 
 .completebtn {
@@ -98,6 +100,7 @@ select::-ms-expand {
 .contentbox {
   max-width: 900px;
   margin: 0 auto;
+  padding-bottom: 20px;
 }
 
 #content {
@@ -118,8 +121,8 @@ select::-ms-expand {
 .btn-upload {
   width: 100px;
   height: 100px;
-  background-color: #f0f0f0;
-  border: 2px solid #ddd;
+  background-color: #f7f7f7;
+  border: 2px solid #eee;
   text-align: center;
   line-height: 100px;
 }
@@ -151,4 +154,13 @@ select::-ms-expand {
   cursor: pointer;
   margin: 5px 2px;
   font-weight: bolder;
+}
+
+.infoColor::placeholder {
+  color: #f76262;
+}
+
+.cateinfo {
+  color: #f76262;
+  font-size: 13px;
 }
