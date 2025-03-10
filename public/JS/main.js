@@ -17,11 +17,14 @@ const fetchCateData = async (categoryId) => {
   await axios({
     method: "get",
     url: "/main/boardData",
-    params: { categoryId },
+    params: { categoryId }, // all 또는 카테고리ID
   })
     .then((res) => {
       content.innerHTML = ""; // 기존 내용 초기화
       const data = res.data;
+
+      console.log("잘받아왔낭", data);
+      
       if (data && data.length > 0) {
         data.forEach((item, i) => {
           content.innerHTML += `
@@ -48,16 +51,5 @@ const fetchCateData = async (categoryId) => {
 // 검색창 검색(제목 기준)
 document.querySelector(".search-btn").addEventListener("click", async () => {
   const searchWord = document.getElementById("search").value;
-
-  await axios({
-    method: "get",
-    url: "/main/searchTitle",
-    params: {searchWord}
-  })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((e) => {
-      console.log("검색 실패:", e);
-    });
+  window.location.href = `/main/search?searchWord=${searchWord}`;
 });

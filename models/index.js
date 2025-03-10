@@ -23,6 +23,13 @@ db.users = require("./users")(sequelize, DataTypes);
 db.board = require("./board")(sequelize, DataTypes);
 db.category = require("./category")(sequelize, DataTypes);
 
+// 모델 간 관계 설정
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+      db[modelName].associate(db);
+  }
+});
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

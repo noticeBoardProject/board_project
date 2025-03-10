@@ -51,7 +51,15 @@ module.exports = (sequelize, DataTypes) => {
         {
             tableName: "users",
             timestamps: false,
-        }
-    );
+        });
+
+        // user는 여러 개의 board를 가질 수 있음
+        users.associate = (models) => {
+            users.hasMany(models.board, { 
+                foreignKey: "userId",
+                as: "boards",
+            });
+        };
+
     return users;
 };
