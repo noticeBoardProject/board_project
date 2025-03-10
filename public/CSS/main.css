@@ -3,36 +3,45 @@
   margin: 20px auto;
 }
 
+.tablehead {
+  padding: 12px;
+}
+
 .article {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr 2fr;
-  padding: 12px;
-  align-items: center;
   border-top: 1px solid #e0e0e0;
   border-bottom: 1px solid #e0e0e0;
+  gap: 10px;
   div {
-    text-align: center;
-    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 14px;
   }
   img {
-    width: 20px;
-    display: none;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin: auto auto;
   }
 }
 
-.title {
-  text-align: left;
+.imagebox {
+  display: flex;
+}
+
+.content {
+  div {
+    height: 150px;
+  }
 }
 
 /* 이미지가 있을 경우 */
 .article img[src]:not([src=""]) {
   display: block;
-}
-
-.board:hover {
-  background-color: #f9f9f9;
-  cursor: pointer;
 }
 
 .writebtn {
@@ -54,4 +63,9 @@
   img {
     width: 20px;
   }
+}
+
+.detailtag {
+  text-decoration: none;
+  color: black;
 }

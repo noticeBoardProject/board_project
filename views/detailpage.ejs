@@ -17,21 +17,21 @@
       <main>
         <div class="board-info-wrap">
           <div class="category">
-            <%= data[0].category %>
+            <%= data.category %>
           </div>
           <div class="title">
-            <%= data[0].title %>
+            <%= data.title %>
           </div>
           <div class="board-info-box">
             <div class="board-info">
               <div class="nickname">
-                <%= data[0].nickname %>
+                <%= data.nickname %>
               </div>
               <span class="day">
-                <%= data[0].updateAt %>
+                <%= data.updateAt %>
               </span>
               <span class="likecount">
-                <%= data[0].likeCount %>
+                <%= data.likeCount %>
               </span>
             </div>
             <div class="mybtn">
@@ -41,8 +41,8 @@
           </div>
         </div>
         <div class="imgbox">
-          <% data[0].img_url.forEach((image,i)=>{ %>
-            <img src="<%= image[i] %>" alt="등록된 이미지" />
+          <% data.img_url.forEach((image,i)=>{ %>
+            <img src="http://localhost:3000/uploads/<%= image[i] %>" alt="등록된 이미지" />
             <% }) %>
         </div>
 
@@ -54,6 +54,6 @@
       </main>
     </div>
 </body>
-<script src="/public/JS/detailpage.js"></script>
+
 
 </html>
