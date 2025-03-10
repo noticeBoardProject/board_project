@@ -16,8 +16,8 @@ window.addEventListener("categoryChange", () => {
 const fetchCateData = async (categoryId) => {
   await axios({
     method: "get",
-    url: "boarddata",
-    params: { nowCategory: categoryId },
+    url: "/main/boardData",
+    params: { categoryId },
   })
     .then((res) => {
       content.innerHTML = ""; // 기존 내용 초기화
@@ -46,9 +46,12 @@ const fetchCateData = async (categoryId) => {
 
 // 검색창 검색(제목 기준)
 document.querySelector(".search-btn").addEventListener("click", async () => {
+  const searchWord = document.getElementById("search").value;
+
   await axios({
     method: "get",
-    url: "search/title",
+    url: "/main/searchTitle",
+    params: {searchWord}
   })
     .then((res) => {
       console.log(res.data);
