@@ -6,6 +6,6 @@ const mainController = require("../controller/mainController");
 router.get("/boardData", mainController.getMainBoard);
 
 // 검색기능 (제목기준)
-router.get("/searchTitle", mainController.searchTitle);
+router.get(`/search`, mainController.searchTitle);
 
 module.exports = router;

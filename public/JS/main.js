@@ -14,50 +14,48 @@ window.addEventListener("categoryChange", () => {
 
 // 카테고리 변경시
 const fetchCateData = async (categoryId) => {
-  await axios({
-    method: "get",
-    url: "/main/boardData",
-    params: { categoryId },
-  })
-    .then((res) => {
-      content.innerHTML = ""; // 기존 내용 초기화
-      const data = res.data;
-      if (data && data.length > 0) {
-        data.forEach((item, i) => {
-          content.innerHTML += `
-          <a href="/move/detail/${item.id}" class="atag">
-            <div class="article board">
-              <div>${i + 1}</div>
-              <div class="title">${item.title}</div>
-              <div>${item.nickname}</div>
-              <div>${item.updateAt}</div>
-              <div>${item.likeCount}</div>
-              <img src="${img_url}" alt="테스트" />
-            </div>
-          </a>`;
-        });
-      } else {
-        content.innerText = "게시물이 없습니다.";
-      }
-    })
-    .catch((e) => {
-      console.log("에러", e);
-    });
+  // await axios({
+  //   method: "get",
+  //   url: "/main/boardData",
+  //   params: { categoryId },
+  // })
+  //   .then((res) => {
+  //     content.innerHTML = ""; // 기존 내용 초기화
+  //     const data = res.data;
+  //     if (data && data.length > 0) {
+  //       data.forEach((item, i) => {
+  //         content.innerHTML += `
+  //         <a href="/move/detail/${item.id}" class="atag">
+  //           <div class="article board">
+  //             <div>${i + 1}</div>
+  //             <div class="title">${item.title}</div>
+  //             <div>${item.nickname}</div>
+  //             <div>${item.updateAt}</div>
+  //             <div>${item.likeCount}</div>
+  //             <img src="${img_url}" alt="테스트" />
+  //           </div>
+  //         </a>`;
+  //       });
+  //     } else {
+  //       content.innerText = "게시물이 없습니다.";
+  //     }
+  //   })
+  //   .catch((e) => {
+  //     console.log("에러", e);
+  //   });
 };
 
 // 검색창 검색(제목 기준)
 document.querySelector(".search-btn").addEventListener("click", async () => {
   const searchWord = document.getElementById("search").value;
+  window.location.href = `https://localhost:3000/main/search?searchWord=${searchWord}`;
+});
 
-  await axios({
-    method: "get",
-    url: "/main/searchTitle",
-    params: {searchWord}
-  })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((e) => {
-      console.log("검색 실패:", e);
-    });
+const input = document.getElementById("search");
+
+// 엔터 클릭시 검색
+input.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    document.querySelector(".search-btn").click();
+  }
 });
