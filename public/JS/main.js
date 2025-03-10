@@ -2,13 +2,13 @@ const content = document.querySelector(".content");
 
 // 기존 선택 카테고리 데이터 요청
 document.addEventListener("DOMContentLoaded", () => {
-  const savedCategory = localStorage.getItem("selectedCategory") || "all";
+  const savedCategory = sessionStorage.getItem("selectedCategory") || "all";
   fetchCateData(savedCategory);
 });
 
 // 변경 감지
 window.addEventListener("categoryChange", () => {
-  const savedCategory = localStorage.getItem("selectedCategory") || "all";
+  const savedCategory = sessionStorage.getItem("selectedCategory") || "all";
   fetchCateData(savedCategory);
 });
 
@@ -17,12 +17,11 @@ const fetchCateData = async (categoryId) => {
   await axios({
     method: "get",
     url: "boarddata",
-    params: { nowCategory: categoryId },
+    params: { categoryId },
   })
     .then((res) => {
       content.innerHTML = ""; // 기존 내용 초기화
       const data = res.data;
-
       if (data && data.length > 0) {
         data.forEach((item, i) => {
           content.innerHTML += `
