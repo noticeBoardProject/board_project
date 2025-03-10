@@ -140,6 +140,7 @@ const submitArticle = () => {
       data: formData,
     })
       .then((res) => {
+        alert("게시글이 작성되었습니다.");
         window.location.href = "http://localhost:3000/";
       })
       .catch((e) => {
