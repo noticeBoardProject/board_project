@@ -24,10 +24,10 @@ const fetchCateData = async (categoryId) => {
       const data = res.data;
 
       if (data && data.length > 0) {
-        data.forEach((item) => {
+        data.forEach((item, i) => {
           content.innerHTML += `
           <div class="article board">
-              <div>${item.id}</div>
+              <div>${i + 1}</div>
               <div class="title">${item.title}</div>
               <div>${item.nickname}</div>
               <div>${item.updateAt}</div>
