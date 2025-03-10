@@ -279,6 +279,7 @@ const logout = async () => {
       .then((res) => {
         if (res.data.result === true) {
           localStorage.setItem("login", false);
+          sessionStorage.removeItem("reloaded");
           document.getElementById("email").value = "";
           document.getElementById("pw").value = "";
           document.querySelector(".loginbox").innerHTML = `
@@ -337,8 +338,16 @@ const readyAlert = () => {
   });
 };
 
-document.querySelectorAll(".sns").forEach((item) => {
-  item.addEventListener("click", () => {
+// 페이지가 로드되었을 때 로그인 성공 여부 확인
+window.addEventListener("load", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const loginSuccess = urlParams.get("loginSuccess");
+
+  if (loginSuccess === "true") {
     localStorage.removeItem("login");
-  });
+    if (!sessionStorage.getItem("reloaded")) {
+      sessionStorage.setItem("reloaded", "true");
+      window.location.reload(); // 페이지 새로 고침
+    }
+  }
 });

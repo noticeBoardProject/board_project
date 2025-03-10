@@ -72,7 +72,7 @@ router.get("/naver/callback", async (req, res) => {
 
     // 쿠키에 토큰 저장
     res.cookie("token", token, { httpOnly: true });
-    res.redirect("/");
+    res.redirect("/?loginSuccess=true");
   } catch (error) {
     console.error("네이버 로그인 실패:", error);
   }
@@ -140,7 +140,7 @@ router.get("/kakao/callback", async (req, res) => {
 
     // 쿠키에 토큰 저장
     res.cookie("token", token, { httpOnly: true });
-    res.redirect("/");
+    res.redirect("/?loginSuccess=true");
   } catch (error) {
     console.error("카카오 로그인 실패:", error);
   }

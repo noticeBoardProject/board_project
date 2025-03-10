@@ -71,6 +71,7 @@ const logout = async () => {
       .then((res) => {
         if (res.data.result === true) {
           localStorage.setItem("login", false);
+          sessionStorage.removeItem("reloaded");
           document.querySelector(".loginbox").innerHTML = `
           <div class="loginicon" onclick="loginModal()">로그인</div>`;
           window.location.href = "http://localhost:3000/";

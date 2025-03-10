@@ -26,7 +26,8 @@ const fetchCateData = async (categoryId) => {
 
       console.log("잘받아왔낭", data);
       if (data && data.length > 0) {
-        data.forEach((item, i) => {
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        sortedData.forEach((item, i) => {
           content.innerHTML += `
           <a href="/main/move/detail/${item.id}" class="detailtag">
             <div class="article board">
@@ -63,6 +64,7 @@ document.querySelector(".search-btn").addEventListener("click", async () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  console.log(localStorage.hasOwnProperty("login"));
   if (localStorage.hasOwnProperty("login")) {
     // 로그인 상태라면 버튼을 변경
     document.querySelector(".write").innerHTML = `

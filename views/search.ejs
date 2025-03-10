@@ -12,10 +12,7 @@
 <body>
   <!-- 헤더 -->
   <%- include("basicHeader") -%>
-    <h1>검색 결과</h1>
-
-    <p>검색어: <%= searchWord %>
-    </p>
+    <h1>'<%= searchWord %>' 검색 결과</h1>
 
     <ul>
       <% if (results.length> 0) { %>

@@ -74,20 +74,28 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 1000;
+  z-index: 1002;
 }
 
 /* 모달 활성화 */
-.form-login-box.active {
+.search-wrap.active {
   opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, -50%);
+  transform: translateY(0);
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
 }
 
-/* 모달 닫힐 때*/
-.form-login-box.closing {
+/* 모달 초기 위치  */
+.search-wrap {
   opacity: 0;
-  transform: translate(-50%, -60%);
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+/* 모달 닫힐 때 */
+.search-wrap.closing {
+  opacity: 0;
+  transform: translateY(-100%);
 }
 
 /* 배경 오버레이 */
@@ -304,6 +312,17 @@
   }
 }
 
+.form-login-box.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%);
+}
+
+.form-login-box.closing {
+  opacity: 0;
+  transform: translate(-50%, -60%);
+}
+
 /* 검색부분 */
 .search-wrap {
   position: fixed;
@@ -311,7 +330,7 @@
   opacity: 0;
   visibility: hidden;
   background-color: aliceblue;
-  height: 300px;
+  height: 200px;
   width: 100%;
   z-index: 1001;
 }
@@ -336,7 +355,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 20px;
 }
 
 .form-box {
