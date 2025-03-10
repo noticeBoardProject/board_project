@@ -148,9 +148,8 @@ birthDayEl.addEventListener("focus", function () {
 });
 
 // 회원 정보 수정 요청
-document
-  .getElementById("mypage-form")
-  .addEventListener("submit", async (event) => {
+const mypageForm = document.getElementById("mypage-form");
+mypageForm.addEventListener("submit", async (event) => {
     event.preventDefault(); // 기본 폼 제출 방지
 
     const birthYear = document.getElementById("birth-year").value;
@@ -173,8 +172,7 @@ document
         headers: { Authorization: `Bearer ${getToken()}` },
       });
 
-      console.log("업데이트할 내용:", res);
-
+      // console.log("업데이트할 내용:", res);
       alert("내 정보를 업데이트 했습니다.");
     } catch (error) {
       console.log("정보 업데이트 오류", error);

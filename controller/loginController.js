@@ -196,6 +196,74 @@ const updateUserInfo = async (req, res) => {
   }
 };
 
+// 이메일 찾기
+const findEmail = async (req, res) =>{
+  const { username, phone } = req.body;
+
+  try {
+    const user = await loginModel.findOne({ where: {username, phone}});
+
+    if(!user){
+      alert("일치하는 사용자가 없습니다.");
+      return res.json({ result: false });
+    }
+
+    res.json({ result: true, message: `아이디는 ${user.email} 입니다` })
+  } catch (error) {
+    console.error("이메일 찾기 오류:", error);
+  }
+};
+
+// 비밀번호 유효성 검사
+const generatePW = () =>{
+  const possible1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const possible2 = "abcdefghijklmnopqrstuvwxyz";
+  const possible3 = "0123456789";
+  const possible4 = "#?!@$%^&*-";
+  const possibleAll = possible1 + possible2 + possible3 + possible4;
+  
+  let selectPW = "";
+
+  // 각각 하나씩 포함되도록
+  selectPW += possible1[Math.floor(Math.random() * possible1.length)];
+  selectPW += possible2[Math.floor(Math.random() * possible2.length)];
+  selectPW += possible3[Math.floor(Math.random() * possible3.length)];
+  selectPW += possible4[Math.floor(Math.random() * possible4.length)];
+
+  // 남은 자리수
+  for (let i=0; i<4; i++){
+    selectPW += possibleAll[Math.floor(Math.random() * possibleAll.length)];
+  }
+
+  return selectPW;
+}
+
+// 비밀번호 재발급
+const resetPassword = async (req, res) =>{
+  const { username, email } = req.body;
+
+  try{
+    const user = await loginModel.findOne({ where: {username, email}});
+
+    if(!user){
+      // alert("일치하는 사용자가 없습니다.");
+      return res.json({ result: false });
+    }
+
+    // 비밀번호 재생성
+    const newPW = generatePW();
+
+    // db에 업데이트
+    const hashnewPW = await bcrypt.hash(newPW, salt);
+    await loginModel.update({password: hashnewPW}, {where:{email}});
+
+    res.json({ result: true, message: `재발급된 비밀번호는 ${newPW} 입니다` });
+
+  } catch (error) {
+    console.error("비밀번호 재발급 오류:", error);
+  }
+};
+
 module.exports = {
   loginUser,
   verifyUser,
@@ -204,4 +272,6 @@ module.exports = {
   nickDupleCheck,
   getUserInfo,
   updateUserInfo,
+  findEmail,
+  resetPassword,
 };

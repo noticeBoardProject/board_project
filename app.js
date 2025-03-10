@@ -56,14 +56,14 @@ app.get("/mypage", loginMiddleware, (req, res) => {
   res.render("mypage");
 });
 
-// 아이디/비밀번호 찾기 페이지 이동
-app.get("/findIdPw", (req, res) => {
-  res.render("findIdPw");
-});
-
 // 상세페이지 이동
 app.get("/detailpage", (req, res) => {
   res.render("detailpage");
+});
+
+// 찾기 페이지 이동
+app.get("/find", (req, res) => {
+  res.render("find");
 });
 
 // 서버 실행
