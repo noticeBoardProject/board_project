@@ -70,7 +70,7 @@ const logout = async () => {
     })
       .then((res) => {
         if (res.data.result === true) {
-          localStorage.removeItem("login");
+          localStorage.setItem("login", false);
           document.querySelector(".loginbox").innerHTML = `
           <div class="loginicon" onclick="loginModal()">로그인</div>`;
           window.location.href = "http://localhost:3000/";

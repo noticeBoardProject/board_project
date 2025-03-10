@@ -58,17 +58,17 @@ document.addEventListener("DOMContentLoaded", function () {
   if (localStorage.hasOwnProperty("login")) {
     // 로그인 상태라면 버튼을 변경
     document.querySelector(".write").innerHTML = `
-      <a href="/write">
+    <div id="writeBtn" class="writebtn" onclick="loginModal()" title="글쓰기">
+        <img src="/public/image/pen.svg" alt="글쓰기" />
+      </div>
+    `;
+  } else {
+    document.querySelector(".write").innerHTML = `
+        <a href="/write">
         <div class="writebtn" title="글쓰기">
           <img src="/public/image/pen.svg" alt="글쓰기" />
         </div>
       </a>
-    `;
-  } else {
-    document.querySelector(".write").innerHTML = `
-      <div id="writeBtn" class="writebtn" onclick="loginModal()" title="글쓰기">
-        <img src="/public/image/pen.svg" alt="글쓰기" />
-      </div>
     `;
   }
 });

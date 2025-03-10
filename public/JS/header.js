@@ -194,7 +194,7 @@ const login = async (event) => {
         document.cookie = `token=${res.data.token}; path=/; max-age=${maxAge}; Secure`;
         verifylogin(res.data.token);
         document.querySelector(".close-btn").click();
-        localStorage.setItem("login", true);
+        localStorage.removeItem("login");
         window.location.reload();
       } else {
         alert(`로그인 실패: ${res.data.message}`);
@@ -278,7 +278,7 @@ const logout = async () => {
     })
       .then((res) => {
         if (res.data.result === true) {
-          localStorage.removeItem("login");
+          localStorage.setItem("login", false);
           document.getElementById("email").value = "";
           document.getElementById("pw").value = "";
           document.querySelector(".loginbox").innerHTML = `
@@ -336,3 +336,9 @@ const readyAlert = () => {
     icon: "info",
   });
 };
+
+document.querySelectorAll(".sns").forEach((item) => {
+  item.addEventListener("click", () => {
+    localStorage.removeItem("login");
+  });
+});
