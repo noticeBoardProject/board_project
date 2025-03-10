@@ -59,13 +59,18 @@ app.get("/mypage", loginMiddleware, (req, res) => {
 });
 
 // 찾기 페이지 이동
-app.get("/find", (req, res) =>{
+app.get("/find", (req, res) => {
   res.render("find");
 });
 
 // 상세페이지 이동
 app.get("/detailpage", (req, res) => {
   res.render("detailpage");
+});
+
+// 검색페이지 이동
+app.get("/search", (req, res) => {
+  res.render("search");
 });
 
 // 서버 실행
