@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h2>아이디 찾기</h2>
+    <form id="findEmail-form">
+        <div>이름:</div>
+        <input type="text" id="username" required><br>
+
+        <div>핸드폰 번호:</div>
+        <input type="text" id="phone" required><br>
+
+        <button type="submit">아이디 찾기</button>
+        <div id="emailFind"></div>
+    </form>
+
+    <h2>비밀번호 재발급</h2>
+    <form id="resetPassword-form">
+        <div>이름:</div>
+        <input type="text" id="username2" required><br>
+
+        <div>아이디:</div>
+        <input type="email" id="email" required><br>
+
+        <button type="submit">비밀번호 재발급</button>
+        <div id="passwordResult"></div>
+    </form>
+
+    <script src="/public/JS/find.js"></script>
+</body>
+</html>

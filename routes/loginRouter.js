@@ -37,4 +37,10 @@ router.get("/mypage/info", loginMiddleware, loginController.getUserInfo);
 // 회원 정보 수정
 router.patch("/mypage/update", loginMiddleware, loginController.updateUserInfo);
 
+// 아이디 찾기
+router.post("/findEmail", loginController.findEmail);
+
+// 비밀번호 재발급
+router.post("/resetPassword", loginController.resetPassword);
+
 module.exports = router;

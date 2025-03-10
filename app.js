@@ -56,6 +56,11 @@ app.get("/mypage", loginMiddleware, (req, res) => {
   res.render("mypage");
 });
 
+// 찾기 페이지 이동
+app.get("/find", (req, res) =>{
+  res.render("find");
+});
+
 // 서버 실행
 app.listen(port, () => {
   console.log(`서버 실행 ${port}`);
