@@ -9,8 +9,7 @@ const checkLoginStatus = async () => {
       if (res.data.result) {
         verifylogin(res.data.token);
       } else {
-        sessionStorage.setItem("openModal", "true"); // 세션 스토리지에 저장
-        window.location.href = "http://localhost:3000/";
+        console.log("실패");
       }
     });
   } catch (e) {
@@ -59,6 +58,30 @@ const verifylogin = async (token) => {
     .catch((e) => {
       console.log(e, ":검증 요청 실패");
     });
+};
+
+// 로그아웃 함수
+const logout = async () => {
+  // 서버에서 쿠키 삭제 요청
+  try {
+    await axios({
+      method: "post",
+      url: "logout",
+    })
+      .then((res) => {
+        if (res.data.result === true) {
+          localStorage.removeItem("login");
+          document.querySelector(".loginbox").innerHTML = `
+          <div class="loginicon" onclick="loginModal()">로그인</div>`;
+          window.location.href = "http://localhost:3000/";
+        }
+      })
+      .catch((e) => {
+        console.log("쿠키삭제 실패:", e);
+      });
+  } catch (e) {
+    console.log("로그아웃 실패:", e);
+  }
 };
 
 // 내 정보나 로그아웃 볼 수 있는 모달

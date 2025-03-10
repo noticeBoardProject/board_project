@@ -12,12 +12,22 @@
 <body>
   <!-- 헤더 -->
   <%- include("basicHeader") -%>
-    <div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <h1>검색 결과</h1>
+
+    <p>검색어: <%= searchWord %>
+    </p>
+
+    <ul>
+      <% if (results.length> 0) { %>
+        <% results.forEach((item)=> { %>
+          <li>
+            <%= item.title %>
+          </li>
+          <% }) %>
+            <% } else { %>
+              <p>검색 결과가 없습니다.</p>
+              <% } %>
+    </ul>
 </body>
 
 </html>

@@ -24,7 +24,7 @@ const fetchCateData = async (categoryId) => {
       const data = res.data;
 
       console.log("잘받아왔낭", data);
-      
+
       if (data && data.length > 0) {
         data.forEach((item, i) => {
           content.innerHTML += `
@@ -52,4 +52,23 @@ const fetchCateData = async (categoryId) => {
 document.querySelector(".search-btn").addEventListener("click", async () => {
   const searchWord = document.getElementById("search").value;
   window.location.href = `/main/search?searchWord=${searchWord}`;
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (localStorage.hasOwnProperty("login")) {
+    // 로그인 상태라면 버튼을 변경
+    document.querySelector(".write").innerHTML = `
+      <a href="/write">
+        <div class="writebtn" title="글쓰기">
+          <img src="/public/image/pen.svg" alt="글쓰기" />
+        </div>
+      </a>
+    `;
+  } else {
+    document.querySelector(".write").innerHTML = `
+      <div id="writeBtn" class="writebtn" onclick="loginModal()" title="글쓰기">
+        <img src="/public/image/pen.svg" alt="글쓰기" />
+      </div>
+    `;
+  }
 });
