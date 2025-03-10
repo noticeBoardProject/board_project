@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="/public/CSS/detailpage.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상세페이지</title>
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <%- include("basicHeader") -%>
+    <div class="main-wrap">
+      <main>
+        <div class="board-info-wrap">
+          <div class="category">카테고리</div>
+          <div class="title">제목</div>
+          <div class="board-info-box">
+            <div class="board-info">
+              <div class="nickname">닉네임</div>
+              <span class="day">작성날짜</span>
+              <span class="likecount">좋아요수</span>
+            </div>
+            <div class="mybtn">
+              <button>수정</button>
+              <button>삭제</button>
+            </div>
+          </div>
+        </div>
+        <div class="imgbox">
+          <img src="/public/image/logo.png" alt="test" />
+          <img src="/public/image/logo.png" alt="test" />
+        </div>
+
+        <div>내용</div>
+        <div class="likebox">
+          <img src="/public/image/binheart.svg" alt="bin" />
+          <span>좋아요</span>
+        </div>
+      </main>
+    </div>
+</body>
+
+
+</html>

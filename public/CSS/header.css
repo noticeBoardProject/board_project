@@ -27,7 +27,8 @@
 }
 
 .logobox {
-  width: 90px;
+  padding: 10px;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -414,6 +415,7 @@
 
 .cate {
   transition: color 0.5s ease;
+  white-space: nowrap;
 }
 
 .cate.actives {
@@ -450,5 +452,23 @@
   .sns {
     margin: 0 6px;
     cursor: pointer;
+  }
+}
+
+@media (max-width: 768px) {
+  .cate {
+    font-size: 14px;
+  }
+  .usernick {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cate {
+    font-size: 12px;
+  }
+  .usernick {
+    font-size: 12px;
   }
 }

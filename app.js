@@ -61,6 +61,11 @@ app.get("/findIdPw", (req, res) => {
   res.render("findIdPw");
 });
 
+// 상세페이지 이동
+app.get("/detailpage", (req, res) => {
+  res.render("detailpage");
+});
+
 // 서버 실행
 app.listen(port, () => {
   console.log(`서버 실행 ${port}`);

@@ -148,7 +148,7 @@ button {
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-  background: rgb(196, 255, 235);
+  background: #bababa;
   border-radius: 10px;
 }
 
