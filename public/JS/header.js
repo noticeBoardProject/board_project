@@ -243,9 +243,14 @@ const logout = async () => {
     })
       .then((res) => {
         if (res.data.result === true) {
+          document.getElementById("email").value = "";
+          document.getElementById("pw").value = "";
           document.querySelector(".loginbox").innerHTML = `
           <div class="loginicon" onclick="loginModal()">로그인</div>`;
-          alert("로그아웃 되었습니다.");
+          Swal.fire({
+            title: "로그아웃 되었습니다.",
+            icon: "success",
+          });
         }
       })
       .catch((e) => {

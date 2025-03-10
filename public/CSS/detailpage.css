@@ -1,0 +1,116 @@
+main {
+  padding: 0 18px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.board-info-wrap {
+  margin: 50px 0;
+  padding: 10px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.board-info-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.board-info {
+  display: flex;
+}
+
+.mybtn {
+  display: flex;
+}
+
+.category {
+  width: fit-content;
+  margin-bottom: 16px;
+  padding-top: 5px;
+  color: #808080;
+  font-size: 12px;
+  border-bottom: 1px solid #a3a3a3;
+}
+
+.title {
+  font-size: 1.7em;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.nickname {
+  font-size: 13px;
+  line-height: 1.3;
+  color: #888;
+  white-space: nowrap;
+}
+
+.day {
+  font-size: 13px;
+  color: #808080;
+  white-space: nowrap;
+}
+
+.likecount {
+  font-size: 13px;
+  color: #808080;
+  white-space: nowrap;
+}
+.board-info {
+  span:before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 13px;
+    margin: 0 6px 0 10px;
+    background-color: #ebebeb;
+  }
+}
+
+.likebox {
+  display: flex;
+  color: #808080;
+  font-size: 12px;
+  width: fit-content;
+  align-items: center;
+  margin: 35px 0;
+  padding: 3px 10px;
+  border-radius: 9px;
+  border: 1px solid #ebebeb;
+  img {
+    cursor: pointer;
+    margin-right: 3px;
+    width: 17px;
+  }
+}
+
+.mybtn button {
+  background-color: #09b8a6;
+  color: white;
+  border: none;
+  margin: 0 2px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mybtn button:hover {
+  background-color: #00796b;
+}
+
+.mybtn button:focus {
+  outline: none;
+}
+
+.imgbox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  img {
+    width: 700px;
+  }
+}

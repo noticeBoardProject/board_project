@@ -11,42 +11,48 @@
 </head>
 
 <body>
-  <div class="main-wrap">
-    <main class="menu">
-      <form name="mainForm">
-        <!-- 카테고리 선택 -->
-        <select id="category" name="category" onchange="changeSelect()">
-          <!-- db 연동 -->
-        </select>
-        <!-- 제목 -->
-        <input id="title" type="text" name="title" placeholder="제목을 입력하세요" />
-        <!-- 이미지 -->
-        <div class="imgflex">
-          <div class="selectimgbox">
-            <label for="image-one" id="select-one">
-              <div class="btn-upload"><img src="/public/image/photo.svg" /></div>
-            </label>
-            <input id="imageone" oninput="binCheckImg('one')" type="file" name="imageone" />
+  <!-- 헤더 -->
+  <%- include("basicHeader") -%>
+    <div class="main-wrap">
+      <main class="menu">
+        <form name="mainForm" class="form-box">
+
+          <!-- 카테고리 선택 -->
+          <div class="cate-box">
+            <select id="category" name="category" onchange="changeSelect()">
+              <!-- db 연동 -->
+            </select>
+            <img class="dropdown" src="/public/image/keyboard_arrow_down.svg" alt="드롭다운" />
           </div>
-          <div class="selectimgbox">
-            <label for="image-two" id="select-two">
-              <div class="btn-upload"><img src="/public/image/photo.svg" /></div>
+
+          <!-- 제목 -->
+          <input id="title" class="title" type="text" name="title" placeholder="제목을 입력하세요" oninput="checktitle()" />
+
+          <div class="infobox"><img src="/public/image/info.svg" />이미지는 최대 3장까지 업로드할 수 있습니다.</div>
+
+          <!-- 이미지 -->
+          <div class="filebox">
+            <label for="fileInput">
+              <div class="btn-upload"><img src="/public/image/photo.svg" alt="사진 선택" /></div>
             </label>
-            <input id="imagetwo" oninput="binCheckImg('two')" type="file" name="imagetwo" />
+            <input type="file" id="fileInput" accept="image/*">
+            <div id="fileList"></div>
           </div>
-          <div class="selectimgbox">
-            <label for="image-three" id="select-three">
-              <div class="btn-upload"><img src="/public/image/photo.svg" /></div>
-            </label>
-            <input id="imagethree" oninput="binCheckImg('three')" type="file" name="imagethree" />
-          </div>
-        </div>
-        <!-- 내용 -->
-        <div id="content"></div>
-      </form>
+    </div>
+
+    <!-- 내용 -->
+    <div class="contentbox">
+      <div id="content"></div>
+    </div>
+
+    </form>
+
+    <div class="footwrap">
+      <div class="cateinfo"></div>
+      <button class="completebtn" onclick="submitArticle()">완료</button>
+    </div>
     </main>
-  </div>
-  <button onclick="submitArticle()">완료</button>
+    </div>
 </body>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script src="/public/JS/write.js"></script>
