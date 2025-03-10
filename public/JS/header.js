@@ -205,7 +205,6 @@ const login = async (event) => {
 
 const verifylogin = async (token) => {
   await axios({
-    headers: { Authorization: `Bearer ${token}` },
     method: "post",
     url: "/verify",
   })
@@ -249,7 +248,6 @@ const checkLoginStatus = async () => {
     await axios({
       method: "get",
       url: "/verify",
-      withCredentials: true,
     }).then((res) => {
       if (res.data.result) {
         verifylogin(res.data.token);
@@ -275,7 +273,6 @@ const logout = async () => {
     await axios({
       method: "post",
       url: "logout",
-      withCredentials: true,
     })
       .then((res) => {
         if (res.data.result === true) {

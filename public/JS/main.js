@@ -25,14 +25,16 @@ const fetchCateData = async (categoryId) => {
       if (data && data.length > 0) {
         data.forEach((item, i) => {
           content.innerHTML += `
-          <div class="article board">
+          <a href="/move/detail/${item.id}" class="atag">
+            <div class="article board">
               <div>${i + 1}</div>
               <div class="title">${item.title}</div>
               <div>${item.nickname}</div>
               <div>${item.updateAt}</div>
               <div>${item.likeCount}</div>
               <img src="${img_url}" alt="테스트" />
-            </div>`;
+            </div>
+          </a>`;
         });
       } else {
         content.innerText = "게시물이 없습니다.";

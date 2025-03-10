@@ -16,13 +16,23 @@
     <div class="main-wrap">
       <main>
         <div class="board-info-wrap">
-          <div class="category">카테고리</div>
-          <div class="title">제목</div>
+          <div class="category">
+            <%= data[0].category %>
+          </div>
+          <div class="title">
+            <%= data[0].title %>
+          </div>
           <div class="board-info-box">
             <div class="board-info">
-              <div class="nickname">닉네임</div>
-              <span class="day">작성날짜</span>
-              <span class="likecount">좋아요수</span>
+              <div class="nickname">
+                <%= data[0].nickname %>
+              </div>
+              <span class="day">
+                <%= data[0].updateAt %>
+              </span>
+              <span class="likecount">
+                <%= data[0].likeCount %>
+              </span>
             </div>
             <div class="mybtn">
               <button>수정</button>
@@ -31,8 +41,9 @@
           </div>
         </div>
         <div class="imgbox">
-          <img src="/public/image/logo.png" alt="test" />
-          <img src="/public/image/logo.png" alt="test" />
+          <% data[0].img_url.forEach((image,i)=>{ %>
+            <img src="<%= image[i] %>" alt="등록된 이미지" />
+            <% }) %>
         </div>
 
         <div>내용</div>
