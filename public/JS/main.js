@@ -24,7 +24,7 @@ const fetchCateData = async (categoryId) => {
 
       const data = res.data.data;
 
-      console.log("잘받아왔낭", data);
+      // console.log("잘받아왔낭", data);
       if (data && data.length > 0) {
         const sortedData = data.sort((a, b) => b.id - a.id);
         sortedData.forEach((item, i) => {
@@ -34,7 +34,7 @@ const fetchCateData = async (categoryId) => {
               <div>${i + 1}</div>
               <div class="title">${item.title}</div>
               <div>${item.nickname}</div>
-              <div>${item.updatedAt.split("T")[0]}</div>
+              <div>${item.updatedAt}</div>
               <div>${item.likeCount}</div>
               <div class="imagebox imagebox${item.id}"></div>
             </div>
