@@ -47,7 +47,7 @@ const getMainBoard = async (req, res) => {
       img_url: x.img_url,
       userCheck: userId === x.userId, // 작성한 유저와 동일한지 체크
     }));
-    console.log("나타날 리스트 확인: ", boardData);
+    // console.log("나타날 리스트 확인: ", boardData);
 
     res.json({ results: true, data: boardData }); // for 메인페이지 리스트 출력
   } catch (error) {
@@ -79,7 +79,6 @@ const getDetailBoard = async (req, res) => {
 
     const boardData = {
       id: board.id, // 게시판 PK
-      categoryId: board.categoryId,
       categoryName: board.category.name, // category의 이름
       title: board.title,
       nickname: board.author.nickname, // users의 별명
@@ -87,9 +86,9 @@ const getDetailBoard = async (req, res) => {
       updatedAt: moment(board.updatedAt).format("YYYY-MM-DD HH:mm"),
       likeCount: board.likeCount,
       img_url: board.img_url,
-      userCheck: userId === board.userId, // 작성한 유저와 동일한지 체크
+      userCheck: userId === x.userId, // 작성한 유저와 동일한지 체크
     };
-    console.log("해당 상세페이지 확인: ", boardData);
+    // console.log("해당 상세페이지 확인: ", boardData);
 
     // res.json({ result: true, data: boardData });
     res.render("detailpage", { data: boardData });
@@ -107,9 +106,23 @@ const searchTitle = async (req, res) => {
       where: {
         title: { [Op.like]: `%${searchWord}%` },
       },
+      include: [{ model: userModel, as: "author", attributes: ["nickname"] }],
     });
-    // console.log("검색된 데이터들:", boardAll);
-    return res.render("search", { boardAll, searchWord });
+
+    const boardData = boardAll.map((x) => ({
+      id: x.id, // 게시판 PK
+      userId: x.userId,
+      categoryId: x.categoryId,
+      img_url: x.img_url,
+      title: x.title,
+      content: x.content,
+      updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
+      likeCount: x.likeCount,
+      nickname: x.author.nickname, // users의 별명
+    }));
+
+    // console.log("검색된 데이터들:", boardData);
+    return res.render("search", { boardData, searchWord });
   } catch (error) {
     console.error("검색 체크 오류:", error);
   }
