@@ -370,3 +370,12 @@ document.querySelector(".search-btn").addEventListener("click", async () => {
     document.getElementById("search").classList.add("info");
   }
 });
+
+// 검색 엔터키
+const input = document.querySelector('input[type="text"]');
+
+input.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    document.querySelector(".search-btn").click();
+  }
+});

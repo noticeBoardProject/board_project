@@ -53,6 +53,11 @@ app.get("/signup", (rea, res) => {
   res.render("signup");
 });
 
+// 수정페이지 이동
+// app.get("/edit", (rea, res) => {
+//   res.render("edit");
+// });
+
 // 작성(수정) 페이지 이동
 app.get("/write", (req, res) => {
   res.render("write");

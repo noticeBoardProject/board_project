@@ -150,34 +150,46 @@ birthDayEl.addEventListener("focus", function () {
 // 회원 정보 수정 요청
 const mypageForm = document.getElementById("mypage-form");
 mypageForm.addEventListener("submit", async (event) => {
-    event.preventDefault(); // 기본 폼 제출 방지
+  event.preventDefault(); // 기본 폼 제출 방지
 
-    const birthYear = document.getElementById("birth-year").value;
-    const birthMonth = document.getElementById("birth-month").value.padStart(2, "0");
-    const birthDay = document.getElementById("birth-day").value.padStart(2, "0");
-    const birthdate = `${birthYear}-${birthMonth}-${birthDay}`;
+  const birthYear = document.getElementById("birth-year").value;
+  const birthMonth = document
+    .getElementById("birth-month")
+    .value.padStart(2, "0");
+  const birthDay = document.getElementById("birth-day").value.padStart(2, "0");
+  const birthdate = `${birthYear}-${birthMonth}-${birthDay}`;
 
-    const updateUser = {
-      password: document.getElementById("password").value,
-      address: document.getElementById("address").value,
-      gender: document.querySelector('input[name="gender"]:checked').value,
-      birthdate
-    };
+  const updateUser = {
+    password: document.getElementById("password").value,
+    address: document.getElementById("address").value,
+    gender: document.querySelector('input[name="gender"]:checked').value,
+    birthdate,
+  };
 
-    try {
-      const res = await axios({
-        method: "PATCH",
-        url: "/mypage/update",
-        data: updateUser,
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
+  try {
+    const res = await axios({
+      method: "PATCH",
+      url: "/mypage/update",
+      data: updateUser,
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
 
-      // console.log("업데이트할 내용:", res);
-      alert("내 정보를 업데이트 했습니다.");
-    } catch (error) {
-      console.log("정보 업데이트 오류", error);
-    }
-  });
+    // console.log("업데이트할 내용:", res);
+    alert("내 정보를 업데이트 했습니다.");
+  } catch (error) {
+    console.log("정보 업데이트 오류", error);
+  }
+});
 
 // 페이지 로드 시 내 정보 불러오기
 getUserInfo();
+
+//회원탈퇴
+const deleteMember = async () => {
+  try {
+    const response = await axios.delete("/delete/member");
+    console.log("회원탈퇴", response.data);
+  } catch (e) {
+    console.log("회원탈퇴 실패", e);
+  }
+};

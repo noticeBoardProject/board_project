@@ -20,13 +20,18 @@
           <!-- 카테고리 선택 -->
           <div class="cate-box">
             <select id="category" name="category" onchange="changeSelect()">
-              <!-- db 연동 -->
+              <% categories.forEach((category)=> { %>
+                <option value="<%= category.id %>" <%=category.id===data.categoryId ? 'selected' : '' %>>
+                  <%=category.name %>
+                </option>
+                <% }); %>
             </select>
             <img class="dropdown" src="/public/image/keyboard_arrow_down.svg" alt="드롭다운" />
           </div>
 
           <!-- 제목 -->
-          <input id="title" class="title" type="text" name="title" placeholder="제목을 입력하세요" oninput="checktitle()" />
+          <input id="title" class="title" type="text" name="title" placeholder="제목을 입력하세요" value="<%= data.title %>"
+            oninput="checktitle()" />
 
           <div class="infobox"><img src="/public/image/info.svg" />이미지는 최대 3장까지 업로드할 수 있습니다.</div>
 
@@ -36,13 +41,25 @@
               <div class="btn-upload"><img src="/public/image/photo.svg" alt="사진 선택" /></div>
             </label>
             <input type="file" id="fileInput" accept="image/*">
-            <div id="fileList"></div>
+            <div id="fileList">
+              <% if(data.img_url!=="" ){ %>
+                <div class="image-wrapper">
+                  <% data.img_url.split(",").forEach((image,i)=>{ %>
+                    <img class="preview-image" id=`image${i}` src="http://localhost:3000/uploads/<%= image %>"
+                      alt="등록된 이미지" />
+                    <button class="remove-btn" onclick="removeFile(i)">X</button>
+                    <% }) %>
+                </div>
+                <% } %>
+            </div>
           </div>
     </div>
 
     <!-- 내용 -->
     <div class="contentbox">
-      <div id="content"></div>
+      <div id="content">
+        <%= data.content %>
+      </div>
     </div>
 
     </form>
@@ -50,7 +67,7 @@
       <div class="footwrap">
         <div class="footbox">
           <div class="cateinfo"></div>
-          <button class="completebtn" onclick="submitArticle()">완료</button>
+          <button class="completebtn" onclick="editArticle('<%= data.id %>')">완료</button>
         </div>
       </div>
     </div>
@@ -59,7 +76,7 @@
     </div>
 </body>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-<script src="/public/JS/write.js"></script>
 <script src="/public/JS/basicHeader.js"></script>
+<script src="/public/JS/edit.js"></script>
 
 </html>

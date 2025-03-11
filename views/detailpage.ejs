@@ -37,8 +37,10 @@
             <% console.log(data.userCheck)%>
               <% if(data.userCheck===true){ %>
                 <div class="mybtn">
-                  <button>수정</button>
-                  <button>삭제</button>
+                  <a href="/move/edit/<%= data.id %>">
+                    <button>수정</button>
+                  </a>
+                  <button onclick="deleteBoard('<%= data.id %>')">삭제</button>
                 </div>
                 <% } %>
           </div>
@@ -55,17 +57,35 @@
 
             <div class="content">
               <div>내용</div>
-              <img src="/public/image/share.svg" alt="share" onclick="clip()" />
+              <div class="sharebox">
+                <div class="likebox">
+                  <img class="heart" src="/public/image/binheart.svg" alt="bin"
+                    onclick="countFavorite('<%= data.id %>')" />
+                  <span>좋아요</span>
+                </div>
+                <img src="/public/image/share.svg" alt="share" onclick="clip()" />
+              </div>
+
+            </div>
+            <div class="inventorywrap">
+              <div class="inventory">
+                <a href="http://localhost:3000/">목록</a>
+              </div>
+
+              <div class="declaration">
+                신고
+              </div>
             </div>
 
 
-            <div class="likebox">
-              <img src="/public/image/binheart.svg" alt="bin" />
-              <span>좋아요</span>
-            </div>
       </main>
     </div>
 </body>
 <script src="/public/JS/detailpage.js"></script>
+<script>
+  window.boardData = {
+    boardId: '<%= data.id %>',
+  };
+</script>
 
 </html>

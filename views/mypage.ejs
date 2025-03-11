@@ -61,13 +61,13 @@
             <div>
                 <label for="birth">생년월일:</label>
                 <select class="in" name="birth1" class="box" id="birth-year">
-                  <option disabled selected>출생 연도</option>
+                    <option disabled selected>출생 연도</option>
                 </select>
                 <select class="in" name="birth2" class="box" id="birth-month">
-                  <option disabled selected>월</option>
+                    <option disabled selected>월</option>
                 </select>
                 <select class="in" name="birth3" class="box" id="birth-day">
-                  <option disabled selected>일</option>
+                    <option disabled selected>일</option>
                 </select>
             </div>
 
@@ -79,6 +79,8 @@
             <button class="changebtn" type="submit">수정하기</button>
             <div id="update-result"></div> <!-- 결과 메시지 표시 -->
         </form>
+
+        <button onclick="deleteMember()">회원탈퇴</button>
     </div>
 
     <script src="/public/JS/mypage.js"></script>
