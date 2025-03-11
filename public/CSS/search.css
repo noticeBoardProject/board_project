@@ -1,0 +1,94 @@
+.form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 15px 0 70px 0;
+}
+
+.form-box {
+  width: 50%;
+  border-bottom: solid 2px rgb(62, 61, 61);
+  display: flex;
+  justify-content: space-between;
+}
+
+#search {
+  font-size: 20px;
+  padding: 10px 2px;
+  background-color: transparent;
+  border-style: none;
+  width: 100%;
+}
+
+#search:focus {
+  outline: none;
+}
+
+.deletebtn {
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  visibility: hidden;
+  opacity: 0;
+}
+/* 삭제버튼 활성화 */
+.deletebtn.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 삭제버튼 비활성화*/
+.deletebtn.closing {
+  opacity: 0;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+}
+
+.close,
+.search-btn {
+  cursor: pointer;
+}
+
+.search-btn {
+  width: 25px;
+  margin-left: 10px;
+}
+
+.info::placeholder {
+  color: #fa7474;
+}
+
+.searchwrap {
+  width: 100%;
+}
+
+.searchbox {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.documentwrap {
+  border: 1px solid #eee;
+}
+
+.documentbox {
+  max-width: 980px;
+  margin: 20px auto;
+  padding: 15px 0 10px 0;
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
+.docutext {
+  margin: 0 3px;
+}
+
+.boardbox {
+  max-width: 980px;
+  margin: 0 auto;
+}
