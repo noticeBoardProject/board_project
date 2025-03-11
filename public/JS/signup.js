@@ -271,7 +271,16 @@ const signup = async () => {
     const birthYear = mainForm.birth1.value; // 연도
     const birthMonth = mainForm.birth2.value.padStart(2, "0"); // 월 (한 자리 수일 경우 0 추가)
     const birthDay = mainForm.birth3.value.padStart(2, "0"); // 일 (한 자리 수일 경우 0 추가)
-    const birth = `${birthYear}-${birthMonth}-${birthDay}`; // YYYY-MM-DD 형식으로 합치기
+
+    let birth = null;
+    if (birthYear && birthMonth && birthDay) {
+      birth = `${birthYear}-${birthMonth}-${birthDay}`; // YYYY-MM-DD 형식으로 합치기
+
+      const dateCheck = new Date(birth);
+      if (Number.isNaN(dateCheck.getTime())) { // 잘못된 날짜일 경우
+        birth = null;
+      }
+    };
 
     const email = mainForm.email.value;
     const pw = mainForm.pw.value;

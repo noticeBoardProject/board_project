@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const db = require("../models"); // user 가져오기
 const loginModel = db.users; // user 모델 사용
 
@@ -6,7 +7,7 @@ const secretKey = process.env.JWT_SECRET; // JWT 시크릿 키
 
 const optionMiddleware = async (req, res, next) => {
     // 클라이언트 쿠키에서 JWT 가져오기
-    const token = req.cookies.token; 
+    const token = req.cookies.token;
 
     if (!token) {
         req.user = null;  // 로그인이 안 되어도 계속 진행
