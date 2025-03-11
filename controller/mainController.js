@@ -41,15 +41,15 @@ const getMainBoard = async (req, res) =>{
             categoryName: x.category.name, // category의 이름
             title: x.title,
             nickname: x.author.nickname, // users의 별명
+            content: x.content,
             updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
             likeCount: x.likeCount,
             img_url: x.img_url,
-            userCheck: userId !== null ? userId === x.userId : false, // 작성한 유저와 동일한지 체크
+            userCheck: userId === x.userId, // 작성한 유저와 동일한지 체크
         }));
-        // console.log("나타날 리스트 확인: ", boardData);
+        console.log("나타날 리스트 확인: ", boardData);
 
         res.json( {results: true , data: boardData }); // for 메인페이지 리스트 출력
-        // render("") // for 상세페이지 이동? 정보전달?
 
     } catch (error) {
         console.error("메인 리스트 불러오기 오류:", error);
@@ -87,9 +87,9 @@ const getDetailBoard = async (req, res) =>{
             updatedAt: moment(board.updatedAt).format("YYYY-MM-DD HH:mm"),
             likeCount: board.likeCount,
             img_url: board.img_url,
-            userCheck: userId !== null ? userId === board.userId : false, // 작성한 유저와 동일한지 체크
+            userCheck: userId === x.userId, // 작성한 유저와 동일한지 체크
         };
-        // console.log("해당 상세페이지 확인: ", boardData);
+        console.log("해당 상세페이지 확인: ", boardData);
 
         // res.json({ result: true, data: boardData });
         res.render("detailpage", { data: boardData });

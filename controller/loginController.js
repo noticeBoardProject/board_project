@@ -102,7 +102,7 @@ const signupUser = async (req, res) => {
       username,
       nickname,
       address,
-      gender,
+      gender: gender || null,
       birthdate: birth,
       phone,
     });
