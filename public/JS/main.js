@@ -54,9 +54,3 @@ const fetchCateData = async (categoryId) => {
       console.log("에러", e);
     });
 };
-
-// 검색창 검색(제목 기준)
-document.querySelector(".search-btn").addEventListener("click", async () => {
-  const searchWord = document.getElementById("search").value;
-  window.location.href = `/main/search?searchWord=${searchWord}`;
-});

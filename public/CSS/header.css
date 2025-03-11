@@ -289,7 +289,9 @@
 }
 
 .myInfobtn,
-.logoutbtn {
+.logoutbtn,
+.mylikebtn,
+.mywritebtn {
   cursor: pointer;
   img {
     margin-right: 3px;
@@ -297,7 +299,9 @@
 }
 
 .myInfobtn:hover,
-.logoutbtn:hover {
+.logoutbtn:hover,
+.mylikebtn:hover,
+.mywritebtn:hover {
   background-color: #e9e9e9;
 }
 
@@ -349,6 +353,10 @@
 .search-header {
   display: flex;
   justify-content: space-between;
+}
+
+.info::placeholder {
+  color: #fa7474;
 }
 
 .form {

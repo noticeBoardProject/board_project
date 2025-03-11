@@ -145,6 +145,7 @@ const searchModal = () => {
 
 // 검색 실시간 확인
 const checkSearch = () => {
+  document.getElementById("search").classList.remove("info");
   if (search.value.length === 0) {
     deletebtn.classList.add("closing");
     deletebtn.classList.remove("active");
@@ -223,12 +224,16 @@ const verifylogin = async (token) => {
                 <img src="/public/image/setting.svg" alt="myInfo" />내 정보
               </div>
             </a>
-            <div>
-              <img src="/public/image/logout.svg" alt="write" />내 글
-            </div>
-            <div>
-              <img src="/public/image/logout.svg" alt="like" />좋아요
-            </div>
+            <a href="/mywrite">
+              <div class="mywritebtn">
+                <img src="/public/image/mywrite.svg" alt="mywrite" />내 글
+              </div>
+            </a>
+            <a href="/mylike">
+              <div class="mylikebtn">
+                <img src="/public/image/favorite.svg" alt="like" />좋아요
+              </div>
+            </a>
             <div class="logoutbtn" onclick="logout()">
               <img src="/public/image/logout.svg" alt="logout" />로그아웃
             </div>
@@ -352,3 +357,15 @@ const readyAlert = () => {
     icon: "info",
   });
 };
+
+// 검색창 검색(제목 기준)
+document.querySelector(".search-btn").addEventListener("click", async () => {
+  const searchWord = document.getElementById("search").value;
+  if (searchWord.length !== 0) {
+    document.getElementById("search").classList.remove("info");
+    // 검색 요청
+    window.location.href = `/main/search?searchWord=${searchWord}`;
+  } else {
+    document.getElementById("search").classList.add("info");
+  }
+});
