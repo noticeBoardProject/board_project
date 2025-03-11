@@ -86,7 +86,7 @@ const getDetailBoard = async (req, res) => {
       updatedAt: moment(board.updatedAt).format("YYYY-MM-DD HH:mm"),
       likeCount: board.likeCount,
       img_url: board.img_url,
-      userCheck: userId === x.userId, // 작성한 유저와 동일한지 체크
+      userCheck: userId === board.userId, // 작성한 유저와 동일한지 체크
     };
     // console.log("해당 상세페이지 확인: ", boardData);
 

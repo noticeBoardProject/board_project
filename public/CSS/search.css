@@ -74,6 +74,7 @@
 
 .documentwrap {
   border: 1px solid #eee;
+  padding-bottom: 15px;
 }
 
 .documentbox {
@@ -91,4 +92,70 @@
 .boardbox {
   max-width: 980px;
   margin: 0 auto;
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.nickinfo {
+  display: flex;
+  align-items: center;
+}
+
+.eachboard {
+  height: 150px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 15px;
+}
+
+.has-border {
+  border-bottom: 1px solid #eee;
+}
+
+.mainwrap {
+  height: 72.8vh;
+}
+
+main {
+  flex: 1;
+}
+
+.contentwrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.imgbox {
+  img {
+    height: 120px;
+  }
+}
+
+.title {
+  font-size: 25px;
+  font-weight: bolder;
+  margin-bottom: 15px;
+}
+
+.date {
+  margin: 0 8px;
+}
+
+.likewrap {
+  display: flex;
+  align-items: center;
+  img {
+    margin-right: 2px;
+  }
+}
+
+/* 아직 안 사용함 */
+.ellipsis-box {
+  white-space: nowrap; /* 텍스트 줄 바꿈을 하지 않음 */
+  overflow: hidden; /* 텍스트가 상자 밖으로 넘치면 숨김 */
+  text-overflow: ellipsis; /* 넘치는 텍스트를 "..."으로 표시 */
 }

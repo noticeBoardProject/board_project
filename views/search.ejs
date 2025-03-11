@@ -13,54 +13,80 @@
 <body>
   <!-- 헤더 -->
   <%- include("basicHeader") -%>
-    <% console.log(boardAll)%>
-      <div class="form">
-        <div class="form-box">
-          <input oninput="checkSearch()" type="text" id="search" value="<%= searchWord %>" placeholder="검색"
-            title="검색" />
-          <div class="search-box">
-            <button class="deletebtn" onclick="deleteKeyword()">X</button>
-            <img class="search-btn" src="/public/image/search.png">
-          </div>
-        </div>
-      </div>
-
-      <main>
-        <div class="searchwrap">
-          <div class="searchbox">
-            <h1>"<%= searchWord %>" 검색 결과</h1>
-            <div class="documentwrap">
-              <div class="documentbox">
-                <img src="/public/image/mywrite.svg" alt="문서" />
-                <div class="docutext">문서</div>
-                <div>
-                  (<%= boardAll.length %>)
-                </div>
-              </div>
-
-              <div class="boardbox">
-                <% boardAll.forEach((post)=> { %>
-                  <div>
-                    <%= post.title %>
-                  </div>
-                  <div>
-                    <%= post.content %>
-                  </div>
-                  <div>
-                    <div>
-                      <%= post.nickname %>
-                    </div>
-                    <div>
-                      <%= post.updatedAt %>
-                    </div>
-                  </div>
-                  <% }) %>
-              </div>
-
+    <% console.log(boardData)%>
+      <div class="mainwrap">
+        <div class="form">
+          <div class="form-box">
+            <input oninput="checkSearch()" type="text" id="search" value="<%= searchWord %>" placeholder="검색"
+              title="검색" />
+            <div class="search-box">
+              <button class="deletebtn" onclick="deleteKeyword()">X</button>
+              <img class="search-btn" src="/public/image/search.png">
             </div>
           </div>
         </div>
-      </main>
+
+        <main>
+          <div class="searchwrap">
+            <div class="searchbox">
+              <h1>"<%= searchWord %>" 검색 결과</h1>
+              <div class="documentwrap">
+                <div class="documentbox">
+                  <img src="/public/image/mywrite.svg" alt="문서" />
+                  <div class="docutext">문서</div>
+                  <div>
+                    (<%= boardData.length %>)
+                  </div>
+                </div>
+
+                <div class="boardbox">
+                  <% boardData.forEach((post)=> { %>
+                    <a href="/main/move/detail/<%= post.id %>">
+                      <div class="eachboard">
+
+                        <div class="contentwrap">
+                          <div class="contentbox">
+                            <div class="title">
+                              <%= post.title %>
+                            </div>
+                            <div>
+                              <%= post.content %>
+                            </div>
+                          </div>
+
+                          <div class="nickinfo">
+                            <div>
+                              <%= post.nickname %>
+                            </div>
+                            <div class="date">
+                              <%= post.updatedAt %>
+                            </div>
+                            <div class="likewrap">
+                              <img src="/public/image/binheart.svg" alt="좋아요수" />
+                              <div>
+                                <%= post.likeCount %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="imgbox">
+                          <% if(post.img_url){%>
+                            <img src="http://localhost:3000/uploads/<%= post.img_url.split(',')[0] %>" alt="대표사진" />
+                            <% } %>
+                        </div>
+
+
+                      </div>
+                    </a>
+                    <% }) %>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
 </body>
 <script src="/public/JS/search.js"></script>
 

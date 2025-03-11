@@ -39,3 +39,13 @@ input.addEventListener("keydown", (event) => {
     document.querySelector(".search-btn").click();
   }
 });
+
+// 선 넣기
+const boards = document.querySelectorAll(".eachboard");
+
+boards.forEach((board, index) => {
+  // 마지막 요소를 제외한 모든 요소에 'has-border' 클래스를 추가
+  if (index < boards.length - 1) {
+    board.classList.add("has-border");
+  }
+});
