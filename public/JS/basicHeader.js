@@ -34,7 +34,8 @@ const verifylogin = async (token) => {
       if (res.data.result) {
         document.querySelector(".loginbox").innerHTML = `
         <div class="login-nick" onclick="OpenMySet()">
-          ${res.data.user.nickname}<img src="/public/image/login.svg">
+          <img src="/public/image/login.svg">${res.data.user.nickname}<div class="usernick">님</div>
+          <img src="/public/image/arrowdrop.svg">
         </div>
         <div class="login-home">
           <div class="login-homebox">
@@ -43,12 +44,16 @@ const verifylogin = async (token) => {
                 <img src="/public/image/setting.svg" alt="myInfo" />내 정보
               </div>
             </a>
-            <div>
-              <img src="/public/image/logout.svg" alt="write" />내 글
-            </div>
-            <div>
-              <img src="/public/image/logout.svg" alt="like" />좋아요
-            </div>
+            <a href="/mywrite">
+              <div class="mywritebtn">
+                <img src="/public/image/mywrite.svg" alt="mywrite" />내 글
+              </div>
+            </a>
+            <a href="/mylike">
+              <div class="mylikebtn">
+                <img src="/public/image/favorite.svg" alt="like" />좋아요
+              </div>
+            </a>
             <div class="logoutbtn" onclick="logout()">
               <img src="/public/image/logout.svg" alt="logout" />로그아웃
             </div>

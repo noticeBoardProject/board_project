@@ -3,7 +3,7 @@ const emailtext = document.querySelector(".emailtext");
 const passtext = document.querySelector(".passtext");
 
 const search = document.getElementById("search");
-const deletebtn = document.querySelector(".deltebtn");
+const deletebtn = document.querySelector(".deletebtn");
 
 // 카테고리 가져오기
 const getCategory = async () => {
@@ -132,6 +132,7 @@ const searchModal = () => {
 
   // 모달 닫기 (X 버튼)
   closeBtn.addEventListener("click", function () {
+    document.getElementById("search").classList.remove("info");
     modal.classList.add("closing");
     overlay.classList.remove("active");
     search.innerText = "";

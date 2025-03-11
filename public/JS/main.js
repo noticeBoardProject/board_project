@@ -26,6 +26,7 @@ const fetchCateData = async (categoryId) => {
 
       if (data && data.length > 0) {
         data.forEach((item, i) => {
+          console.log(item);
           content.innerHTML += `
           <a href="/main/move/detail/${item.id}" class="detailtag">
             <div class="article board">

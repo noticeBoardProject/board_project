@@ -3,8 +3,8 @@
 
 <head>
   <link rel="stylesheet" href="/public/CSS/detailpage.css" />
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>상세페이지</title>
@@ -17,7 +17,7 @@
       <main>
         <div class="board-info-wrap">
           <div class="category">
-            <%= data.category %>
+            <%= data.categoryName %>
           </div>
           <div class="title">
             <%= data.title %>
@@ -28,32 +28,44 @@
                 <%= data.nickname %>
               </div>
               <span class="day">
-                <%= data.updateAt %>
+                <%= data.updatedAt %>
               </span>
               <span class="likecount">
-                <%= data.likeCount %>
+                좋아요수 <%= data.likeCount %>
               </span>
             </div>
-            <div class="mybtn">
-              <button>수정</button>
-              <button>삭제</button>
-            </div>
+            <% console.log(data.userCheck)%>
+              <% if(data.userCheck===true){ %>
+                <div class="mybtn">
+                  <button>수정</button>
+                  <button>삭제</button>
+                </div>
+                <% } %>
           </div>
         </div>
-        <div class="imgbox">
-          <% data.img_url.forEach((image,i)=>{ %>
-            <img src="http://localhost:3000/uploads/<%= image[i] %>" alt="등록된 이미지" />
-            <% }) %>
-        </div>
 
-        <div>내용</div>
-        <div class="likebox">
-          <img src="/public/image/binheart.svg" alt="bin" />
-          <span>좋아요</span>
-        </div>
+
+        <% if(data.img_url!=="" ){ %>
+          <div class="imgbox">
+            <% data.img_url.split(",").forEach((image)=>{ %>
+              <img src="http://localhost:3000/uploads/<%= image %>" alt="등록된 이미지" />
+              <% }) %>
+          </div>
+          <% } %>
+
+            <div class="content">
+              <div>내용</div>
+              <img src="/public/image/share.svg" alt="share" onclick="clip()" />
+            </div>
+
+
+            <div class="likebox">
+              <img src="/public/image/binheart.svg" alt="bin" />
+              <span>좋아요</span>
+            </div>
       </main>
     </div>
 </body>
-
+<script src="/public/JS/detailpage.js"></script>
 
 </html>

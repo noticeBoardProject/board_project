@@ -389,7 +389,7 @@
   cursor: pointer;
 }
 
-.deltebtn {
+.deletebtn {
   cursor: pointer;
   border: none;
   border-radius: 50%;
@@ -399,13 +399,13 @@
   opacity: 0;
 }
 /* 삭제버튼 활성화 */
-.deltebtn.active {
+.deletebtn.active {
   opacity: 1;
   visibility: visible;
 }
 
 /* 삭제버튼 비활성화*/
-.deltebtn.closing {
+.deletebtn.closing {
   opacity: 0;
 }
 
