@@ -57,13 +57,18 @@ module.exports = (sequelize, DataTypes) => {
           timestamps: false, // createdAt, updatedAt 자동 생성 방지
       });
 
-      // user는 여러 개의 board를 가질 수 있음
+      // user와 category는 여러 개의 board를 가질 수 있음
       board.associate = (models) => {
         board.belongsTo(models.users, { 
             foreignKey: "userId",
             as: "author" // 별칭(alias) 지정
         });
+
+        board.belongsTo(models.category, { 
+          foreignKey: "categoryId",
+          as: "category",
+        });
       };
-      
+            
       return board;
 };
