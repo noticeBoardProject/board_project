@@ -72,7 +72,7 @@ router.get("/naver/callback", async (req, res) => {
 
     // 쿠키에 토큰 저장
     res.cookie("token", token, { httpOnly: true });
-    res.redirect("/");
+    res.redirect("/?loginSuccess=true");
   } catch (error) {
     console.error("네이버 로그인 실패:", error);
   }
@@ -85,7 +85,7 @@ let kakaoAPI_URL = "";
 
 // 카카오 로그인 페이지로 이동 (url 생성)
 router.get("/kakao", (req, res) => {
-  kakaoAPI_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_ID}&redirect_uri=${kakaoredirectURI}&prompt=login`;
+  kakaoAPI_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_ID}&redirect_uri=${kakaoredirectURI}`;
   res.redirect(kakaoAPI_URL);
 });
 
@@ -140,7 +140,7 @@ router.get("/kakao/callback", async (req, res) => {
 
     // 쿠키에 토큰 저장
     res.cookie("token", token, { httpOnly: true });
-    res.redirect("/");
+    res.redirect("/?loginSuccess=true");
   } catch (error) {
     console.error("카카오 로그인 실패:", error);
   }

@@ -194,6 +194,8 @@ const login = async (event) => {
         document.cookie = `token=${res.data.token}; path=/; max-age=${maxAge}; Secure`;
         verifylogin(res.data.token);
         document.querySelector(".close-btn").click();
+        localStorage.removeItem("login");
+        window.location.reload();
       } else {
         alert(`로그인 실패: ${res.data.message}`);
       }
@@ -276,14 +278,13 @@ const logout = async () => {
     })
       .then((res) => {
         if (res.data.result === true) {
+          localStorage.setItem("login", false);
+          sessionStorage.removeItem("reloaded");
           document.getElementById("email").value = "";
           document.getElementById("pw").value = "";
           document.querySelector(".loginbox").innerHTML = `
           <div class="loginicon" onclick="loginModal()">로그인</div>`;
-          Swal.fire({
-            title: "로그아웃 되었습니다.",
-            icon: "success",
-          });
+          window.location.reload();
         }
       })
       .catch((e) => {
@@ -336,3 +337,17 @@ const readyAlert = () => {
     icon: "info",
   });
 };
+
+// 페이지가 로드되었을 때 로그인 성공 여부 확인
+window.addEventListener("load", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const loginSuccess = urlParams.get("loginSuccess");
+
+  if (loginSuccess === "true") {
+    localStorage.removeItem("login");
+    if (!sessionStorage.getItem("reloaded")) {
+      sessionStorage.setItem("reloaded", "true");
+      window.location.reload(); // 페이지 새로 고침
+    }
+  }
+});
