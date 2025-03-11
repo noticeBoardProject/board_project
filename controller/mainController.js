@@ -2,6 +2,7 @@ const db = require("../models"); // board 가져오기
 const { where, Op } = require("sequelize");
 const boardModel = db.board; // board 모델 사용
 const userModel = db.users; // users 모델 사용
+const moment = require("moment");
 
 const getMainBoard = async (req, res) =>{
     const {categoryId} = req.query;
@@ -15,6 +16,7 @@ const getMainBoard = async (req, res) =>{
                 include: [
                     { model: userModel, as:"author", attributes: ["nickname"] },
                 ],
+                order: [["updatedAt", "DESC"]], // 최신순 정렬
             });
         } else {
             boardList = await boardModel.findAll({
@@ -22,6 +24,7 @@ const getMainBoard = async (req, res) =>{
                 include: [
                     { model: userModel, as:"author", attributes: ["nickname"] },
                 ],
+                order: [["updatedAt", "DESC"]], // 최신순 정렬
             });
         }
 
@@ -29,7 +32,7 @@ const getMainBoard = async (req, res) =>{
             id: x.id, // 게시판 PK
             title: x.title,
             nickname: x.author.nickname,
-            updatedAt: x.updatedAt,
+            updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
             likeCount: x.likeCount,
             img_url: x.img_url,
             userCheck: userId === x.userId, // 작성한 유저와 동일한지 체크
@@ -54,7 +57,7 @@ const searchTitle = async (req, res) =>{
             },
         });
         // console.log("검색된 데이터들:", boardAll);
-        return res.render("search", { results: boardAll, searchWord });
+        return res.render("search", { boardAll, searchWord });
     
     } catch (error) {
         console.error("검색 체크 오류:", error);

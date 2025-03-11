@@ -7,6 +7,11 @@ const path = require("path");
 const fs = require("fs");
 const loginMiddleware = require("./middleware/loginMiddleware");
 
+// 기본 시간대를 한국 시간으로 설정
+const moment = require("moment");
+require("moment-timezone");
+moment.tz.setDefault("Asia/Seoul");
+
 const app = express();
 const port = 3000;
 
