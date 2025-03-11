@@ -9,7 +9,9 @@ const checkLoginStatus = async () => {
       if (res.data.result) {
         verifylogin(res.data.token);
       } else {
-        console.log("실패");
+        document.querySelector(".loginbox").innerHTML = `
+          <div class="loginicon" onclick="loginModal()">로그인</div>`;
+        console.log("로그인하지 않음");
       }
     });
   } catch (e) {
@@ -66,12 +68,10 @@ const logout = async () => {
   try {
     await axios({
       method: "post",
-      url: "logout",
+      url: "/logout",
     })
       .then((res) => {
         if (res.data.result === true) {
-          localStorage.setItem("login", false);
-          sessionStorage.removeItem("reloaded");
           document.querySelector(".loginbox").innerHTML = `
           <div class="loginicon" onclick="loginModal()">로그인</div>`;
           window.location.href = "http://localhost:3000/";
@@ -112,3 +112,8 @@ const observer = new MutationObserver(() => {
 });
 
 observer.observe(document.body, { childList: true, subtree: true });
+
+const loginModal = () => {
+  sessionStorage.setItem("openModal", true);
+  window.location.href = "http://localhost:3000/";
+};
