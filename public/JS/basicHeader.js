@@ -44,12 +44,12 @@ const verifylogin = async (token) => {
                 <img src="/public/image/setting.svg" alt="myInfo" />내 정보
               </div>
             </a>
-            <a href="/mywrite">
+            <a href="/main/mywrite">
               <div class="mywritebtn">
                 <img src="/public/image/mywrite.svg" alt="mywrite" />내 글
               </div>
             </a>
-            <a href="/mylike">
+            <a href="/main/mylike">
               <div class="mylikebtn">
                 <img src="/public/image/favorite.svg" alt="like" />좋아요
               </div>
