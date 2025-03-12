@@ -58,6 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       // user와 category는 여러 개의 board를 가질 수 있음
+      // board는 여러 개의 like를 가질 수 있음
       board.associate = (models) => {
         board.belongsTo(models.users, { 
             foreignKey: "userId",
@@ -68,6 +69,11 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: "categoryId",
           as: "category",
         });
+
+        board.hasMany(models.like, {
+          foreignKey: "boardId",
+            as: "likes",
+        })
       };
             
       return board;

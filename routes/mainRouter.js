@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mainController = require("../controller/mainController");
 const optionMiddleware = require("../middleware/optionMiddleware");
+const loginMiddleware = require("../middleware/loginMiddleware");
 
 // 메인 게시글 불러오기
 router.get("/boardData", optionMiddleware, mainController.getMainBoard);
@@ -13,9 +14,9 @@ router.get("/move/detail/:id", optionMiddleware, mainController.getDetailBoard);
 router.get("/search", mainController.searchTitle);
 
 // 내 글 모음
-router.get("/mywrite", mainController.getMyWrite);
+router.get("/mywrite", loginMiddleware, mainController.getMyWrite);
 
 // 내 좋아요 모음
-router.get("/mylike", mainController.getMyLike);
+router.get("/mylike", loginMiddleware, mainController.getMyLike);
 
 module.exports = router;

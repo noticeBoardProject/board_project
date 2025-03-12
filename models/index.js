@@ -22,6 +22,7 @@ const sequelize = new Sequelize(
 db.users = require("./users")(sequelize, DataTypes);
 db.board = require("./board")(sequelize, DataTypes);
 db.category = require("./category")(sequelize, DataTypes);
+db.like = require("./like")(sequelize, DataTypes);
 
 // 모델 간 관계 설정
 Object.keys(db).forEach((modelName) => {

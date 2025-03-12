@@ -130,56 +130,58 @@ const searchTitle = async (req, res) => {
 
 // 내글모음
 const getMyWrite = async (req, res) =>{
-    try {
-        const boardAll = await boardModel.findAll({
-            include: [{ model: categoryModel, as: "category", attributes: ["name"] }],
-        });
-    
-        const boardData = boardAll.map((x) => ({
-          id: x.id, // 게시판 PK
-          categoryName: x.category.name, // category의 이름
-          img_url: x.img_url,
-          title: x.title,
-          content: x.content,
-          updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
-          likeCount: x.likeCount,
-        }));
-    
-        // console.log("내 글 데이터들:", boardData);
-        return res.render("mywrite", { boardData });
+  try {
+      const boardAll = await boardModel.findAll({
+        where: { userId: req.user.id },
+        include: [{ model: categoryModel, as: "category", attributes: ["name"] }],
+      });
+  
+      const boardData = boardAll.map((x) => ({
+        id: x.id, // 게시판 PK
+        categoryName: x.category.name, // category의 이름
+        img_url: x.img_url,
+        title: x.title,
+        content: x.content,
+        updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
+        likeCount: x.likeCount,
+      }));
+  
+      // console.log("내 글 데이터들:", boardData);
+      return res.render("mywrite", { boardData });
 
-      } catch (error) {
-        console.error("내글 모음 확인 오류:", error);
-      }
+    } catch (error) {
+      console.error("내글 모음 확인 오류:", error);
+    }
 };
 
 // 내 좋아요 모음
 const getMyLike = async (req, res) =>{
-    try {
-        const boardAll = await boardModel.findAll({
-            include: [
-                { model: userModel, as: "author", attributes: ["nickname"] },
-                { model: categoryModel, as: "category", attributes: ["name"] },
-              ],
-        });
-    
-        const boardData = boardAll.map((x) => ({
-          id: x.id, // 게시판 PK
-          categoryName: x.category.name, // category의 이름
-          img_url: x.img_url,
-          title: x.title,
-          content: x.content,
-          updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
-          likeCount: x.likeCount,
-          nickname: x.author.nickname, // users의 별명
-        }));
-    
-        console.log("내 좋아요 데이터들:", boardData);
-        return res.render("mylike", { boardData });
+  try {
+      const boardAll = await boardModel.findAll({
+        where: { userId: req.user.id }, // 한번 더 확인, 확인되면 like 테이블의 boardId랑 board테이블의 PK랑 일치도 사용하기
+        include: [
+            { model: userModel, as: "author", attributes: ["nickname"] },
+            { model: categoryModel, as: "category", attributes: ["name"] },
+          ],
+      });
+  
+      const boardData = boardAll.map((x) => ({
+        id: x.id, // 게시판 PK
+        categoryName: x.category.name, // category의 이름
+        img_url: x.img_url,
+        title: x.title,
+        content: x.content,
+        updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
+        likeCount: x.likeCount,
+        nickname: x.author.nickname, // users의 별명
+      }));
+  
+      console.log("내 좋아요 데이터들:", boardData);
+      return res.render("mylike", { boardData });
 
-      } catch (error) {
-        console.error("내글 모음 확인 오류:", error);
-      }
+    } catch (error) {
+      console.error("내글 모음 확인 오류:", error);
+    }
 }
 
 module.exports = { getMainBoard, getDetailBoard, searchTitle, getMyWrite, getMyLike };
