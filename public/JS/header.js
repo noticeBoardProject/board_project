@@ -215,7 +215,7 @@ const verifylogin = async (token) => {
         // innerHTML로 해당 사람의 닉네임 넣기
         document.querySelector(".loginbox").innerHTML = `
         <div class="login-nick" onclick="OpenMySet()">
-          <img src="/public/image/login.svg">${res.data.user.nickname}<div class="usernick">님</div>
+          <img src="/public/image/profiles.png">${res.data.user.nickname}<div class="usernick">님</div>
           <img src="/public/image/arrowdrop.svg">
         </div>
         <div class="login-home">

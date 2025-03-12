@@ -1,11 +1,28 @@
-const eachContent = document.querySelector(".eachContent");
-const contentwrap = document.querySelector(".contentwrap");
+const eachContent = document.querySelectorAll(".eachContent");
+const contentwrap = document.querySelectorAll(".contentwrap");
 const reorderBtn = document.querySelector(".reorder");
 const gridBtn = document.querySelector(".gridorder");
+const contentbox = document.querySelectorAll(".contentbox");
+const imgbox = document.querySelectorAll(".imgbox");
 
+// 정렬 버튼
 reorderBtn.addEventListener("click", () => {
-  eachContent.classList.add("reorderstyle");
-  contentwrap.classList.remove("gridstyle");
+  eachContent.forEach((item) => {
+    item.classList.add("reorderstyle");
+    item.classList.remove("griddirection");
+  });
+
+  contentwrap.forEach((item) => {
+    item.classList.remove("gridstyle");
+  });
+
+  contentbox.forEach((item) => {
+    item.classList.add("heightset");
+  });
+
+  imgbox.forEach((item) => {
+    item.classList.remove("imgboxwidthset");
+  });
 
   if (reorderBtn.src.includes("reorderDisabled.svg")) {
     reorderBtn.src = "/public/image/reorderAbled.svg";
@@ -14,8 +31,22 @@ reorderBtn.addEventListener("click", () => {
 });
 
 gridBtn.addEventListener("click", () => {
-  eachContent.classList.remove("reorderstyle");
-  contentwrap.classList.add("gridstyle");
+  eachContent.forEach((item) => {
+    item.classList.remove("reorderstyle");
+    item.classList.add("griddirection");
+  });
+
+  contentwrap.forEach((item) => {
+    item.classList.add("gridstyle");
+  });
+
+  contentbox.forEach((item) => {
+    item.classList.remove("heightset");
+  });
+
+  imgbox.forEach((item) => {
+    item.classList.add("imgboxwidthset");
+  });
 
   if (gridBtn.src.includes("gridDisabled.svg")) {
     gridBtn.src = "/public/image/gridAbled.svg";
@@ -23,7 +54,13 @@ gridBtn.addEventListener("click", () => {
   }
 });
 
+// 로드되면 해당 스타일 추가
 window.onload = () => {
-  const eachContent = document.querySelector(".eachContent");
-  eachContent.classList.add("reorderstyle");
+  const eachContent = document.querySelectorAll(".eachContent");
+  eachContent.forEach((item) => {
+    item.classList.add("reorderstyle");
+  });
+  contentbox.forEach((item) => {
+    item.classList.add("heightset");
+  });
 };

@@ -275,8 +275,8 @@
   display: none;
   position: absolute;
   z-index: 1000;
-  top: 70px;
-  right: 10px;
+  top: 55px;
+  right: 17px;
   border-radius: 5%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   div {
@@ -290,6 +290,8 @@
   cursor: pointer;
   img {
     pointer-events: none;
+    width: 20px;
+    margin-right: 3px;
   }
 }
 

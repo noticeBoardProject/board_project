@@ -34,7 +34,7 @@ const verifylogin = async (token) => {
       if (res.data.result) {
         document.querySelector(".loginbox").innerHTML = `
         <div class="login-nick" onclick="OpenMySet()">
-          <img src="/public/image/login.svg">${res.data.user.nickname}<div class="usernick">님</div>
+          <img src="/public/image/profiles.png">${res.data.user.nickname}<div class="usernick">님</div>
           <img src="/public/image/arrowdrop.svg">
         </div>
         <div class="login-home">

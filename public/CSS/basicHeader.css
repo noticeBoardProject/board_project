@@ -34,6 +34,8 @@ body {
   img {
     /* 이벤트 막기 */
     pointer-events: none;
+    width: 20px;
+    margin-right: 3px;
   }
 }
 
