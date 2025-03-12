@@ -128,4 +128,58 @@ const searchTitle = async (req, res) => {
   }
 };
 
-module.exports = { getMainBoard, getDetailBoard, searchTitle };
+// 내글모음
+const getMyWrite = async (req, res) =>{
+    try {
+        const boardAll = await boardModel.findAll({
+            include: [{ model: categoryModel, as: "category", attributes: ["name"] }],
+        });
+    
+        const boardData = boardAll.map((x) => ({
+          id: x.id, // 게시판 PK
+          categoryName: x.category.name, // category의 이름
+          img_url: x.img_url,
+          title: x.title,
+          content: x.content,
+          updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
+          likeCount: x.likeCount,
+        }));
+    
+        // console.log("내 글 데이터들:", boardData);
+        return res.render("mywrite", { boardData });
+
+      } catch (error) {
+        console.error("내글 모음 확인 오류:", error);
+      }
+};
+
+// 내 좋아요 모음
+const getMyLike = async (req, res) =>{
+    try {
+        const boardAll = await boardModel.findAll({
+            include: [
+                { model: userModel, as: "author", attributes: ["nickname"] },
+                { model: categoryModel, as: "category", attributes: ["name"] },
+              ],
+        });
+    
+        const boardData = boardAll.map((x) => ({
+          id: x.id, // 게시판 PK
+          categoryName: x.category.name, // category의 이름
+          img_url: x.img_url,
+          title: x.title,
+          content: x.content,
+          updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
+          likeCount: x.likeCount,
+          nickname: x.author.nickname, // users의 별명
+        }));
+    
+        console.log("내 좋아요 데이터들:", boardData);
+        return res.render("mylike", { boardData });
+
+      } catch (error) {
+        console.error("내글 모음 확인 오류:", error);
+      }
+}
+
+module.exports = { getMainBoard, getDetailBoard, searchTitle, getMyWrite, getMyLike };
