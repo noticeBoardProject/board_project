@@ -33,6 +33,8 @@ const boardRouter = require("./routes/boardRouter");
 app.use("/board", boardRouter);
 const mainRouter = require("./routes/mainRouter");
 app.use("/main", mainRouter);
+const likeRouter = require("./routes/likeRouter");
+app.use("/like", likeRouter);
 
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/imgs", express.static(__dirname + "/imgs"));

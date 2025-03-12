@@ -3,6 +3,7 @@ const { where, Op } = require("sequelize");
 const boardModel = db.board; // board 모델 사용
 const userModel = db.users; // users 모델 사용
 const categoryModel = db.category; // category 모델 사용
+const likeModel = db.like; // like 모델 사용
 const moment = require("moment");
 
 // 필요한 데이터 요청
@@ -77,6 +78,12 @@ const getDetailBoard = async (req, res) => {
       return res.json({ result: false, message: "게시글을 찾을 수 없습니다." });
     }
 
+    // 좋아요 여부 확인
+    const like = await likeModel.findOne({
+      where: { userId, boardId: id },
+    });
+    const likedByUser = like ? true : false;
+
     const boardData = {
       id: board.id, // 게시판 PK
       categoryName: board.category.name, // category의 이름
@@ -87,8 +94,9 @@ const getDetailBoard = async (req, res) => {
       likeCount: board.likeCount,
       img_url: board.img_url,
       userCheck: userId === board.userId, // 작성한 유저와 동일한지 체크
+      likedByUser: likedByUser
     };
-    // console.log("해당 상세페이지 확인: ", boardData);
+    console.log("해당 상세페이지 확인: ", boardData);
 
     // res.json({ result: true, data: boardData });
     res.render("detailpage", { data: boardData });
@@ -130,42 +138,46 @@ const searchTitle = async (req, res) => {
 
 // 내글모음
 const getMyWrite = async (req, res) =>{
-  try {
-      const boardAll = await boardModel.findAll({
-        where: { userId: req.user.id },
-        include: [{ model: categoryModel, as: "category", attributes: ["name"] }],
-      });
-  
-      const boardData = boardAll.map((x) => ({
-        id: x.id, // 게시판 PK
-        categoryName: x.category.name, // category의 이름
-        img_url: x.img_url,
-        title: x.title,
-        content: x.content,
-        updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
-        likeCount: x.likeCount,
-      }));
-  
-      // console.log("내 글 데이터들:", boardData);
-      return res.render("mywrite", { boardData });
+  const userId = req.user.id;
 
-    } catch (error) {
-      console.error("내글 모음 확인 오류:", error);
-    }
+  try {
+    const boardAll = await boardModel.findAll({
+      where: { userId },
+      include: [{ model: categoryModel, as: "category", attributes: ["name"] }],
+    });
+
+    const boardData = boardAll.map((x) => ({
+      id: x.id, // 게시판 PK
+      categoryName: x.category.name, // category의 이름
+      img_url: x.img_url,
+      title: x.title,
+      content: x.content,
+      updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
+      likeCount: x.likeCount,
+    }));
+
+    // console.log("내 글 데이터들:", boardData);
+    return res.render("mywrite", { boardData });
+
+  } catch (error) {
+    console.error("내글 모음 확인 오류:", error);
+  }
 };
 
 // 내 좋아요 모음
 const getMyLike = async (req, res) =>{
+  const userId = req.user.id;
+
   try {
-      const boardAll = await boardModel.findAll({
-        where: { userId: req.user.id }, // 한번 더 확인, 확인되면 like 테이블의 boardId랑 board테이블의 PK랑 일치도 사용하기
-        include: [
-            { model: userModel, as: "author", attributes: ["nickname"] },
-            { model: categoryModel, as: "category", attributes: ["name"] },
-          ],
-      });
-  
-      const boardData = boardAll.map((x) => ({
+    const likeBoardAll = await boardModel.findAll({
+      include: [
+        { model: likeModel, as: "likes", where: {userId} },
+        { model: userModel, as: "author", attributes: ["nickname"] },
+        { model: categoryModel, as: "category", attributes: ["name"] },
+      ]
+    })
+
+      const boardData = likeBoardAll.map((x) => ({
         id: x.id, // 게시판 PK
         categoryName: x.category.name, // category의 이름
         img_url: x.img_url,

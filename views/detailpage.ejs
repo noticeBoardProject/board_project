@@ -14,7 +14,7 @@
   <!-- 헤더 -->
   <%- include("basicHeader") -%>
     <div class="main-wrap">
-      <main>
+      <main data-board-id="<%= data.id %>" data-like-count="<%= data.likeCount %>" data-liked-by-user="<%= data.likedByUser %>">
         <div class="board-info-wrap">
           <div class="category">
             <%= data.categoryName %>
@@ -59,7 +59,7 @@
               <div>내용</div>
               <div class="sharebox">
                 <div class="likebox">
-                  <% if(likedByUser){ %>
+                  <% if(data.likedByUser){ %>
                     <img class="heart" src="/public/image/fillheart.svg" alt="fill"
                       onclick="countFavorite('<%= data.id %>')" />
                     <% }else{ %>
@@ -88,10 +88,4 @@
     </div>
 </body>
 <script src="/public/JS/detailpage.js"></script>
-<script>
-  window.boardData = {
-    boardId: '<%= data.id %>',
-  };
-</script>
-
 </html>
