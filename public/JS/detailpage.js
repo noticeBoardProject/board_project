@@ -10,23 +10,21 @@ const clip = () => {
   }
 };
 
-let likeCount;
-let likedByUser;
+// board 정보 가져오기
+const mainElement = document.querySelector('main');
+const boardId = mainElement.dataset.boardId;
+let likeCount = parseInt(mainElement.dataset.likeCount);
+let likedByUser = mainElement.dataset.likedByUser;
 
 // 현재 좋아요 상태 요청(좋아요개수, 해당 사용자가 좋아요눌렀는지(true,false))
 const getLikeStatus = async () => {
-  // 좋아요 상태 요청
   const response = await axios.get(`/like/status/${boardId}`);
-  // 좋아요개수
-  likeCount = response.data.likeCount;
-  // 해당 사용자가 좋아요 눌렀는지 확인(true, false)
-  likedByUser = response.data.likedByUser;
+  likeCount = response.data.likeCount; // 좋아요개수
+  likedByUser = response.data.likedByUser; // 해당 사용자가 좋아요 눌렀는지 확인(true, false)
+  updateUI(likeCount, likedByUser);
 };
 
-// 현재 좋아요 상태 호출
-getLikeStatus();
-
-// 해당 게시판 like 추가 요청(likeCount도 늘어나야함)
+// 해당 게시판 like 추가 요청 (likeCount도 늘어나야함)
 const countFavorite = async (boardId) => {
   try {
     // 현재 좋아요 상태 호출
@@ -38,6 +36,7 @@ const countFavorite = async (boardId) => {
         method: "delete",
         url: `/like/delete/${boardId}`,
       }).then((res) => {
+        alert("삭제완료");
         likeCount--;
         likedByUser = false;
       });
@@ -48,6 +47,7 @@ const countFavorite = async (boardId) => {
         url: "/like/post",
         data: { boardId },
       }).then((res) => {
+        alert("추가완료");
         likeCount++;
         likedByUser = true;
       });
@@ -70,7 +70,7 @@ const updateUI = (likeCount, likedByUser) => {
 const deleteBoard = (boardId) => {
   axios({
     method: "delete",
-    url: `/delete/board/${boardId}`,
+    url: `/board/delete/${boardId}`,
   })
     .then((res) => {
       if (res.data.result) {
@@ -83,3 +83,6 @@ const deleteBoard = (boardId) => {
       console.log("삭제 실패", e);
     });
 };
+
+// 현재 좋아요 상태 호출
+getLikeStatus();
