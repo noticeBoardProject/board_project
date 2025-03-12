@@ -17,14 +17,6 @@
     <div class="mainwrap">
       <main class="menu">
         <div class="articleList">
-          <div class="article tablehead">
-            <div>번호</div>
-            <div>제목</div>
-            <div>글쓴이</div>
-            <div>날짜</div>
-            <div>좋아요</div>
-            <div>이미지</div>
-          </div>
           <div class="content">
             <!-- 동적 추가 -->
           </div>
@@ -38,9 +30,20 @@
         </div>
       </a>
     </div>
-
-    <!-- 푸터 -->
-    <%- include("footer") -%>
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+      <div class="first-btn" onclick="goToFirstPage()">
+        << </div>
+          <div class="prev-btn" onclick="goToPrevPage()">
+            < </div>
+              <div class="numberWrap">
+                <!-- 페이지 번호 버튼 -->
+              </div>
+              <div class="next-btn" onclick="goToNextPage()"> > </div>
+              <div class="last-btn" onclick="goToLastPage()">>></div>
+          </div>
+          <!-- 푸터 -->
+          <%- include("footer") -%>
 </body>
 <script src="/public/JS/main.js"></script>
 

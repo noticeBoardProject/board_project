@@ -1,57 +1,177 @@
+let currentPage = 1; // 기본 페이지 설정
+const postsPerPage = 6; // 한 페이지에 표시할 게시물 수
+let totalPages = 1; // 총 페이지 수
+let currentCategory = "all"; // 기본 카테고리 설정
+
 const content = document.querySelector(".content");
+const categoryBox = document.querySelector(".category-box");
+const numberWrap = document.querySelector(".numberWrap");
 
-// 기존 선택 카테고리 데이터 요청
-document.addEventListener("DOMContentLoaded", () => {
-  const savedCategory = sessionStorage.getItem("selectedCategory") || "all";
-  fetchCateData(savedCategory);
-});
-
-// 변경 감지
-window.addEventListener("categoryChange", () => {
-  const savedCategory = sessionStorage.getItem("selectedCategory") || "all";
-  fetchCateData(savedCategory);
-});
-
-// 카테고리 변경시
-const fetchCateData = async (categoryId) => {
+// 카테고리 데이터 가져오기
+const getCategory = async () => {
   await axios({
     method: "get",
-    url: "/main/boardData",
-    params: { categoryId }, // all 또는 카테고리ID
+    url: "/board/category",
   })
     .then((res) => {
-      content.innerHTML = ""; // 기존 내용 초기화
+      if (res.data.result) {
+        const category = res.data.category;
+        categoryBox.innerHTML = `<li><div class="cate actives" id="all">전체</div></li>`;
 
-      const data = res.data.data;
+        category
+          .sort((a, b) => a.id - b.id) // 오름차순 정렬
+          .forEach((cate) => {
+            categoryBox.innerHTML += `<li><div class="cate" id="${cate.id}">${cate.name}</div></li>`;
+          });
 
-      if (data && data.length > 0) {
-        data.forEach((item, i) => {
-          // console.log(item);
-          content.innerHTML += `
-          <a href="/main/move/detail/${item.id}" class="detailtag">
-            <div class="article board">
-              <div>${data.length - i}</div>
-              <div class="title">${item.title}</div>
-              <div>${item.nickname}</div>
-              <div>${item.updatedAt}</div>
-              <div>${item.likeCount}</div>
-              <div class="imagebox imagebox${item.id}"></div>
-            </div>
-          </a>`;
-
-          if (item.img_url) {
-            document.querySelector(
-              `.imagebox${item.id}`
-            ).innerHTML += `<img src="http://localhost:3000/uploads/${
-              item.img_url.split(",")[0]
-            }" alt="등록된 사진" />`;
-          }
-        });
+        // 카테고리 클릭 이벤트 설정
+        initCategoryEvents();
       } else {
-        content.innerText = "게시물이 없습니다.";
+        alert("카테고리 정보를 불러오지 못했습니다.");
       }
     })
     .catch((e) => {
-      console.log("에러", e);
+      console.log(e);
     });
 };
+
+// 카테고리 버튼 클릭 이벤트
+const initCategoryEvents = () => {
+  const navItems = document.querySelectorAll(".cate");
+
+  // 카테고리 클릭 시
+  navItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      navItems.forEach((i) => i.classList.remove("actives"));
+      item.classList.add("actives");
+
+      currentCategory = item.id; // 클릭한 카테고리
+      currentPage = 1; // 카테고리 변경 시 페이지 1로 리셋
+      fetchPosts(); // 새로운 카테고리로 게시물 데이터 가져오기
+    });
+  });
+};
+
+// 게시물 가져오기
+const fetchPosts = async () => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: "/main/boardData",
+      params: {
+        categoryId: currentCategory,
+        page: currentPage,
+        limit: postsPerPage,
+      },
+    });
+
+    const data = res.data.data;
+    totalPages = res.data.totalPage;
+    console.log(data);
+    content.innerHTML = ""; // 기존 게시물 초기화
+    if (data && data.length > 0) {
+      data.forEach((item, i) => {
+        content.innerHTML += `
+          <a href="/main/move/detail/${item.id}" class="detailtag">
+            <div class="article">
+              <div class="contentbox">
+                  <div class="titlebox">
+                    <div class="title">${item.title}</div>
+                    <div class="content">${item.content}</div>
+                  </div>
+
+                  <div class="infobox">
+                    <div>${item.nickname}</div>
+                    <span>${item.updatedAt}</span>
+                    <span class="imgwrap"><img class="heart" src="/public/image/binheart.svg" alt="좋아요수" />${item.likeCount}</span>
+                  </div>
+              </div>
+            
+              
+              <div class="imagebox imagebox${item.id}"></div>
+              
+            </div>
+          </a>`;
+
+        if (item.img_url) {
+          document.querySelector(
+            `.imagebox${item.id}`
+          ).innerHTML += `<img src="http://localhost:3000/uploads/${
+            item.img_url.split(",")[0]
+          }" alt="등록된 사진" />`;
+        }
+      });
+    } else {
+      content.innerText = "게시물이 없습니다.";
+    }
+
+    updatePagination();
+  } catch (error) {
+    console.log("게시물 가져오기 에러:", error);
+  }
+};
+
+// 페이지네이션 업데이트
+const updatePagination = () => {
+  numberWrap.innerHTML = ""; // 기존 페이지 번호 버튼 초기화
+
+  // 페이지 번호 버튼 추가
+  for (let i = 1; i <= totalPages; i++) {
+    const pageButton = document.createElement("button");
+    pageButton.classList.add("number-btn");
+    pageButton.innerText = i;
+    pageButton.onclick = () => goToPage(i);
+
+    if (i === currentPage) {
+      pageButton.classList.add("active");
+    }
+
+    numberWrap.appendChild(pageButton);
+  }
+
+  // 이전/다음 버튼 활성화/비활성화
+  document.querySelector(".prev-btn").disabled = currentPage === 1;
+  document.querySelector(".next-btn").disabled = currentPage === totalPages;
+  document.querySelector(".first-btn").disabled = currentPage === 1;
+  document.querySelector(".last-btn").disabled = currentPage === totalPages;
+};
+
+// 페이지 이동
+const goToPage = (page) => {
+  currentPage = page;
+  fetchPosts(); // 페이지 변경 후 게시물 데이터 다시 가져오기
+};
+
+// 첫 페이지로 이동
+const goToFirstPage = () => {
+  currentPage = 1;
+  fetchPosts(); // 첫 페이지로 이동 후 게시물 데이터 다시 가져오기
+};
+
+// 이전 페이지로 이동
+const goToPrevPage = () => {
+  if (currentPage > 1) {
+    currentPage--;
+    fetchPosts(); // 이전 페이지로 이동 후 게시물 데이터 다시 가져오기
+  }
+};
+
+// 다음 페이지로 이동
+const goToNextPage = () => {
+  if (currentPage < totalPages) {
+    currentPage++;
+    fetchPosts(); // 다음 페이지로 이동 후 게시물 데이터 다시 가져오기
+  }
+};
+
+// 마지막 페이지로 이동
+const goToLastPage = () => {
+  currentPage = totalPages;
+  fetchPosts(); // 마지막 페이지로 이동 후 게시물 데이터 다시 가져오기
+};
+
+// 페이지 로드 시 카테고리와 게시물 가져오기
+document.addEventListener("DOMContentLoaded", () => {
+  getCategory(); // 카테고리 불러오기
+  fetchPosts(); // 첫 번째 게시물 불러오기
+});

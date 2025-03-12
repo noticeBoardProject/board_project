@@ -12,8 +12,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1280px;
+  max-width: 990px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 .logobox {
@@ -22,10 +23,6 @@ body {
   img {
     width: 100%;
   }
-}
-
-.loginbox {
-  margin-right: 15px;
 }
 
 .login-nick {
@@ -39,7 +36,12 @@ body {
   }
 }
 
+.loginbox {
+  position: relative;
+}
+
 .login-home {
+  position: absolute;
   margin: auto 0;
   width: 130px;
   height: 140px;
@@ -47,9 +49,8 @@ body {
   border: 1px solid #ccc;
   background-color: white;
   display: none;
-  position: absolute;
   z-index: 1000;
-  top: 50px;
+  top: 30px;
   right: 10px;
   border-radius: 5%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
