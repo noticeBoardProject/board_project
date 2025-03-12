@@ -1,4 +1,4 @@
-const editArticle = () => {
+const editArticle = (boardId) => {
   const title = titleValue.value;
 
   if (!title) {
@@ -16,7 +16,7 @@ const editArticle = () => {
     axios({
       headers: { "Content-Type": "multipart/form-data" },
       method: "patch",
-      url: `/main/move/detail/${item.id}`,
+      url: `/main/editBoard/${boardId}`,
       data: formData,
     })
       .then((res) => {
