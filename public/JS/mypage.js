@@ -185,11 +185,29 @@ mypageForm.addEventListener("submit", async (event) => {
 getUserInfo();
 
 //회원탈퇴
-const deleteMember = async () => {
-  try {
-    const response = await axios.delete("/delete/member");
-    console.log("회원탈퇴", response.data);
-  } catch (e) {
-    console.log("회원탈퇴 실패", e);
-  }
+const deleteMember = () => {
+  Swal.fire({
+    title: "회원 탈퇴",
+    text: "정말 탈퇴하시겠습니까??",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "네",
+    cancelButtonText: "아니요",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const response = await axios.delete("/delete/member");
+        Swal.fire({
+          title: "탈퇴 완료",
+          text: "그동안 이용해주셔서 감사합니다.",
+          icon: "success",
+        });
+        console.log("회원탈퇴", response.data);
+      } catch (e) {
+        console.log("회원탈퇴 실패", e);
+      }
+    }
+  });
 };
