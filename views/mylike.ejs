@@ -1,11 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <link rel="stylesheet" href="/public/CSS/mywrtie.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>내 좋아요</title>
 </head>
+
 <body>
-    <h2>확인용2</h2>
+    <!-- 헤더 -->
+    <%- include("basicHeader") -%>
+        <% console.log(boardData) %>
+
+            <div class="mainwraip">
+                <div class="mainbox">
+                    <h1>좋아요한 글</h1>
+                    <main>
+                        <div>
+                            <div class="orderbox">
+                                <div>전체 글 (<%= boardData.length %>)</div>
+                                <div class="orderwrap">
+                                    <img class="gridorder" src="/public/image/gridDisabled.svg" />
+                                    <img class="reorder" src="/public/image/reorderAbled.svg" />
+                                </div>
+                            </div>
+                            <div class="contentwrap">
+                                <% boardData.forEach((data)=>{ %>
+
+                                    <a href="/main/move/detail/<%= data.id %>">
+                                        <div class="categoryname">
+                                            <%= data.categoryName %>
+                                        </div>
+                                        <div class="eachContent">
+                                            <div class="contentbox">
+                                                <div class="titlebox">
+                                                    <div class="title">
+                                                        <%= data.title %>
+                                                    </div>
+                                                    <div class="contenttext">
+                                                        <%= data.content %>
+                                                    </div>
+                                                </div>
+                                                <div class="boardinfo">
+                                                    <div class="nickname">
+                                                        <%= data.nickname %>
+                                                    </div>
+                                                    <div>
+                                                        <%= data.updatedAt %>
+                                                    </div>
+                                                    <div class="likecount">
+                                                        <div><img src="/public/image/binheart.svg"></div>
+                                                        <div>
+                                                            <%= data.likeCount %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="imgbox">
+                                                <% if(data.img_url!=="" ){%>
+                                                    <img src="http://localhost:3000/uploads/<%= data.img_url.split(',')[0] %>"
+                                                        alt="대표이미지" />
+                                                    <% }else{%>
+                                                        <img src="/public/image/noimage.png" alt="이미지없음" />
+                                                        <% } %>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <% }) %>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+
+            </div>
 </body>
+<script src="/public/JS/mywrite.js"></script>
+
 </html>

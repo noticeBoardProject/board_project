@@ -30,6 +30,9 @@
 
                 <% boardData.forEach((data)=>{ %>
                   <a href="/main/move/detail/<%= data.id %>">
+                    <div class="categoryname">
+                      <%= data.categoryName %>
+                    </div>
                     <div class="eachContent">
                       <div class="contentbox">
                         <div class="titlebox">

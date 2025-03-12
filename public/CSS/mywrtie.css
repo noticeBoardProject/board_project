@@ -43,12 +43,12 @@
 
 .eachContent {
   width: 100%;
-  height: 100%;
+  height: 90%;
 }
 
 .reorderstyle {
   border-bottom: 1px solid #eee;
-  padding: 20px 0;
+  padding-bottom: 20px;
   height: 200px;
   display: flex;
   justify-content: space-between;
@@ -105,6 +105,24 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  margin-bottom: 8px;
+}
+
+.categoryname {
+  margin-bottom: 5px;
+}
+
+.categoryname {
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #20b2aa;
+  text-transform: capitalize;
+  padding: 5px 10px;
+  background-color: #e0f8f1;
+  border-radius: 3px;
+  display: inline-block;
 }
 
 .orderwrap {

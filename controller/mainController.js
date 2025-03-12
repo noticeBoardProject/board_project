@@ -157,8 +157,37 @@ const getDetailBoard = async (req, res) => {
     };
     console.log("해당 상세페이지 확인: ", boardData);
 
+    // 다음게시물
+    const nextBoard = await boardModel.findOne({
+      where: { updatedAt: { [Op.gt]: board.updatedAt } }, // 현재 updatedAt보다 큰 updatedAt
+      order: [["updatedAt", "ASC"]], //오름차순
+    });
+
+    // 이전 게시물
+    const prevBoard = await boardModel.findOne({
+      where: { updatedAt: { [Op.lt]: board.updatedAt } }, //현재 updatedAt보다 작은 updatedAt
+      order: [["updatedAt", "DESC"]], // 내림차순
+    });
+
+    // 다음 게시물이 없으면 false
+    const nextId = nextBoard ? nextBoard.id : false;
+    const prevId = prevBoard ? prevBoard.id : false;
+
+    const nextTitle = nextBoard ? nextBoard.title : false;
+    const prevTitle = prevBoard ? prevBoard.title : false;
+
+    const nextData = {
+      nextId: nextId,
+      prevId: prevId,
+      nextTitle: nextTitle,
+      prevTitle: prevTitle,
+    };
+
     // res.json({ result: true, data: boardData });
-    res.render("detailpage", { data: boardData });
+    res.render("detailpage", {
+      data: boardData,
+      nextData,
+    });
   } catch (error) {
     console.error("상세페이지 오류:", error);
   }

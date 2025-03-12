@@ -1,6 +1,6 @@
 main {
   padding: 0 18px;
-  max-width: 860px;
+  max-width: 990px;
   margin: 0 auto;
 }
 
@@ -75,7 +75,7 @@ main {
   align-items: center;
   border-radius: 9px;
   border: 1px solid #ebebeb;
-  margin-right: 5px;
+  margin-right: 10px;
   padding: 5px 10px;
   img {
     cursor: pointer;
@@ -117,6 +117,7 @@ main {
 
 .content {
   border-bottom: 1px solid #ebebeb;
+  margin-top: 30px;
 
   img {
     cursor: pointer;
@@ -136,11 +137,11 @@ main {
 
 .sharebox {
   display: flex;
-  margin: 10px 0;
+  margin: 50px 0 10px 0;
 }
 
 .inventorywrap {
-  margin: 40px 0;
+  margin: 10px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -148,4 +149,73 @@ main {
 
 .declaration {
   cursor: pointer;
+}
+
+.directionbox {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.directionbtn {
+  display: flex;
+  background-color: #f8f9fa;
+  align-items: center;
+  height: 40px;
+  padding: 20px;
+}
+
+.prev {
+  justify-content: flex-start;
+}
+
+.next {
+  justify-content: flex-end;
+}
+
+a {
+  width: 45%;
+  text-decoration: none;
+  color: black;
+
+  .texts {
+    font-size: 12px;
+    font-weight: 530;
+  }
+  .titletext {
+    font-size: 20px;
+    font-weight: bold;
+    /* 텍스트 여러줄 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 두 줄로 제한 */
+
+    /* 방향을 수직으로 설정 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.backarrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1.5px solid #20c997;
+  margin: 0 7px;
+}
+
+.infotext {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.next-button:hover {
+  background-color: #f8f9fa;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 4px 0px;
+  color: #20c997;
+  transform: translateY(-2px);
 }
