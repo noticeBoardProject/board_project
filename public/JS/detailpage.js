@@ -37,7 +37,6 @@ const countFavorite = async (boardId) => {
       await axios({
         method: "delete",
         url: `/like/delete/${boardId}`,
-        data: {},
       }).then((res) => {
         likeCount--;
         likedByUser = false;

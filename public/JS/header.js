@@ -135,7 +135,7 @@ const searchModal = () => {
     document.getElementById("search").classList.remove("info");
     modal.classList.add("closing");
     overlay.classList.remove("active");
-    search.innerText = "";
+    search.value = "";
 
     setTimeout(() => {
       modal.classList.remove("active");

@@ -21,35 +21,48 @@
             <div>
               <div class="orderbox">
                 <div>전체 글 (<%= boardData.length %>)</div>
-                <div>
-                  <img src="/public/image/gridDisabled.svg" />
-                  <img src="/public/image/reorderAbled.svg" />
+                <div class="orderwrap">
+                  <img class="gridorder" src="/public/image/gridDisabled.svg" />
+                  <img class="reorder" src="/public/image/reorderAbled.svg" />
                 </div>
               </div>
-              <div class="contentbox">
-                <div class="eachContent">
-                  <%= boardData.forEach((data)=>{ %>
-                    <div>
-                      <div>
-                        <%= data.title %>
-                      </div>
-                      <div>
-                        <%= data.content %>
-                      </div>
-                      <div>
-                        <div>
-                          <%= data.updatedAt %>
+              <div class="contentwrap">
+
+                <% boardData.forEach((data)=>{ %>
+                  <div class="eachContentwrap">
+                    <a href="/main/move/detail/<%= data.id %>">
+                      <div class="eachContent">
+                        <div class="contentbox">
+                          <div class="titlebox">
+                            <div class="title">
+                              <%= data.title %>
+                            </div>
+                            <div class="contenttext">
+                              <%= data.content %>
+                            </div>
+                          </div>
+                          <div class="boardinfo">
+                            <div>
+                              <%= data.updatedAt %>
+                            </div>
+                            <div class="likecount">
+                              <div><img src="/public/image/binheart.svg"></div>
+                              <div>
+                                <%= data.likeCount %>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <%= data.likeCount %>
-                        </div>
+                        <% if(data.img_url!=="" ){%>
+                          <div class="imgbox">
+                            <img src="http://localhost:3000/uploads/<%= data.img_url.split(',')[0] %>" />
+                          </div>
+                          <% } %>
                       </div>
-                    </div>
-                    <div class="imgbox">
-                      <% %>
-                    </div>
-                    <% }) %>
-                </div>
+                    </a>
+                  </div>
+                  <% }) %>
+
 
               </div>
             </div>
