@@ -59,9 +59,15 @@
               <div>내용</div>
               <div class="sharebox">
                 <div class="likebox">
-                  <img class="heart" src="/public/image/binheart.svg" alt="bin"
-                    onclick="countFavorite('<%= data.id %>')" />
-                  <span>좋아요</span>
+                  <% if(likedByUser){ %>
+                    <img class="heart" src="/public/image/fillheart.svg" alt="fill"
+                      onclick="countFavorite('<%= data.id %>')" />
+                    <% }else{ %>
+                      <img class="heart" src="/public/image/binheart.svg" alt="bin"
+                        onclick="countFavorite('<%= data.id %>')" />
+                      <% } %>
+
+                        <span>좋아요</span>
                 </div>
                 <img src="/public/image/share.svg" alt="share" onclick="clip()" />
               </div>

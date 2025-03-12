@@ -10,40 +10,34 @@ const clip = () => {
   }
 };
 
-// 좋아요한 게시물인지 확인
-window.onload = async () => {
-  const boardId = window.boardData.boardId;
+let likeCount;
+let likedByUser;
 
-  try {
-    const response = await axios.get(`/like/status/${boardId}`);
-    // 해당 사용자가 좋아요 눌렀는지 확인(true, false)
-    let likedByUser = response.data.likedByUser;
-    document.querySelector("heart").src = likedByUser
-      ? "/public/image/fillheart.svg"
-      : "/public/image/binheart.svg";
-    if (likedByUser) {
-    }
-  } catch (error) {
-    console.error(error);
-  }
+// 현재 좋아요 상태 요청(좋아요개수, 해당 사용자가 좋아요눌렀는지(true,false))
+const getLikeStatus = async () => {
+  // 좋아요 상태 요청
+  const response = await axios.get(`/like/status/${boardId}`);
+  // 좋아요개수
+  likeCount = response.data.likeCount;
+  // 해당 사용자가 좋아요 눌렀는지 확인(true, false)
+  likedByUser = response.data.likedByUser;
 };
+
+// 현재 좋아요 상태 호출
+getLikeStatus();
 
 // 해당 게시판 like 추가 요청(likeCount도 늘어나야함)
 const countFavorite = async (boardId) => {
   try {
-    // 좋아요 상태 요청
-    const response = await axios.get(`/like/status/${boardId}`);
-    // 좋아요개수
-    let likeCount = response.data.likeCount;
-    // 해당 사용자가 좋아요 눌렀는지 확인(true, false)
-    let likedByUser = response.data.likedByUser;
+    // 현재 좋아요 상태 호출
+    getLikeStatus();
 
     if (likedByUser) {
       // 좋아요 취소
       await axios({
         method: "delete",
-        url: "/like/delete",
-        data: { boardId },
+        url: `/like/delete/${boardId}`,
+        data: {},
       }).then((res) => {
         likeCount--;
         likedByUser = false;
