@@ -1,11 +1,12 @@
 const multer = require("multer");
+const fs = require("fs");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadPath = 'uploads/';
+    const uploadPath = "uploads/";
 
     // 폴더 없을 경우
-    if(!fs.existsSync(uploadPath)){
+    if (!fs.existsSync(uploadPath)) {
       fs.mkdirSync(uploadPath);
     }
 

@@ -2,13 +2,62 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="/public/CSS/mywrtie.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>내 글</title>
 </head>
 
 <body>
-  <h2>확인용</h2>
+  <!-- 헤더 -->
+  <%- include("basicHeader") -%>
+    <% console.log(boardData) %>
+
+      <div class="mainwraip">
+        <div class="mainbox">
+          <h1>내 글</h1>
+          <main>
+            <div>
+              <div class="orderbox">
+                <div>전체 글 (<%= boardData.length %>)</div>
+                <div>
+                  <img src="/public/image/gridDisabled.svg" />
+                  <img src="/public/image/reorderAbled.svg" />
+                </div>
+              </div>
+              <div class="contentbox">
+                <div class="eachContent">
+                  <%= boardData.forEach((data)=>{ %>
+                    <div>
+                      <div>
+                        <%= data.title %>
+                      </div>
+                      <div>
+                        <%= data.content %>
+                      </div>
+                      <div>
+                        <div>
+                          <%= data.updatedAt %>
+                        </div>
+                        <div>
+                          <%= data.likeCount %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="imgbox">
+                      <% %>
+                    </div>
+                    <% }) %>
+                </div>
+
+              </div>
+            </div>
+          </main>
+        </div>
+
+      </div>
 </body>
+<script src="/public/JS/mywrite.js"></script>
 
 </html>
