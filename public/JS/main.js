@@ -81,9 +81,9 @@ const fetchPosts = async () => {
                   </div>
 
                   <div class="infobox">
-                    <div>${item.nickname}</div>
-                    <span>${item.updatedAt}</span>
-                    <span class="imgwrap"><img class="heart" src="/public/image/binheart.svg" alt="좋아요수" />${item.likeCount}</span>
+                    <div class="nickname">${item.nickname}</div>
+                    <span class="day">${item.createdAt}</span>
+                    <span class="imgwrap likecount">좋아요수 ${item.likeCount}</span>
                   </div>
               </div>
             

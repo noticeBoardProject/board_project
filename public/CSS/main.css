@@ -81,15 +81,29 @@
   text-overflow: ellipsis;
 }
 
-.heart {
-  width: 20px;
-  margin-right: 3px;
-}
-
 .imgwrap {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.nickname {
+  font-size: 13px;
+  line-height: 1.3;
+  color: #888;
+  white-space: nowrap;
+}
+
+.day {
+  font-size: 13px;
+  color: #808080;
+  white-space: nowrap;
+}
+
+.likecount {
+  font-size: 13px;
+  color: #808080;
+  white-space: nowrap;
 }
 
 /* 페이지네이션 */

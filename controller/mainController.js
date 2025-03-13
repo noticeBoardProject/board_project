@@ -7,55 +7,6 @@ const likeModel = db.like; // like 모델 사용
 const moment = require("moment");
 
 // 필요한 데이터 요청
-// const getMainBoard = async (req, res) => {
-//   const { categoryId } = req.query;
-
-//   let userId = null; // 기본값을 null로 설정
-//   if (req.user) {
-//     userId = req.user.id;
-//   }
-
-//   try {
-//     let boardList;
-
-//     if (categoryId === "all") {
-//       boardList = await boardModel.findAll({
-//         include: [
-//           { model: userModel, as: "author", attributes: ["nickname"] },
-//           { model: categoryModel, as: "category", attributes: ["name"] },
-//         ],
-//         order: [["updatedAt", "DESC"]], // 최신순 정렬
-//       });
-//     } else {
-//       boardList = await boardModel.findAll({
-//         where: { categoryId },
-//         include: [
-//           { model: userModel, as: "author", attributes: ["nickname"] },
-//           { model: categoryModel, as: "category", attributes: ["name"] },
-//         ],
-//         order: [["updatedAt", "DESC"]], // 최신순 정렬
-//       });
-//     }
-
-//     const boardData = boardList.map((x) => ({
-//       id: x.id, // 게시판 PK
-//       categoryName: x.category.name, // category의 이름
-//       title: x.title,
-//       nickname: x.author.nickname, // users의 별명
-//       content: x.content,
-//       updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
-//       likeCount: x.likeCount,
-//       img_url: x.img_url,
-//       userCheck: userId === x.userId, // 작성한 유저와 동일한지 체크
-//     }));
-//     // console.log("나타날 리스트 확인: ", boardData);
-
-//     res.json({ results: true, data: boardData }); // for 메인페이지 리스트 출력
-//   } catch (error) {
-//     console.error("메인 리스트 불러오기 오류:", error);
-//   }
-// };
-
 const getMainBoard = async (req, res) => {
   const { categoryId, page = 1, limit = 6 } = req.query;
   let userId = null; // 기본값을 null로 설정
@@ -73,7 +24,7 @@ const getMainBoard = async (req, res) => {
           { model: userModel, as: "author", attributes: ["nickname"] },
           { model: categoryModel, as: "category", attributes: ["name"] },
         ],
-        order: [["updatedAt", "DESC"]], // 최신순 정렬
+        order: [["createdAt", "DESC"]], // 최신순 정렬
         limit: parseInt(limit),
         offset: offset,
       });
@@ -84,7 +35,7 @@ const getMainBoard = async (req, res) => {
           { model: userModel, as: "author", attributes: ["nickname"] },
           { model: categoryModel, as: "category", attributes: ["name"] },
         ],
-        order: [["updatedAt", "DESC"]], // 최신순 정렬
+        order: [["createdAt", "DESC"]], // 최신순 정렬
         limit: parseInt(limit),
         offset: offset,
       });
@@ -97,6 +48,7 @@ const getMainBoard = async (req, res) => {
       title: x.title,
       nickname: x.author.nickname, // users의 별명
       content: x.content,
+      createdAt: moment(x.createdAt).format("YYYY-MM-DD HH:mm"),
       updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
       likeCount: x.likeCount,
       img_url: x.img_url,
@@ -149,6 +101,7 @@ const getDetailBoard = async (req, res) => {
       title: board.title,
       nickname: board.author.nickname, // users의 별명
       content: board.content,
+      createdAt: moment(board.createdAt).format("YYYY-MM-DD HH:mm"),
       updatedAt: moment(board.updatedAt).format("YYYY-MM-DD HH:mm"),
       likeCount: board.likeCount,
       img_url: board.img_url,
@@ -212,6 +165,7 @@ const searchTitle = async (req, res) => {
       img_url: x.img_url,
       title: x.title,
       content: x.content,
+      createdAt: moment(x.createdAt).format("YYYY-MM-DD HH:mm"),
       updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
       likeCount: x.likeCount,
       nickname: x.author.nickname, // users의 별명
@@ -240,6 +194,7 @@ const getMyWrite = async (req, res) => {
       img_url: x.img_url,
       title: x.title,
       content: x.content,
+      createdAt: moment(x.createdAt).format("YYYY-MM-DD HH:mm"),
       updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
       likeCount: x.likeCount,
     }));
@@ -270,6 +225,7 @@ const getMyLike = async (req, res) => {
       img_url: x.img_url,
       title: x.title,
       content: x.content,
+      createdAt: moment(x.createdAt).format("YYYY-MM-DD HH:mm"),
       updatedAt: moment(x.updatedAt).format("YYYY-MM-DD HH:mm"),
       likeCount: x.likeCount,
       nickname: x.author.nickname, // users의 별명
