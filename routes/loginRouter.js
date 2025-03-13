@@ -43,4 +43,7 @@ router.post("/findEmail", loginController.findEmail);
 // 비밀번호 재발급
 router.post("/resetPassword", loginController.resetPassword);
 
+// 회원 탈퇴
+router.delete("/delete/member", loginMiddleware, loginController.deleteMember);
+
 module.exports = router;

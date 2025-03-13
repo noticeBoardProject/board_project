@@ -1,0 +1,91 @@
+input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#username, #username2{
+    margin-top: 25px;
+}
+
+.resultBtn {
+    width: 300px;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.resultBtn:hover {
+    background-color: #0056b3;
+}
+
+.active {
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+
+.inactive {
+    color: #aaa;
+}
+
+/* 폼 */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 350px;
+    width: 100%; 
+    margin: 50px auto; /* 화면 중앙 정렬 */
+}
+
+.btnBox {
+    display: flex;
+    /* background-color: #a2a6b0; */
+    width: 100%;
+}
+
+.emailBtn, .passwordBtn {
+    width: 50%;
+    padding: 10px;
+    /* background-color: #f7f7f7; */
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-bottom: none;
+}
+
+#findEmail-form{
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 250px;
+}
+
+#resetPassword-form{
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 250px;
+}
+
+/* 결과 출력 */
+#emailFind, #passwordResult {
+    margin-top: 15px;
+    color: #333;
+    text-align: center;
+    width: 100%;
+}
+

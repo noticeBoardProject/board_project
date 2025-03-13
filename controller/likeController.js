@@ -6,8 +6,12 @@ const likeModel = db.like;
 // 좋아요 상태 확인
 const getLikeStatus = async (req, res) =>{
     const { boardId } = req.params;
-    const userId = req.user.id;
-
+    
+    let userId = null; // 기본값을 null로 설정
+    if (req.user) {
+        userId = req.user.id;
+    }
+    
     try{
         // board테이블의 좋아요 수 가져오기
         const board = await boardModel.findByPk(boardId,{

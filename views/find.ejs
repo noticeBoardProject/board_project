@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/public/CSS/find.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <h2>아이디 찾기</h2>
-    <form id="findEmail-form">
-        <div>이름:</div>
-        <input type="text" id="username" required><br>
+    <div class="form-container">
+        <div class="btnBox">
+            <div class="emailBtn">아이디 찾기</div> 
+            <div class="passwordBtn">비밀번호 재발급</div> 
+        </div>
 
-        <div>핸드폰 번호:</div>
-        <input type="text" id="phone" required><br>
+        <form id="findEmail-form">
+            <input type="text" id="username" placeholder="이름을 입력해주세요" required><br>
+            <input type="text" id="phone" placeholder="전화번호를 입력해주세요" required><br>
+    
+            <button type="submit" class="resultBtn">아이디 찾기</button>
+            <div id="emailFind"></div>
+        </form>
+    </div>
 
-        <button type="submit">아이디 찾기</button>
-        <div id="emailFind"></div>
-    </form>
-
-    <h2>비밀번호 재발급</h2>
-    <form id="resetPassword-form">
-        <div>이름:</div>
-        <input type="text" id="username2" required><br>
-
-        <div>아이디:</div>
-        <input type="email" id="email" required><br>
-
-        <button type="submit">비밀번호 재발급</button>
-        <div id="passwordResult"></div>
-    </form>
+    <div class="form-container">
+        <form id="resetPassword-form">
+            <input type="text" id="username2" placeholder="이름을 입력해주세요" required><br>
+            <input type="email" id="email" placeholder="아이디를 입력해주세요" required><br>
+    
+            <button type="submit" class="resultBtn">비밀번호 재발급</button>
+            <div id="passwordResult"></div>
+        </form>
+    </div>
 
     <script src="/public/JS/find.js"></script>
 </body>
