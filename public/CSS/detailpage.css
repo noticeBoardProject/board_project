@@ -21,14 +21,30 @@ main {
 }
 
 .mybtn {
+  color: #808080;
   display: flex;
   img {
     width: 25px;
+  }
+  a {
+    color: #808080;
+    text-decoration: none;
   }
 }
 
 .editbtn {
   margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.removebtn {
+  cursor: pointer;
+  margin-left: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .category {

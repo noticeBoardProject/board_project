@@ -1,8 +1,15 @@
 * {
   box-sizing: border-box;
 }
+
 .mainwrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 70.5vh;
   width: 100%;
+  max-width: 990px;
+  margin: 0 auto;
+  margin-top: 30px;
 }
 
 .mainbox {
@@ -34,6 +41,7 @@
 
 .boardinfo {
   display: flex;
+  /* padding-bottom: 0px; */
 }
 
 .likecount {
@@ -48,17 +56,15 @@
 
 .reorderstyle {
   border-bottom: 1px solid #eee;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   height: 200px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .contentwrap {
   a {
     text-decoration: none;
     color: black;
+    margin: 20px 0;
   }
 }
 
@@ -66,20 +72,22 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 1fr;
-  gap: 10px;
+  gap: 15px;
 }
 
 .griddirection {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: space-between;
+}
+
+.gridcontentbox {
+  flex-direction: column-reverse;
 }
 
 .contentbox {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  max-width: 550px;
 }
 
 .heightset {
@@ -110,11 +118,6 @@
 }
 
 .categoryname {
-  margin-bottom: 5px;
-}
-
-.categoryname {
-  margin-top: 20px;
   font-size: 14px;
   font-weight: 500;
   color: #20b2aa;
@@ -123,6 +126,7 @@
   background-color: #e0f8f1;
   border-radius: 3px;
   display: inline-block;
+  margin: 20px 0 5px 0;
 }
 
 .orderwrap {

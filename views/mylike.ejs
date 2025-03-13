@@ -43,28 +43,29 @@
                                                         <%= data.content %>
                                                     </div>
                                                 </div>
-                                                <div class="boardinfo">
-                                                    <div class="nickname">
-                                                        <%= data.nickname %>
-                                                    </div>
-                                                    <span class="day">
-                                                        <%= data.createdAt %>
-                                                    </span>
-                                                    <div class="likecount">
-                                                        <span>좋아요수</span>
-                                                        <div>
-                                                            <%= data.likeCount %>
-                                                        </div>
+                                                <div class="imgbox">
+                                                    <% if(data.img_url!=="" ){%>
+                                                        <img src="http://localhost:3000/uploads/<%= data.img_url.split(',')[0] %>"
+                                                            alt="대표이미지" />
+                                                        <% }else{%>
+                                                            <img src="/public/image/noimage.png" alt="이미지없음" />
+                                                            <% } %>
+                                                </div>
+
+                                            </div>
+                                            <div class="boardinfo">
+                                                <div class="nickname">
+                                                    <%= data.nickname %>
+                                                </div>
+                                                <span class="day">
+                                                    <%= data.createdAt %>
+                                                </span>
+                                                <div class="likecount">
+                                                    <span>좋아요수</span>
+                                                    <div>
+                                                        <%= data.likeCount %>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="imgbox">
-                                                <% if(data.img_url!=="" ){%>
-                                                    <img src="http://localhost:3000/uploads/<%= data.img_url.split(',')[0] %>"
-                                                        alt="대표이미지" />
-                                                    <% }else{%>
-                                                        <img src="/public/image/noimage.png" alt="이미지없음" />
-                                                        <% } %>
                                             </div>
                                         </div>
                                     </a>

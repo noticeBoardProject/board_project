@@ -80,16 +80,13 @@ const fetchPosts = async () => {
                     <div class="content">${item.content}</div>
                   </div>
 
-                  <div class="infobox">
-                    <div class="nickname">${item.nickname}</div>
-                    <span class="day">${item.createdAt}</span>
-                    <span class="imgwrap likecount">좋아요수 ${item.likeCount}</span>
-                  </div>
+                  <div class="imagebox imagebox${item.id}"></div>
               </div>
-            
-              
-              <div class="imagebox imagebox${item.id}"></div>
-              
+              <div class="infobox">
+                <div class="nickname">${item.nickname}</div>
+                <span class="day">${item.createdAt}</span>
+                <span class="imgwrap likecount">좋아요수 ${item.likeCount}</span>
+              </div>
             </div>
           </a>`;
 

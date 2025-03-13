@@ -24,8 +24,7 @@ const editor = new toastui.Editor({
   previewStyle: "vertical",
 });
 
-// 선택한 파일을 저장할 배열
-let selectedFiles = [];
+let selectedFiles = []; // 새로 추가된 이미지들
 
 const selectFile = (event) => {
   // 선택한 파일들을 배열로 변환

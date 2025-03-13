@@ -12,47 +12,33 @@
 <body>
   <!-- 헤더 -->
   <%- include("basicHeader") -%>
-    <% console.log(boardData) %>
-
-      <div class="mainwraip">
-        <div class="mainbox">
-          <h1>내 글</h1>
-          <main>
-            <div>
-              <div class="orderbox">
-                <div>전체 글 (<%= boardData.length %>)</div>
-                <div class="orderwrap">
-                  <img class="gridorder" src="/public/image/gridDisabled.svg" />
-                  <img class="reorder" src="/public/image/reorderAbled.svg" />
-                </div>
+    <div class="mainwrap">
+      <div class="mainbox">
+        <h1>내 글</h1>
+        <main>
+          <div>
+            <div class="orderbox">
+              <div>전체 글 (<%= boardData.length %>)</div>
+              <div class="orderwrap">
+                <img class="gridorder" src="/public/image/gridDisabled.svg" />
+                <img class="reorder" src="/public/image/reorderAbled.svg" />
               </div>
-              <div class="contentwrap">
+            </div>
+            <div class="contentwrap">
 
-                <% boardData.forEach((data)=>{ %>
-                  <a href="/main/move/detail/<%= data.id %>">
-                    <div class="categoryname">
-                      <%= data.categoryName %>
-                    </div>
-                    <div class="eachContent">
-                      <div class="contentbox">
-                        <div class="titlebox">
-                          <div class="title">
-                            <%= data.title %>
-                          </div>
-                          <div class="contenttext">
-                            <%= data.content %>
-                          </div>
+              <% boardData.forEach((data)=>{ %>
+                <a href="/main/move/detail/<%= data.id %>">
+                  <div class="categoryname">
+                    <%= data.categoryName %>
+                  </div>
+                  <div class="eachContent">
+                    <div class="contentbox">
+                      <div class="titlebox">
+                        <div class="title">
+                          <%= data.title %>
                         </div>
-                        <div class="boardinfo">
-                          <div class="day">
-                            <%= data.createdAt %>
-                          </div>
-                          <div class="likecount">
-                            <span>좋아요수</span>
-                            <div>
-                              <%= data.likeCount %>
-                            </div>
-                          </div>
+                        <div class="contenttext">
+                          <%= data.content %>
                         </div>
                       </div>
                       <div class="imgbox">
@@ -63,14 +49,26 @@
                             <% } %>
                       </div>
                     </div>
-                  </a>
-                  <% }) %>
-              </div>
+                    <div class="boardinfo">
+                      <div class="day">
+                        <%= data.createdAt %>
+                      </div>
+                      <div class="likecount">
+                        <span>좋아요수</span>
+                        <div>
+                          <%= data.likeCount %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <% }) %>
             </div>
-          </main>
-        </div>
-
+          </div>
+        </main>
       </div>
+
+    </div>
 </body>
 <script src="/public/JS/mywrite.js"></script>
 

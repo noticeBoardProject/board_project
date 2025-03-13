@@ -8,7 +8,7 @@ const editArticle = (boardId) => {
 
     // 카테고리 id 가져오기
     const categoryId = document.getElementById("category").value;
-    
+
     const formData = new FormData();
     selectedFiles.forEach((item) => {
       formData.append("image[]", item);

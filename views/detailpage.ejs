@@ -31,23 +31,27 @@
                   <%= data.nickname %>
                 </div>
                 <span class="day">
-                  <%= data.createdAt %>
+                  <%= data.createdAt %>(작성일)
                 </span>
-                <span class="likecount">
-                  좋아요수 <%= data.likeCount %>
-                </span>
-              </div>
-              <% console.log(data.userCheck)%>
-                <% if(data.userCheck===true){ %>
-                  <div class="mybtn">
-                    <a href="/main/edit/<%= data.id %>">
-                      <div class="editbtn"><img src="/public/image/edit.svg" /></div>
-                    </a>
-                    <div onclick="deleteBoard('<%= data.id %>')">
-                      <div class="removebtn"><img src="/public/image/delete.svg" /></div>
-                    </div>
-                  </div>
+                <% if(data.updatedAt!==data.createdAt){ %>
+                  <span class="day">
+                    <%= data.updatedAt %>(수정일)
+                  </span>
                   <% } %>
+                    <span class="likecount">
+                      좋아요수 <%= data.likeCount %>
+                    </span>
+              </div>
+              <% if(data.userCheck===true){ %>
+                <div class="mybtn">
+                  <a href="/main/edit/<%= data.id %>">
+                    <div class="editbtn"><img src="/public/image/edit.svg" />수정</div>
+                  </a>
+                  <div onclick="deleteBoard('<%= data.id %>')">
+                    <div class="removebtn"><img src="/public/image/delete.svg" />삭제</div>
+                  </div>
+                </div>
+                <% } %>
             </div>
           </div>
 

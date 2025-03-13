@@ -18,6 +18,7 @@ reorderBtn.addEventListener("click", () => {
 
   contentbox.forEach((item) => {
     item.classList.add("heightset");
+    item.classList.remove("gridcontentbox");
   });
 
   imgbox.forEach((item) => {
@@ -42,6 +43,7 @@ gridBtn.addEventListener("click", () => {
 
   contentbox.forEach((item) => {
     item.classList.remove("heightset");
+    item.classList.add("gridcontentbox");
   });
 
   imgbox.forEach((item) => {
