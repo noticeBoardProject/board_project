@@ -187,8 +187,8 @@ getUserInfo();
 //회원탈퇴
 const deleteMember = () => {
   Swal.fire({
-    title: "회원 탈퇴",
-    text: "정말 탈퇴하시겠습니까??",
+    title: "탈퇴하시면 지금까지 작성한 게시물과 좋아요가 다 삭제됩니다.",
+    text: "그래도 탈퇴하시겠습니까?",
     icon: "question",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",

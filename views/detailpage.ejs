@@ -31,7 +31,7 @@
                   <%= data.nickname %>
                 </div>
                 <span class="day">
-                  <%= data.updatedAt %>
+                  <%= data.createdAt %>
                 </span>
                 <span class="likecount">
                   좋아요수 <%= data.likeCount %>
@@ -41,9 +41,11 @@
                 <% if(data.userCheck===true){ %>
                   <div class="mybtn">
                     <a href="/move/edit/<%= data.id %>">
-                      <button>수정</button>
+                      <div class="editbtn"><img src="/public/image/edit.svg" /></div>
                     </a>
-                    <button onclick="deleteBoard('<%= data.id %>')">삭제</button>
+                    <div onclick="deleteBoard('<%= data.id %>')">
+                      <div class="removebtn"><img src="/public/image/delete.svg" /></div>
+                    </div>
                   </div>
                   <% } %>
             </div>

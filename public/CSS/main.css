@@ -81,11 +81,6 @@
   text-overflow: ellipsis;
 }
 
-.heart {
-  width: 20px;
-  margin-right: 3px;
-}
-
 .imgwrap {
   display: flex;
   justify-content: center;
