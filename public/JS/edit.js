@@ -5,6 +5,10 @@ const editArticle = (boardId) => {
     titleValue.classList.add("infoColor");
   } else {
     const content = editor.getMarkdown();
+
+    // 카테고리 id 가져오기
+    const categoryId = document.getElementById("category").value;
+    
     const formData = new FormData();
     selectedFiles.forEach((item) => {
       formData.append("image[]", item);
@@ -16,7 +20,7 @@ const editArticle = (boardId) => {
     axios({
       headers: { "Content-Type": "multipart/form-data" },
       method: "patch",
-      url: `/main/editBoard/${boardId}`,
+      url: `/board/edit/${boardId}`,
       data: formData,
     })
       .then((res) => {

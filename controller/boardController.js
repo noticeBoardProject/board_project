@@ -71,4 +71,32 @@ const deleteBoard = async (req, res) =>{
     }
 };
 
-module.exports = { getCategory, createBoard, deleteBoard };
+// 게시글 수정
+const editBoard = async (req, res) =>{
+    const { boardId } = req.params;
+    const { categoryId, title, content } = req.body;
+
+    try{
+        // 기존 게시글 찾기
+        const board = await boardModel.findByPk(boardId);
+
+        // 이미지 처리: 파일명을 배열로 변환 후 문자열로 저장
+        let img_url = board.img_url;
+        if (req.files) {
+            img_url = req.files.map((x) => x.filename).join(",");
+        }
+
+        // db 다시 저장
+        await boardModel.update(
+            {categoryId, title, content, img_url, updatedAt: new Date()},
+            {where: {id: boardId}},
+            
+        );
+
+        res.json({ result: true, message: "게시글이 수정 완료"})
+    } catch (error) {
+        console.error("게시글 수정 오류:", error);
+    }
+};
+
+module.exports = { getCategory, createBoard, deleteBoard, editBoard };

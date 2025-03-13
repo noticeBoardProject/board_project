@@ -238,10 +238,25 @@ const getMyLike = async (req, res) => {
   }
 };
 
+// 게시글 수정 이동
+const getEdit = async (req, res) =>{
+  const {boardId} = req.params;
+  try {
+    // 게시판, 카테고리 정보 필요
+    const board = await boardModel.findByPk(boardId);
+    const category = await categoryModel.findAll();
+
+    res.render("edit", { data: board, categories: category });
+  } catch (error) {
+    console.error("수정 이동 오류:", error);
+  }
+}
+
 module.exports = {
   getMainBoard,
   getDetailBoard,
   searchTitle,
   getMyWrite,
   getMyLike,
+  getEdit,
 };
