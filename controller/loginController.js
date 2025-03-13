@@ -1,9 +1,11 @@
 const jwt = require("jsonwebtoken"); // 토큰 라이브러리
 const bcrypt = require("bcrypt"); // 암호화 라이브러리
 
-const db = require("../models"); // user 가져오기
+const db = require("../models");
 const { where } = require("sequelize");
-const loginModel = db.users; // user 모델 사용
+const loginModel = db.users;
+const boardModel = db.board;
+const likeModel = db.like;
 
 require("dotenv").config();
 const secretKey = process.env.JWT_SECRET; // JWT 시크릿 키
@@ -263,6 +265,25 @@ const resetPassword = async (req, res) => {
   }
 };
 
+// 회원 탈퇴
+const deleteMember = async (req, res) =>{
+  const userId = req.user.id;
+
+  try {
+    // 관련된 데이터들 다 삭제
+    await boardModel.destroy({ where: {userId} });
+    await likeModel.destroy({ where: {userId} });
+    await loginModel.destroy({ where: {id: userId} });
+
+    // 토큰 삭제
+    res.cookie("token", "", { maxAge: 0, httpOnly: true });
+
+    res.json({ result: true, message: "회원 탈퇴 완료되었습니다." });
+  } catch (error) {
+    console.error("회원 탈퇴 오류:", error);
+  }
+}
+
 module.exports = {
   loginUser,
   verifyUser,
@@ -273,4 +294,5 @@ module.exports = {
   updateUserInfo,
   findEmail,
   resetPassword,
+  deleteMember,
 };

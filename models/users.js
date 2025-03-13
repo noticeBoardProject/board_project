@@ -40,7 +40,6 @@ module.exports = (sequelize, DataTypes) => {
             },
             phone: {
                 type: DataTypes.STRING(45),
-                unique: true,
                 allowNull: false,
             },
             provider: {
