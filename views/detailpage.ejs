@@ -65,13 +65,11 @@
                   <%= data.content %>
                 </div>
                 <div class="sharebox">
-                  <div class="likebox">
+                  <div class="likebox" onclick="countFavorite('<%= data.id %>')">
                     <% if(data.likedByUser){ %>
-                      <img class="heart" src="/public/image/fillheart.svg" alt="fill"
-                        onclick="countFavorite('<%= data.id %>')" />
+                      <img class="heart" src="/public/image/fillheart.svg" alt="fill" />
                       <% }else{ %>
-                        <img class="heart" src="/public/image/binheart.svg" alt="bin"
-                          onclick="countFavorite('<%= data.id %>')" />
+                        <img class="heart" src="/public/image/binheart.svg" alt="bin" />
                         <% } %>
 
                           <span>좋아요</span>
