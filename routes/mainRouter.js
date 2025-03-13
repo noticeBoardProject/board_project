@@ -19,4 +19,7 @@ router.get("/mywrite", loginMiddleware, mainController.getMyWrite);
 // 내 좋아요 모음
 router.get("/mylike", loginMiddleware, mainController.getMyLike);
 
+// 게시글 수정 이동
+router.get("/edit/:boardId", mainController.getEdit);
+
 module.exports = router;
