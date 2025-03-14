@@ -24,6 +24,20 @@
   outline: none;
 }
 
+.contentadjust {
+  max-width: 500px;
+  /* 텍스트 여러줄 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 두 줄로 제한 */
+
+  /* 방향을 수직으로 설정 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  margin-bottom: 8px;
+}
+
 .deletebtn {
   cursor: pointer;
   border: none;
@@ -131,7 +145,8 @@ main {
 
 .imgbox {
   img {
-    height: 120px;
+    height: 150px;
+    aspect-ratio: 1 / 1;
   }
 }
 

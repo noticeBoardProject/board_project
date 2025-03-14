@@ -167,43 +167,58 @@ const checktitle = () => {
 
 // 게시글 수정 요청
 const editArticle = (boardId) => {
-  const title = titleValue.value;
-  if (!title) {
-    titleValue.classList.add("infoColor");
-    return;
-  }
+  Swal.fire({
+    title: "게시글을 수정할까요?",
+    text: "수정시 수정된 날짜도 같이 표시됩니다.",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "네",
+    cancelButtonText: "아니요",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const title = titleValue.value;
+      if (!title) {
+        titleValue.classList.add("infoColor");
+        return;
+      }
 
-  const content = editor.getMarkdown();
-  const categoryId = document.getElementById("category").value;
-  const formData = new FormData();
+      const content = editor.getMarkdown();
+      const categoryId = document.getElementById("category").value;
+      const formData = new FormData();
 
-  console.log("전송할 삭제 이미지 목록:", deletedExistingFiles);
+      console.log("전송할 삭제 이미지 목록:", deletedExistingFiles);
 
-  if (deletedExistingFiles.length > 0) {
-    formData.append("deleteImages", deletedExistingFiles.join(","));
-  }
-  
-  selectedFiles.forEach((file) => {
-    formData.append("image[]", file);
+      if (deletedExistingFiles.length > 0) {
+        formData.append("deleteImages", deletedExistingFiles.join(","));
+      }
+
+      selectedFiles.forEach((file) => {
+        formData.append("image[]", file);
+      });
+
+      formData.append("categoryId", categoryId);
+      formData.append("title", title);
+      formData.append("content", content);
+
+      console.log(
+        "최종 전송 formData:",
+        Object.fromEntries(formData.entries())
+      );
+
+      axios({
+        headers: { "Content-Type": "multipart/form-data" },
+        method: "patch",
+        url: `/board/edit/${boardId}`,
+        data: formData,
+      })
+        .then((response) => {
+          window.location.href = `http://localhost:3000/main/move/detail/${boardId}`;
+        })
+        .catch((error) => {
+          console.error("게시글 수정 오류:", error);
+        });
+    }
   });
-
-  formData.append("categoryId", categoryId);
-  formData.append("title", title);
-  formData.append("content", content);
-
-  console.log("최종 전송 formData:", Object.fromEntries(formData.entries()));
-
-  axios({
-    headers: { "Content-Type": "multipart/form-data" },
-    method: "patch",
-    url: `/board/edit/${boardId}`,
-    data: formData,
-  })
-    .then((response) => {
-      alert("게시글이 수정되었습니다.");
-      window.location.href = "/";
-    })
-    .catch((error) => {
-      console.error("게시글 수정 오류:", error);
-    });
 };

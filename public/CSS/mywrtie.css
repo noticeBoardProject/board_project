@@ -104,6 +104,7 @@
 }
 
 .contenttext {
+  max-width: 500px;
   /* 텍스트 여러줄 */
   display: -webkit-box;
   -webkit-line-clamp: 2; /* 두 줄로 제한 */

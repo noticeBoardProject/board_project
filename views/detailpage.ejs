@@ -14,125 +14,124 @@
 <body>
   <!-- 헤더 -->
   <%- include("basicHeader") -%>
-    <% console.log(data)%>
-      <div class="main-wrap">
-        <main data-board-id="<%= data.id %>" data-like-count="<%= data.likeCount %>"
-          data-liked-by-user="<%= data.likedByUser %>">
-          <div class="board-info-wrap">
-            <div class="category">
-              <%= data.categoryName %>
-            </div>
-            <div class="title">
-              <%= data.title %>
-            </div>
-            <div class="board-info-box">
-              <div class="board-info">
-                <div class="nickname">
-                  <%= data.nickname %>
-                </div>
-                <span class="day">
-                  <%= data.createdAt %>(작성일)
-                </span>
-                <% if(data.updatedAt!==data.createdAt){ %>
-                  <span class="day">
-                    <%= data.updatedAt %>(수정일)
-                  </span>
-                  <% } %>
-                    <span class="likecount">
-                      좋아요수 <%= data.likeCount %>
-                    </span>
-              </div>
-              <% if(data.userCheck===true){ %>
-                <div class="mybtn">
-                  <a href="/main/edit/<%= data.id %>">
-                    <div class="editbtn"><img src="/public/image/edit.svg" />수정</div>
-                  </a>
-                  <div onclick="deleteBoard('<%= data.id %>')">
-                    <div class="removebtn"><img src="/public/image/delete.svg" />삭제</div>
-                  </div>
-                </div>
-                <% } %>
-            </div>
+    <div class="main-wrap">
+      <main data-board-id="<%= data.id %>" data-like-count="<%= data.likeCount %>"
+        data-liked-by-user="<%= data.likedByUser %>">
+        <div class="board-info-wrap">
+          <div class="category">
+            <%= data.categoryName %>
           </div>
-
-
-          <% if(data.img_url!=="" ){ %>
-            <div class="imgbox">
-              <% data.img_url.split(",").forEach((image)=>{ %>
-                <img src="http://localhost:3000/uploads/<%= image %>" alt="등록된 이미지" />
-                <% }) %>
+          <div class="title">
+            <%= data.title %>
+          </div>
+          <div class="board-info-box">
+            <div class="board-info">
+              <div class="nickname">
+                <%= data.nickname %>
+              </div>
+              <span class="day">
+                <%= data.createdAt %>(작성일)
+              </span>
+              <% if(data.updatedAt!==data.createdAt){ %>
+                <span class="day">
+                  <%= data.updatedAt %>(수정일)
+                </span>
+                <% } %>
+                  <span class="likecount">
+                    좋아요수 <%= data.likeCount %>
+                  </span>
             </div>
-            <% } %>
-
-              <div class="content">
-                <div>
-                  <%= data.content %>
-                </div>
-                <div class="sharebox">
-                  <div class="likebox" onclick="countFavorite('<%= data.id %>')">
-                    <% if(data.likedByUser){ %>
-                      <img class="heart" src="/public/image/fillheart.svg" alt="fill" />
-                      <% }else{ %>
-                        <img class="heart" src="/public/image/binheart.svg" alt="bin" />
-                        <% } %>
-
-                          <span>좋아요</span>
-                  </div>
-                  <img src="/public/image/share.svg" alt="share" onclick="clip()" />
-                </div>
-
-              </div>
-              <div class="inventorywrap">
-                <div class="inventory">
-                  <a href="http://localhost:3000/">목록</a>
-                </div>
-
-                <div class="declaration">
-                  신고
+            <% if(data.userCheck===true){ %>
+              <div class="mybtn">
+                <a href="/main/edit/<%= data.id %>">
+                  <div class="editbtn"><img src="/public/image/edit.svg" />수정</div>
+                </a>
+                <div onclick="deleteBoard('<%= data.id %>')">
+                  <div class="removebtn"><img src="/public/image/delete.svg" />삭제</div>
                 </div>
               </div>
-              <% console.log(nextData)%>
-                <div class="directionwrap">
-                  <div class="directionbox">
-                    <div class="divback">
-                      <% if(nextData.prevId !==false){ %>
-                        <a href="/main/move/detail/<%= nextData.prevId %>">
-                          <div class="directionbtn prev">
-                            <div class="backarrow">
-                              <img src="/public/image/arrow_back.svg" alt="이전" />
-                            </div>
-                            <div>
-                              <div class="texts">이전 게시물</div>
-                              <div class="titletext">
-                                <%= nextData.prevTitle %>
-                              </div>
-                            </div>
-                          </div>
-                        </a>
-                        <% } %>
-                    </div>
+              <% } %>
+          </div>
+        </div>
 
-                    <div class="divnext">
-                      <% if(nextData.nextId !==false){ %>
-                        <a href="/main/move/detail/<%= nextData.nextId %>">
-                          <div class="directionbtn next">
-                            <div class="infotext">
-                              <div class="texts">다음 게시물</div>
-                              <div class="titletext">
-                                <%= nextData.nextTitle %>
-                              </div>
-                            </div>
-                            <div class="backarrow">
-                              <img src="/public/image/arrow_forward.svg" alt="이전" />
+
+        <% if(data.img_url!=="" ){ %>
+          <div class="imgbox">
+            <% data.img_url.split(",").forEach((image)=>{ %>
+              <img src="http://localhost:3000/uploads/<%= image %>" alt="등록된 이미지" />
+              <% }) %>
+          </div>
+          <% } %>
+
+            <div class="content">
+              <div class="realcontent">
+                <%= data.content %>
+              </div>
+              <div class="sharebox">
+                <div class="likebox" onclick="countFavorite('<%= data.id %>')">
+                  <% if(data.likedByUser){ %>
+                    <img class="heart" src="/public/image/fillheart.svg" alt="fill" />
+                    <% }else{ %>
+                      <img class="heart" src="/public/image/binheart.svg" alt="bin" />
+                      <% } %>
+
+                        <span>좋아요</span>
+                </div>
+                <img src="/public/image/share.svg" alt="share" onclick="clip()" />
+              </div>
+
+            </div>
+            <div class="inventorywrap">
+              <div class="inventory">
+                <a href="http://localhost:3000/">목록</a>
+              </div>
+
+              <div class="declaration">
+                신고
+              </div>
+            </div>
+            <% console.log(nextData)%>
+              <div class="directionwrap">
+                <div class="directionbox">
+                  <div class="divback">
+                    <% if(nextData.prevId !==false){ %>
+                      <a href="/main/move/detail/<%= nextData.prevId %>">
+                        <div class="directionbtn prev">
+                          <div class="backarrow">
+                            <img src="/public/image/arrow_back.svg" alt="이전" />
+                          </div>
+                          <div>
+                            <div class="texts">이전 게시물</div>
+                            <div class="titletext">
+                              <%= nextData.prevTitle %>
                             </div>
                           </div>
-                        </a>
-                        <% } %>
-                    </div>
+                        </div>
+                      </a>
+                      <% } %>
+                  </div>
+
+                  <div class="divnext">
+                    <% if(nextData.nextId !==false){ %>
+                      <a href="/main/move/detail/<%= nextData.nextId %>">
+                        <div class="directionbtn next">
+                          <div class="infotext">
+                            <div class="texts">다음 게시물</div>
+                            <div class="titletext">
+                              <%= nextData.nextTitle %>
+                            </div>
+                          </div>
+                          <div class="backarrow">
+                            <img src="/public/image/arrow_forward.svg" alt="이전" />
+                          </div>
+                        </div>
+                      </a>
+                      <% } %>
                   </div>
                 </div>
-        </main>
-      </div>
+              </div>
+      </main>
+    </div>
 </body>
 <script src="/public/JS/detailpage.js"></script>
 

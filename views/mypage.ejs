@@ -95,7 +95,7 @@
                     <div class="addinfo">부가 정보</div>
                     <div class="infowrap">
                         <div class="genderwrap">
-                            <% if(user.gender==="" ){ %>
+                            <% if(user.gender===null ){ %>
                                 <div><img src="/public/image/gender.svg" alt="성별없음" /></div>
                                 <div>성별 없음</div>
                                 <% }else if(user.gender==="male" ){ %>
@@ -111,7 +111,7 @@
 
                         <div class="birthbox">
                             <img src="/public/image/birth.svg" alt="생년월일" />
-                            <% if(user.gender==="" ){ %>
+                            <% if(user.birthdate===null ){ %>
                                 <div>생일 없음</div>
                                 <% }else{ %>
                                     <div>
@@ -189,29 +189,51 @@
 
                         <div class="add-box">
                             <div class="basic-title">생년월일</div>
-                            <% const [year, month, day]=user.birthdate.split("-"); %>
-                                <% if (user.birthdate==="" ) { %>
-                                    <% year=연도 %>
-                                        <% month=월 %>
-                                            <% day=일 %>
-                                                <% } %>
-                                                    <div id="info_birth">
-                                                        <select class="in" name="birth1" class="box" id="birth-year">
-                                                            <option disabled selected>
-                                                                <%= year %>
-                                                            </option>
-                                                        </select>
-                                                        <select class="in" name="birth2" class="box" id="birth-month">
-                                                            <option disabled selected>
-                                                                <%= month %>
-                                                            </option>
-                                                        </select>
-                                                        <select class="in" name="birth3" class="box" id="birth-day">
-                                                            <option disabled selected>
-                                                                <%= day %>
-                                                            </option>
-                                                        </select>
-                                                    </div>
+                            <%console.log(user.birthdate)%>
+                                <% if(user.birthdate !==null ){%>
+                                    <% const [year, month, day]=user.birthdate.split("-"); %>
+                                        <div id="info_birth">
+                                            <select class="in" name="birth1" class="box" id="birth-year">
+                                                <option disabled selected>
+                                                    <%= year %>
+                                                </option>
+                                            </select>
+                                            <select class="in" name="birth2" class="box" id="birth-month">
+                                                <option disabled selected>
+                                                    <%= month %>
+                                                </option>
+                                            </select>
+                                            <select class="in" name="birth3" class="box" id="birth-day">
+                                                <option disabled selected>
+                                                    <%= day %>
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <%}else if (user.birthdate===null ) { %>
+                                            <% const year="연도" %>
+                                                <% const month="월" %>
+                                                    <% const day="일" %>
+                                                        <div id="info_birth">
+                                                            <select class="in" name="birth1" class="box"
+                                                                id="birth-year">
+                                                                <option disabled selected>
+                                                                    <%= year %>
+                                                                </option>
+                                                            </select>
+                                                            <select class="in" name="birth2" class="box"
+                                                                id="birth-month">
+                                                                <option disabled selected>
+                                                                    <%= month %>
+                                                                </option>
+                                                            </select>
+                                                            <select class="in" name="birth3" class="box" id="birth-day">
+                                                                <option disabled selected>
+                                                                    <%= day %>
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <% } %>
+
 
                         </div>
                         <div class="changebox">

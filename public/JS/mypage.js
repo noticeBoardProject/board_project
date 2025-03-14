@@ -4,22 +4,34 @@ const password = document.getElementById("password");
 let passwordCheck = document.getElementById("passwordCheck");
 let readyPass = [1, 1];
 
-const cate1 = document.querySelector(".cate1");
-const cate2 = document.querySelector(".cate2");
+const cate1 = document.querySelectorAll(".cate1");
+const cate2 = document.querySelectorAll(".cate2");
 const myProfile = document.querySelector(".myProfile");
 const editMyInfo = document.querySelector(".editMyInfo");
 
-cate1.addEventListener("click", () => {
-  cate2.classList.remove("actives");
-  cate1.classList.add("actives");
-  myProfile.style.display = "block";
-  editMyInfo.style.display = "none";
+cate1.forEach((items) => {
+  items.addEventListener("click", () => {
+    cate2.forEach((item) => {
+      item.classList.remove("actives");
+    });
+    cate1.forEach((item) => {
+      item.classList.add("actives");
+    });
+    myProfile.style.display = "block";
+    editMyInfo.style.display = "none";
+  });
 });
-cate2.addEventListener("click", () => {
-  cate1.classList.remove("actives");
-  cate2.classList.add("actives");
-  editMyInfo.style.display = "block";
-  myProfile.style.display = "none";
+cate2.forEach((items) => {
+  items.addEventListener("click", () => {
+    cate1.forEach((item) => {
+      item.classList.remove("actives");
+    });
+    cate2.forEach((item) => {
+      item.classList.add("actives");
+    });
+    editMyInfo.style.display = "block";
+    myProfile.style.display = "none";
+  });
 });
 
 // JWT 토큰 가져오기 (쿠키에서 추출)
@@ -128,33 +140,59 @@ const mypageForm = document.getElementById("mypage-form");
 mypageForm.addEventListener("submit", async (event) => {
   event.preventDefault(); // 기본 폼 제출 방지
 
-  const birthYear = document.getElementById("birth-year").value;
-  const birthMonth = document
-    .getElementById("birth-month")
-    .value.padStart(2, "0");
-  const birthDay = document.getElementById("birth-day").value.padStart(2, "0");
-  const birthdate = `${birthYear}-${birthMonth}-${birthDay}`;
+  Swal.fire({
+    title: "내정보를 수정할까요?",
+    text: "빈값은 기존에 작성한 내용으로 유지됩니다.",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "네",
+    cancelButtonText: "아니요",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const birthYear = document.getElementById("birth-year") || "";
+      let birthdate;
+      if (birthYear !== "") {
+        const birthMonth = document
+          .getElementById("birth-month")
+          .value.padStart(2, "0");
+        const birthDay = document
+          .getElementById("birth-day")
+          .value.padStart(2, "0");
+        birthdate = `${birthYear}-${birthMonth}-${birthDay}`;
+      }
 
-  const updateUser = {
-    password: document.getElementById("password").value,
-    address: document.getElementById("address").value,
-    gender: document.querySelector('input[name="gender"]:checked').value,
-    birthdate,
-  };
+      const gender = document.querySelector('input[name="gender"]:checked')
+        ? document.querySelector('input[name="gender"]:checked').value
+        : "default";
 
-  try {
-    const res = await axios({
-      method: "PATCH",
-      url: "/mypage/update",
-      data: updateUser,
-      headers: { Authorization: `Bearer ${getToken()}` },
-    });
+      birthdate ? birthdate : "''-''-''";
 
-    // console.log("업데이트할 내용:", res);
-    alert("내 정보를 업데이트 했습니다.");
-  } catch (error) {
-    console.log("정보 업데이트 오류", error);
-  }
+      const updateUser = {
+        password: document.getElementById("password").value,
+        address: document.getElementById("address").value,
+        gender,
+        birthdate,
+      };
+
+      try {
+        const res = await axios({
+          method: "PATCH",
+          url: "/mypage/update",
+          data: updateUser,
+          headers: { Authorization: `Bearer ${getToken()}` },
+        });
+
+        Swal.fire({
+          title: "내정보 수정 완료",
+          icon: "success",
+        });
+      } catch (error) {
+        console.log("정보 업데이트 오류", error);
+      }
+    }
+  });
 });
 
 //회원탈퇴

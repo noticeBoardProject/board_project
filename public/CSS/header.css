@@ -345,7 +345,7 @@
   padding: 20px;
   opacity: 0;
   visibility: hidden;
-  background-color: aliceblue;
+  background-color: white;
   height: 200px;
   width: 100%;
   z-index: 1001;
@@ -494,6 +494,9 @@
 @media (max-width: 768px) {
   .cate {
     font-size: 14px;
+  }
+  .form-box {
+    width: 60%;
   }
 }
 

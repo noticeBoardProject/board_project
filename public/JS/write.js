@@ -100,39 +100,59 @@ const getCategory = () => {
 
 // 게시물 쓰기
 const submitArticle = () => {
-  const categoryId = selectValue;
-  const title = titleValue.value;
-  if (!categoryId || !title) {
-    if (!categoryId) {
-      document.querySelector(".cateinfo").innerText = "카테고리를 선택해주세요";
-    }
-    if (!title) {
-      titleValue.classList.add("infoColor");
-    }
-  } else {
-    const content = editor.getMarkdown();
-    const formData = new FormData();
-    selectedFiles.forEach((item) => {
-      formData.append("image[]", item);
-    });
-    formData.append("categoryId", categoryId);
-    formData.append("title", title);
-    formData.append("content", content);
+  Swal.fire({
+    title: "게시글을 올릴까요?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "네",
+    cancelButtonText: "아니요",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const categoryId = selectValue;
+      const title = titleValue.value;
+      if (!categoryId || !title) {
+        if (!categoryId) {
+          document.querySelector(".cateinfo").innerText =
+            "카테고리를 선택해주세요";
+        }
+        if (!title) {
+          titleValue.classList.add("infoColor");
+        }
+      } else {
+        const content = editor.getMarkdown();
+        const formData = new FormData();
+        selectedFiles.forEach((item) => {
+          formData.append("image[]", item);
+        });
+        formData.append("categoryId", categoryId);
+        formData.append("title", title);
+        formData.append("content", content);
 
-    axios({
-      headers: { "Content-Type": "multipart/form-data" },
-      method: "post",
-      url: "/board/post",
-      data: formData,
-    })
-      .then((res) => {
-        alert("게시글이 작성되었습니다.");
-        window.location.href = "http://localhost:3000/";
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
+        axios({
+          headers: { "Content-Type": "multipart/form-data" },
+          method: "post",
+          url: "/board/post",
+          data: formData,
+        })
+          .then((res) => {
+            Swal.fire({
+              title: "작성 완료",
+              icon: "success",
+              confirmButtonText: "확인",
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                window.location.href = "http://localhost:3000/";
+              }
+            });
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    }
+  });
 };
 
 // 카테고리 불러옴

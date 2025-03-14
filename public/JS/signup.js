@@ -277,10 +277,11 @@ const signup = async () => {
       birth = `${birthYear}-${birthMonth}-${birthDay}`; // YYYY-MM-DD 형식으로 합치기
 
       const dateCheck = new Date(birth);
-      if (Number.isNaN(dateCheck.getTime())) { // 잘못된 날짜일 경우
+      if (Number.isNaN(dateCheck.getTime())) {
+        // 잘못된 날짜일 경우
         birth = null;
       }
-    };
+    }
 
     const email = mainForm.email.value;
     const pw = mainForm.pw.value;
@@ -308,7 +309,6 @@ const signup = async () => {
     })
       .then((res) => {
         if (res.data.result) {
-          alert(`회원가입 성공: ${res.data.message}`);
           sessionStorage.setItem("openModal", "true"); // 세션 스토리지에 저장
           window.location.href = "http://localhost:3000/";
         } else {
