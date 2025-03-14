@@ -8,7 +8,7 @@ let selectValue;
 const fileInput = document.getElementById("fileInput");
 const fileList = document.getElementById("fileList");
 
-// 셀렉트 박스 바뀐 값 확인
+// 셀렉트 박스 변경 감지
 const changeSelect = () => {
   document.querySelector(".cateinfo").innerText = "";
   const category = document.getElementById("category");
@@ -24,12 +24,23 @@ const editor = new toastui.Editor({
   previewStyle: "vertical",
 });
 
+// 이미지 관련 배열
 let selectedFiles = []; // 새로 추가된 이미지들
 let existingFiles = []; // 서버에서 불러온 기존 이미지들
 let deletedExistingFiles = []; // 삭제할 기존 이미지 배열
 
+document.addEventListener("DOMContentLoaded", () => {
+  // EJS에서 전달한 이미지 데이터를 배열로 받음
+  if (typeof existingImages !== "undefined" && existingImages.length > 0) {
+    existingFiles = existingImages;
+
+    // 기존 이미지 미리보기 업데이트
+    updatePreview();
+  }
+});
+
 const selectFile = (event) => {
-  // 선택한 파일들을 배열로 변환
+  event.preventDefault(); // 새로고침 방지
   const files = Array.from(event.target.files);
 
   files.forEach((file) => {
@@ -39,11 +50,10 @@ const selectFile = (event) => {
   });
 
   updatePreview();
-
-  // 3개 선택 시 파일 추가 버튼 숨기기
   if (selectedFiles.length >= 3) {
     document.querySelector(".btn-upload").style.display = "none";
   }
+
   fileInput.value = ""; // 선택된 파일 초기화
 };
 
@@ -53,114 +63,147 @@ fileInput.addEventListener("change", selectFile);
 const updatePreview = () => {
   fileList.innerHTML = ""; // 기존 미리보기 초기화
 
-  // 기존 이미지 미리보기 (서버에서 가져온 이미지)
+  // 기존 이미지 미리보기
   existingFiles.forEach((file, index) => {
-    fileList.innerHTML += `
-      <div class="image-wrapper">
-        <img class="preview-image" src="/uploads/${file}" />
-        <button class="remove-btn" onclick="removeExistingFile(${index})">X</button>
-      </div>`;
+    // 동적으로 추가된 요소에는 이벤트 리스너 적용 안됨!!
+    // fileList.innerHTML += `
+    //   <div class="image-wrapper" data-index="${index}" data-type="existing">
+    //     <img class="preview-image" src="/uploads/${file}" />
+    //     <button class="remove-btn">X</button>
+    //   </div>`;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "image-wrapper";
+    wrapper.dataset.index = index;
+    wrapper.dataset.type = "existing";
+
+    const img = document.createElement("img");
+    img.className = "preview-image";
+    img.src = `/uploads/${file}`;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "remove-btn";
+    removeBtn.textContent = "X";
+
+    // 삭제 이벤트
+    removeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      removeExistingFile(file);
+      updatePreview(); // 삭제 후 미리보기 갱신
+    });
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(removeBtn);
+    fileList.appendChild(wrapper);
   });
 
   // 새로 추가된 이미지 미리보기
   selectedFiles.forEach((file, index) => {
     const reader = new FileReader();
-
     reader.onload = (e) => {
-      fileList.innerHTML += `
-        <div class="image-wrapper">
-          <img class="preview-image" id="image${index}" src=${e.target.result} />
-          <button class="remove-btn" onclick="removeFile(${index})">X</button>
-        </div>`;
-    };
+      // fileList.innerHTML += `
+      //     <div class="image-wrapper" data-index="${index}" data-type="new">
+      //       <img class="preview-image" id="image${index}" src=${e.target.result} />
+      //       <button class="remove-btn">X</button>
+      //     </div>`;
+      const wrapper = document.createElement("div");
+      wrapper.className = "image-wrapper";
+      wrapper.dataset.index = index;
+      wrapper.dataset.type = "new";
 
+      const img = document.createElement("img");
+      img.className = "preview-image";
+      img.src = e.target.result;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.className = "remove-btn";
+      removeBtn.textContent = "X";
+
+      // 삭제 이벤트
+      removeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        removeFile(index);
+        updatePreview(); // 삭제 후 미리보기 갱신
+      });
+
+      wrapper.appendChild(img);
+      wrapper.appendChild(removeBtn);
+      fileList.appendChild(wrapper);
+    };
     reader.readAsDataURL(file);
   });
 };
 
-// 기존 이미지 파일 삭제
-const removeExistingFile = (index) => {
-  console.log(
-    "삭제 전 deletedExistingFiles:-----------------------------------",
-    deletedExistingFiles
-  );
-  deletedExistingFiles.push(existingFiles[index]); // 삭제할 이미지 추가
+// 기존 이미지 삭제
+const removeExistingFile = (fileName) => {
+  console.log("삭제 시도 파일명:", fileName);
+  const index = existingFiles.indexOf(fileName);
 
-  existingFiles.splice(index, 1); // 기존 이미지 배열에서 삭제
-  console.log(
-    "삭제 후 deletedExistingFiles:----------------------------------",
-    deletedExistingFiles
-  );
-
-  updatePreview(); // 미리보기 업데이트
+  if (index !== -1) {
+    existingFiles.splice(index, 1);
+    deletedExistingFiles.push(fileName);
+  }
+  console.log("삭제 후 deletedExistingFiles:", deletedExistingFiles);
 };
 
-// 새로운 이미지 파일 삭제
+// 새 이미지 삭제
 const removeFile = (index) => {
-  // 배열에서 파일 삭제
-  selectedFiles.splice(index, 1);
+  if (index >= 0 && index < selectedFiles.length) {
+    selectedFiles.splice(index, 1); // 배열에서 파일 삭제
+  }
 
-  updatePreview();
-
-  // 파일이 3개 미만이면 다시 파일 추가 버튼 보이기
   if (selectedFiles.length + existingFiles.length < 3) {
     document.querySelector(".btn-upload").style.display = "block";
   }
+  console.log("삭제 후 selectedFiles:", selectedFiles);
 };
 
+// 제목 체크
 const checktitle = () => {
   if (titleValue.value) {
     titleValue.classList.remove("infoColor");
   }
 };
 
-// 이미지 삭제 버튼 클릭 이벤트 확인
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("remove-btn")) {
-    const index = e.target.dataset.index;
-    console.log(`이미지 삭제 버튼 클릭됨: ${index}`);
-    removeExistingFile(index);
-  }
-});
-
+// 게시글 수정 요청
 const editArticle = (boardId) => {
   const title = titleValue.value;
-
   if (!title) {
     titleValue.classList.add("infoColor");
-  } else {
-    const content = editor.getMarkdown();
-    const categoryId = document.getElementById("category").value; // 카테고리 id 가져오기
-
-    const formData = new FormData();
-    console.log("삭제할 이미지 리스트:", deletedExistingFiles);
-
-    // 삭제할 기존 이미지 리스트
-    deletedExistingFiles.forEach((img) => {
-      console.log("삭제 요청 이미지:---------------------------", img); // 디버깅용
-      formData.append("deleteImages[]", img);
-    });
-
-    selectedFiles.forEach((item) => {
-      formData.append("image[]", item);
-    });
-
-    formData.append("categoryId", categoryId);
-    formData.append("title", title);
-    formData.append("content", content);
-
-    axios({
-      headers: { "Content-Type": "multipart/form-data" },
-      method: "patch",
-      url: `/board/edit/${boardId}`,
-      data: formData,
-    })
-      .then((res) => {
-        alert("게시글이 수정되었습니다.");
-        window.location.href = "http://localhost:3000/";
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    return;
   }
+
+  const content = editor.getMarkdown();
+  const categoryId = document.getElementById("category").value;
+  const formData = new FormData();
+
+  console.log("전송할 삭제 이미지 목록:", deletedExistingFiles);
+
+  if (deletedExistingFiles.length > 0) {
+    formData.append("deleteImages", deletedExistingFiles.join(","));
+  }
+  
+  selectedFiles.forEach((file) => {
+    formData.append("image[]", file);
+  });
+
+  formData.append("categoryId", categoryId);
+  formData.append("title", title);
+  formData.append("content", content);
+
+  console.log("최종 전송 formData:", Object.fromEntries(formData.entries()));
+
+  axios({
+    headers: { "Content-Type": "multipart/form-data" },
+    method: "patch",
+    url: `/board/edit/${boardId}`,
+    data: formData,
+  })
+    .then((response) => {
+      alert("게시글이 수정되었습니다.");
+      window.location.href = "/";
+    })
+    .catch((error) => {
+      console.error("게시글 수정 오류:", error);
+    });
 };
