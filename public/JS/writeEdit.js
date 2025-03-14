@@ -80,11 +80,17 @@ const updatePreview = () => {
 
 // 기존 이미지 파일 삭제
 const removeExistingFile = (index) => {
-  console.log("삭제 전 deletedExistingFiles:-----------------------------------", deletedExistingFiles);
+  console.log(
+    "삭제 전 deletedExistingFiles:-----------------------------------",
+    deletedExistingFiles
+  );
   deletedExistingFiles.push(existingFiles[index]); // 삭제할 이미지 추가
 
   existingFiles.splice(index, 1); // 기존 이미지 배열에서 삭제
-  console.log("삭제 후 deletedExistingFiles:----------------------------------", deletedExistingFiles);
+  console.log(
+    "삭제 후 deletedExistingFiles:----------------------------------",
+    deletedExistingFiles
+  );
 
   updatePreview(); // 미리보기 업데이트
 };

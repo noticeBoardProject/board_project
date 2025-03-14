@@ -42,15 +42,18 @@
             </label>
             <input type="file" id="fileInput" accept="image/*">
             <div id="fileList">
+
               <% if(data.img_url!=="" ){ %>
-                <div class="image-wrapper">
-                  <% data.img_url.split(",").forEach((image,i)=>{ %>
-                    <img class="preview-image" id=`image${i}` src="http://localhost:3000/uploads/<%= image %>"
+
+                <% data.img_url.split(",").forEach((image,i)=>{ %>
+                  <div class="image-wrapper">
+                    <img class="preview-image" id="image<%= i %>" src="http://localhost:3000/uploads/<%= image %>"
                       alt="등록된 이미지" />
-                    <button class="remove-btn" onclick="removeFile(i)">X</button>
-                    <% }) %>
-                </div>
-                <% } %>
+                    <button class="remove-btn" onclick="removeFile('<%= i %>')">X</button>
+                  </div>
+                  <% }) %>
+
+                    <% } %>
             </div>
           </div>
     </div>
