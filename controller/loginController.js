@@ -168,7 +168,7 @@ const getUserInfo = async (req, res) => {
       });
     }
 
-    res.json({ result: true, user });
+    res.render("mypage", { result: true, user });
   } catch (error) {
     console.error("사용자 정보 조회 오류:", error);
   }
@@ -266,14 +266,14 @@ const resetPassword = async (req, res) => {
 };
 
 // 회원 탈퇴
-const deleteMember = async (req, res) =>{
+const deleteMember = async (req, res) => {
   const userId = req.user.id;
 
   try {
     // 관련된 데이터들 다 삭제
-    await boardModel.destroy({ where: {userId} });
-    await likeModel.destroy({ where: {userId} });
-    await loginModel.destroy({ where: {id: userId} });
+    await boardModel.destroy({ where: { userId } });
+    await likeModel.destroy({ where: { userId } });
+    await loginModel.destroy({ where: { id: userId } });
 
     // 토큰 삭제
     res.cookie("token", "", { maxAge: 0, httpOnly: true });
@@ -282,7 +282,7 @@ const deleteMember = async (req, res) =>{
   } catch (error) {
     console.error("회원 탈퇴 오류:", error);
   }
-}
+};
 
 module.exports = {
   loginUser,

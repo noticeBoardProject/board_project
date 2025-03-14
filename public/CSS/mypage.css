@@ -1,4 +1,370 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.mainwrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  width: 100%;
+  max-width: 390px;
+  position: fixed;
+  background-color: #fff;
+  box-shadow: 5px 1px 8px 0 rgba(0, 0, 0, 0.06);
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
+  margin-left: 20px;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+}
+
+.kindOfId {
+  font-weight: bolder;
+  font-size: 23px;
+  padding: 20px;
+}
+
+.containerbox {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  background-color: #f9fbfc;
+}
+
+.container {
+  margin-left: 450px;
+}
+
+.navwrap {
+  padding: 0 40px;
+}
+
+.nicknamebox {
+  font-size: 23px;
+  font-weight: bolder;
+  margin-bottom: 2px;
+}
+
+.emailbox {
+  color: #808080;
+}
+
+.basicprofile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.category {
+  border-bottom: 1px solid #ebebeb;
+  padding-bottom: 30px;
+}
+
+.menu {
+  cursor: pointer;
+  font-size: 18px;
+  margin: 28px 0;
+  width: fit-content;
+}
+
+.tokbox {
+  border-bottom: 1px solid #ebebeb;
+}
+
+.tok {
+  color: #808080;
+  font-size: 15px;
+  margin: 20px 0;
+}
+
+.logoutbox {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  font-size: 12px;
+  color: #808080;
+  span:before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 13px;
+    margin: 0 6px 0 10px;
+    background-color: #ebebeb;
+  }
+  div {
+    cursor: pointer;
+  }
+}
+
 .readinput {
   border-width: 0;
   outline: none;
+}
+.logobox {
+  margin: 10px auto;
+  width: 120px;
+  img {
+    width: 100%;
+  }
+}
+
+.myprofile {
+  margin-top: 15px;
+  img {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px 0 rgba(29, 34, 53, 0.08);
+  }
+}
+
+.cate1.actives,
+.cate2.actives {
+  font-weight: bolder;
+}
+.actives {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 13px;
+}
+
+.editMyInfo {
+  display: none;
+}
+
+.profilebox,
+.passbox {
+  margin: 30px 30px 0 0;
+  padding: 16px 17px 0;
+  border-radius: 12px;
+  box-shadow: 2px 2px 14px 0 rgba(0, 164, 73, 0.08);
+  border: solid 1px #ebebeb;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.miniprofile {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ebebeb;
+  padding-bottom: 18px;
+  img {
+    margin-right: 12px;
+    box-shadow: 0 3px 6px 0 rgba(29, 34, 53, 0.08);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.basic-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  color: #848896;
+  margin-bottom: 15px;
+}
+
+.loginname {
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.loginemail {
+  color: #848896;
+  font-size: 14px;
+}
+
+.phonebox {
+  margin-top: 15px;
+  display: flex;
+  .phoneimg {
+    margin-right: 5px;
+  }
+}
+
+.ebox {
+  display: flex;
+  padding: 10px 0;
+  .emailimg {
+    margin-right: 5px;
+  }
+}
+
+.genderwrap {
+  display: flex;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ebebeb;
+  img {
+    margin-right: 5px;
+  }
+}
+
+.birthbox {
+  display: flex;
+  margin: 8px 0 10px 0;
+  padding: 5px 0 13px 0;
+  border-bottom: 1px solid #ebebeb;
+  img {
+    margin-right: 5px;
+  }
+}
+
+.addressbox {
+  display: flex;
+  img {
+    margin-right: 5px;
+  }
+}
+
+.addinfo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2e2e2e;
+  margin: 25px 0 5px 0;
+}
+
+.infowrap {
+  margin-right: 30px;
+  padding: 16px 17px 16px;
+  border-radius: 12px;
+  box-shadow: 2px 2px 14px 0 rgba(0, 164, 73, 0.08);
+  border: solid 1px #ebebeb;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.add-box {
+  margin: 10px 30px 0 0;
+  padding: 16px 17px 16px;
+  border-radius: 12px;
+  box-shadow: 2px 2px 14px 0 rgba(0, 164, 73, 0.08);
+  border: solid 1px #ebebeb;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.resign {
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: normal;
+  color: #b7bbc9;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.check,
+.lock {
+  padding-bottom: 16px;
+
+  img {
+    margin-right: 4px;
+  }
+  input {
+    border: none;
+    border-bottom: 1px solid #c3c2c2;
+    padding: 4px 0;
+    outline: none;
+  }
+}
+
+.lockbox,
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.changebox {
+  margin: 10px 30px 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn,
+.changebtn {
+  border-radius: 5px;
+  padding: 8px 10px;
+  border: 1px solid #eee;
+  cursor: pointer;
+  background-color: #e6e5e5;
+  transition: background 0.3s ease;
+}
+
+.pass,
+.passCheck {
+  font-size: 12px;
+  color: rgb(223, 61, 61);
+}
+
+.btn-box {
+  display: flex;
+}
+
+#address {
+  margin-right: 3px;
+  width: 100%;
+  max-width: 300px;
+  padding: 8px 17px;
+  font-size: 13px;
+  border: none;
+  border-radius: 7px;
+  background-color: #f9f9f9;
+  color: #333;
+  outline: none;
+}
+
+#address::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+#birth-year,
+#birth-month,
+#birth-day {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#birth-month {
+  margin: 0 3px;
+}
+
+#info_birth {
+  display: flex;
+}
+
+.mobileheader,
+.nonelogo {
+  display: none;
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    margin-left: 30px;
+  }
+  .mobileheader,
+  .nonelogo {
+    display: block;
+  }
+  .header {
+    display: none;
+  }
+  .category {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0;
+  }
+  .cate1 {
+    margin: 28px 20px 0 30px;
+  }
 }

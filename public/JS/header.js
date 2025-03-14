@@ -156,7 +156,7 @@ const verifylogin = async (token) => {
         </div>
         <div class="login-home">
           <div class="login-homebox">
-            <a href="/mypage">
+            <a href="/mypage/info">
               <div class="myInfobtn">
                 <img src="/public/image/setting.svg" alt="myInfo" />내 정보
               </div>

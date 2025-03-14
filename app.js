@@ -66,9 +66,9 @@ app.get("/write", (req, res) => {
 });
 
 // 내 정보란 페이지 이동
-app.get("/mypage", loginMiddleware, (req, res) => {
-  res.render("mypage");
-});
+// app.get("/mypage", loginMiddleware, (req, res) => {
+//   res.render("mypage");
+// });
 
 // 찾기 페이지 이동
 app.get("/find", (req, res) => {

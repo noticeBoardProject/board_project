@@ -12,80 +12,219 @@
 </head>
 
 <body>
-    <div class="container">
-        <h2>내 정보 수정</h2>
+    <div class="mainwrap">
+        <header>
+            <div class="mobileheader">
+                <div class="category">
+                    <div class="cate1 menu actives">내프로필</div>
+                    <div class="cate2 menu">내정보수정</div>
+                </div>
+            </div>
+            <div class="header">
+                <div class="kindOfId">
+                    <% if(user.provider===null ){ %>
+                        로컬 ID
+                        <% }else if(user.provider==="kakao" ){ %>
+                            카카오 ID
+                            <% }else if(user.provider==="naver" ){ %>
+                                네이버 ID
+                                <% } %>
+                </div>
+                <div class="navwrap">
+                    <div class="basicprofile">
+                        <div class="myprofile"><img src="/public/image/default.png"></div>
+                        <div class="nicknamebox">
+                            <%= user.nickname %>
+                        </div>
+                        <div class="emailbox">
+                            <%= user.email %>
+                        </div>
+                    </div>
 
-        <form name="mainForm" id="mypage-form">
-            <div>
-                <label>이메일:</label>
-                <input class="readinput" type="email" id="email" readonly> <!-- 수정 불가 -->
+
+                    <div class="category">
+                        <div class="cate1 menu actives">내프로필</div>
+                        <div class="cate2 menu">내정보수정</div>
+                    </div>
+
+                    <div class="tokbox">
+                        <div class="tok">스마트봇 상담</div>
+                        <div class="tok">회원톡톡</div>
+                    </div>
+
+                    <div>
+                        <div class="logoutbox">
+                            <div onclick="logout()">로그아웃</div>
+                            <span>고객센터</span>
+                        </div>
+
+                        <div class="logobox"><a href="/"><img src="/public/image/mypagelogo.png"></a></div>
+                    </div>
+                </div>
+
             </div>
 
-            <div>
-                <label>비밀번호:</label>
-                <input oninput="checkPw()" type="password" id="password" placeholder="새 비밀번호 입력">
-                <div class="pass"></div>
-            </div>
-            <div>
-                <label>비밀번호 확인:</label>
-                <input oninput="checkSame()" type="password" id="passwordCheck" placeholder="비밀번호 확인">
-                <div class="passCheck"></div>
-            </div>
+        </header>
+        <div class="containerbox">
+            <div class="container">
+                <div class="myProfile">
+                    <div class="profilebox">
+                        <div class="basic-title">기본정보</div>
+                        <div>
+                            <div class="miniprofile">
+                                <img src="/public/image/default.png">
+                                <div>
+                                    <div class="loginname">
+                                        <%= user.username %>
+                                    </div>
+                                    <div class="loginemail">
+                                        <%= user.email %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="phonebox">
+                                <div class="phoneimg"><img src="/public/image/phone.svg" alt="전화번호" /></div>
+                                <%= user.phone %>
+                            </div>
+                            <div class="ebox">
+                                <div class="emailimg"><img src="/public/image/email.svg" alt="이메일" /></div>
+                                <%= user.email %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="addinfo">부가 정보</div>
+                    <div class="infowrap">
+                        <div class="genderwrap">
+                            <% if(user.gender==="" ){ %>
+                                <div><img src="/public/image/gender.svg" alt="성별없음" /></div>
+                                <div>성별 없음</div>
+                                <% }else if(user.gender==="male" ){ %>
+                                    <div><img src="/public/image/male.svg" alt="남성" /></div>
+                                    <div>남성</div>
+                                    <% }else if(user.gender==="female" ){ %>
+                                        <div><img src="/public/image/female.svg" alt="여성" />
+                                        </div>
+                                        <div>여성</div>
+                                        <% } %>
 
-            <div>
-                <label>이름:</label>
-                <input class="readinput" type="text" id="username" readonly> <!-- 수정 불가 -->
-            </div>
+                        </div>
 
+                        <div class="birthbox">
+                            <img src="/public/image/birth.svg" alt="생년월일" />
+                            <% if(user.gender==="" ){ %>
+                                <div>생일 없음</div>
+                                <% }else{ %>
+                                    <div>
+                                        <%= user.birthdate %>
+                                    </div>
+                                    <% } %>
+                        </div>
 
-            <div>
-                <label>닉네임:</label>
-                <input class="readinput" type="text" id="nickname" readonly> <!-- 수정 불가 -->
-            </div>
+                        <div class="addressbox">
+                            <img src="/public/image/home.svg" alt="주소" />
+                            <% if(user.address==="" ){ %>
+                                <div>주소 없음</div>
+                                <% }else{ %>
+                                    <div>
+                                        <%= user.address %>
+                                    </div>
+                                    <% } %>
+                        </div>
+                    </div>
+                    <div class="resign" onclick="deleteMember()">회원탈퇴 > </div>
 
+                    <div class="nonelogo">
+                        <div class="logobox"><a href="/"><img src="/public/image/mypagelogo.png"></a></div>
+                    </div>
 
-            <div class="form-group">
-                <label>주소</label>
-                <div class="btn-box">
-                    <input class="inputbox" onclick="changeInputText()" name="address" id="address" readonly type="text"
-                        placeholder="건물명, 도로명, 지번 검색" />
-                    <input class="btn" type="button" onclick="changeInputText()" value="주소 검색" />
+                </div>
+                <div class="editMyInfo">
+                    <form name="mainForm" id="mypage-form">
+                        <div class="passbox">
+                            <div class="basic-title">기본보안설정</div>
+                            <div class="lock">
+                                <div class="lockbox">
+                                    <img src="/public/image/lock.svg" alt="비밀번호">
+                                    <input oninput="checkPw()" type="password" id="password" placeholder="새 비밀번호 입력">
+                                </div>
+                                <div class="pass"></div>
+                            </div>
+                            <div class="check">
+                                <div class="checkbox">
+                                    <img src="/public/image/key.svg" alt="비밀번호확인">
+                                    <input oninput="checkSame()" type="password" id="passwordCheck"
+                                        placeholder="비밀번호 확인">
+                                </div>
+
+                                <div class="passCheck"></div>
+                            </div>
+                        </div>
+                        <div class="add-box">
+                            <div class="basic-title">주소</div>
+                            <div class=" form-group">
+                                <div class="btn-box">
+                                    <input value="<%= user.address %>" class="inputbox" onclick="changeInputText()"
+                                        name="address" id="address" readonly type="text"
+                                        placeholder="건물명, 도로명, 지번 검색" />
+                                    <input class="btn" type="button" onclick="changeInputText()" value="주소 검색" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="add-box">
+                            <div class="basic-title">성별</div>
+                            <% if (user.gender==="male" ) { %>
+                                <input type="radio" name="gender" value="male" id="gender-male" checked> 남성
+                                <input type="radio" name="gender" value="female" id="gender-female"> 여성
+
+                                <% } else if (user.gender==="female" ) {%>
+                                    <input type="radio" name="gender" value="male" id="gender-male"> 남성
+                                    <input type="radio" name="gender" value="female" checked id="gender-female">
+                                    여성
+                                    <% }else{ %>
+                                        <input type="radio" name="gender" value="male" id="gender-male"> 남성
+                                        <input type="radio" name="gender" value="female" id="gender-female"> 여성
+                                        <% } %>
+                        </div>
+
+                        <div class="add-box">
+                            <div class="basic-title">생년월일</div>
+                            <% const [year, month, day]=user.birthdate.split("-"); %>
+                                <% if (user.birthdate==="" ) { %>
+                                    <% year=연도 %>
+                                        <% month=월 %>
+                                            <% day=일 %>
+                                                <% } %>
+                                                    <div id="info_birth">
+                                                        <select class="in" name="birth1" class="box" id="birth-year">
+                                                            <option disabled selected>
+                                                                <%= year %>
+                                                            </option>
+                                                        </select>
+                                                        <select class="in" name="birth2" class="box" id="birth-month">
+                                                            <option disabled selected>
+                                                                <%= month %>
+                                                            </option>
+                                                        </select>
+                                                        <select class="in" name="birth3" class="box" id="birth-day">
+                                                            <option disabled selected>
+                                                                <%= day %>
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                        </div>
+                        <div class="changebox">
+                            <button class="changebtn" type="submit">수정하기</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
-            <div>
-                <label>성별:</label>
-                <input type="radio" name="gender" value="male" id="gender-male"> 남성
-                <input type="radio" name="gender" value="female" id="gender-female"> 여성
-            </div>
+        </div>
 
-            <div>
-                <label for="birth">생년월일:</label>
-                <select class="in" name="birth1" class="box" id="birth-year">
-                    <option disabled selected>출생 연도</option>
-                </select>
-                <select class="in" name="birth2" class="box" id="birth-month">
-                    <option disabled selected>월</option>
-                </select>
-                <select class="in" name="birth3" class="box" id="birth-day">
-                    <option disabled selected>일</option>
-                </select>
-            </div>
-
-            <div>
-                <label>핸드폰 번호:</label>
-                <input class="readinput" type="text" id="phone" readonly> <!-- 수정 불가 -->
-            </div>
-
-            <button class="changebtn" type="submit">수정하기</button>
-            <div id="update-result"></div> <!-- 결과 메시지 표시 -->
-        </form>
-
-        <button onclick="deleteMember()">회원탈퇴</button>
-    </div>
-
-    <script src="/public/JS/mypage.js"></script>
-    <script src="/public/JS/global.js"></script>
+        <script src="/public/JS/mypage.js"></script>
+        <script src="/public/JS/global.js"></script>
 </body>
 
 </html>

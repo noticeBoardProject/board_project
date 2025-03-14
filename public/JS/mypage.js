@@ -4,54 +4,30 @@ const password = document.getElementById("password");
 let passwordCheck = document.getElementById("passwordCheck");
 let readyPass = [1, 1];
 
+const cate1 = document.querySelector(".cate1");
+const cate2 = document.querySelector(".cate2");
+const myProfile = document.querySelector(".myProfile");
+const editMyInfo = document.querySelector(".editMyInfo");
+
+cate1.addEventListener("click", () => {
+  cate2.classList.remove("actives");
+  cate1.classList.add("actives");
+  myProfile.style.display = "block";
+  editMyInfo.style.display = "none";
+});
+cate2.addEventListener("click", () => {
+  cate1.classList.remove("actives");
+  cate2.classList.add("actives");
+  editMyInfo.style.display = "block";
+  myProfile.style.display = "none";
+});
+
 // JWT 토큰 가져오기 (쿠키에서 추출)
 const getToken = () => {
   const cookies = document.cookie.split(";");
   const tokenCookie = cookies.find((item) => item.trim().startsWith("token="));
 
   return tokenCookie;
-};
-
-// DB에서 내 정보 가져오기
-const getUserInfo = async () => {
-  try {
-    const res = await axios({
-      method: "GET",
-      url: "/mypage/info",
-      headers: { Authorization: `Bearer ${getToken()}` },
-    });
-    // console.log("가져온 정보:", res.data);
-
-    if (res.data.result) {
-      // 정보가 있을 경우
-      const user = res.data.user;
-
-      document.getElementById("email").value = user.email;
-      document.getElementById("username").value = user.username;
-      document.getElementById("nickname").value = user.nickname;
-      document.getElementById("address").value = user.address;
-      document.getElementById("phone").value = user.phone;
-
-      // 생년월일 select
-      if (user.birthdate) {
-        const [year, month, day] = user.birthdate.split("-");
-        document.getElementById("birth-year").value = year;
-        document.getElementById("birth-month").value = month;
-        document.getElementById("birth-day").value = day;
-      }
-
-      // 성별 선택
-      if (user.gender === "male") {
-        document.getElementById("gender-male").checked = true;
-      } else if (user.gender === "female") {
-        document.getElementById("gender-female").checked = true;
-      }
-    } else {
-      alert("내 정보를 불러오는데 실패했습니다.");
-    }
-  } catch (error) {
-    console.error("내 정보 불러오기 오류:", error);
-  }
 };
 
 // 비밀번호 유효성 확인
@@ -181,9 +157,6 @@ mypageForm.addEventListener("submit", async (event) => {
   }
 });
 
-// 페이지 로드 시 내 정보 불러오기
-getUserInfo();
-
 //회원탈퇴
 const deleteMember = () => {
   Swal.fire({
@@ -210,4 +183,27 @@ const deleteMember = () => {
       }
     }
   });
+};
+
+// 로그아웃 함수
+const logout = async () => {
+  // 서버에서 쿠키 삭제 요청
+  try {
+    await axios({
+      method: "post",
+      url: "/logout",
+    })
+      .then((res) => {
+        if (res.data.result === true) {
+          document.querySelector(".loginbox").innerHTML = `
+          <div class="loginicon" onclick="loginModal()">로그인</div>`;
+          window.location.href = "http://localhost:3000/";
+        }
+      })
+      .catch((e) => {
+        console.log("쿠키삭제 실패:", e);
+      });
+  } catch (e) {
+    console.log("로그아웃 실패:", e);
+  }
 };

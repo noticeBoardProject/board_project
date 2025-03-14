@@ -94,40 +94,43 @@
               <% console.log(nextData)%>
                 <div class="directionwrap">
                   <div class="directionbox">
-                    <% if(nextData.prevId !==false){ %>
-                      <a href="/main/move/detail/<%= nextData.prevId %>">
-                        <div class="directionbtn prev">
-                          <div class="backarrow">
-                            <img src="/public/image/arrow_back.svg" alt="이전" />
-                          </div>
-                          <div>
-                            <div class="texts">이전 게시물</div>
-                            <div class="titletext">
-                              <%= nextData.prevTitle %>
+                    <div class="divback">
+                      <% if(nextData.prevId !==false){ %>
+                        <a href="/main/move/detail/<%= nextData.prevId %>">
+                          <div class="directionbtn prev">
+                            <div class="backarrow">
+                              <img src="/public/image/arrow_back.svg" alt="이전" />
+                            </div>
+                            <div>
+                              <div class="texts">이전 게시물</div>
+                              <div class="titletext">
+                                <%= nextData.prevTitle %>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </a>
-                      <% } %>
+                        </a>
+                        <% } %>
+                    </div>
 
-                        <% if(nextData.nextId !==false){ %>
-                          <a href="/main/move/detail/<%= nextData.nextId %>">
-                            <div class="directionbtn next">
-                              <div class="infotext">
-                                <div class="texts">다음 게시물</div>
-                                <div class="titletext">
-                                  <%= nextData.nextTitle %>
-                                </div>
-                              </div>
-                              <div class="backarrow">
-                                <img src="/public/image/arrow_forward.svg" alt="이전" />
+                    <div class="divnext">
+                      <% if(nextData.nextId !==false){ %>
+                        <a href="/main/move/detail/<%= nextData.nextId %>">
+                          <div class="directionbtn next">
+                            <div class="infotext">
+                              <div class="texts">다음 게시물</div>
+                              <div class="titletext">
+                                <%= nextData.nextTitle %>
                               </div>
                             </div>
-                          </a>
-                          <% } %>
+                            <div class="backarrow">
+                              <img src="/public/image/arrow_forward.svg" alt="이전" />
+                            </div>
+                          </div>
+                        </a>
+                        <% } %>
+                    </div>
                   </div>
                 </div>
-
         </main>
       </div>
 </body>

@@ -295,6 +295,7 @@
   img {
     pointer-events: none;
     width: 20px;
+    height: 20px;
     margin-right: 3px;
   }
 }
@@ -494,16 +495,10 @@
   .cate {
     font-size: 14px;
   }
-  .usernick {
-    font-size: 14px;
-  }
 }
 
 @media (max-width: 480px) {
   .cate {
-    font-size: 12px;
-  }
-  .usernick {
     font-size: 12px;
   }
 }
