@@ -1,3 +1,4 @@
+const { Json } = require("sequelize/lib/utils");
 const db = require("../models");
 const { where } = require("sequelize");
 const boardModel = db.board; 
@@ -75,22 +76,33 @@ const deleteBoard = async (req, res) =>{
 const editBoard = async (req, res) =>{
     const { boardId } = req.params;
     const { categoryId, title, content } = req.body;
+    console.log("🔎 받은 삭제 이미지:", req.body["deleteImages[]"]);
+    console.log("🔎 전체 req.body:", req.body);
+
+    // 삭제할 이미지 리스트 (배열 형태로 받아야 함)
+    let deleteImages = req.body["deleteImages[]"] || [];
+    if (!Array.isArray(deleteImages)) {
+        deleteImages =[deleteImages]; // 이미지 한개면 배열로 변환
+    }
 
     try{
         // 기존 게시글 찾기
         const board = await boardModel.findByPk(boardId);
+        let img_url = board.img_url ? board.img_url.split(",") : [];
 
-        // 이미지 처리: 파일명을 배열로 변환 후 문자열로 저장
-        let img_url = board.img_url;
-        if (req.files) {
-            img_url = req.files.map((x) => x.filename).join(",");
+        // 삭제 요청된 이미지 제거
+        img_url = img_url.filter(img => !deleteImages.includes(img));
+
+        // 이미지 처리
+        if (req.files && req.files.length > 0) {
+            const newImages = req.files.map((x) => x.filename);
+            img_url = img_url.concat(newImages);
         }
 
         // db 다시 저장
         await boardModel.update(
-            {categoryId, title, content, img_url, updatedAt: new Date()},
+            {categoryId, title, content, img_url: img_url.join(","), updatedAt: new Date()},
             {where: {id: boardId}},
-            
         );
 
         res.json({ result: true, message: "게시글이 수정 완료"})

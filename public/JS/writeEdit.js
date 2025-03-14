@@ -25,6 +25,8 @@ const editor = new toastui.Editor({
 });
 
 let selectedFiles = []; // 새로 추가된 이미지들
+let existingFiles = []; // 서버에서 불러온 기존 이미지들
+let deletedExistingFiles = []; // 삭제할 기존 이미지 배열
 
 const selectFile = (event) => {
   // 선택한 파일들을 배열로 변환
@@ -51,6 +53,16 @@ fileInput.addEventListener("change", selectFile);
 const updatePreview = () => {
   fileList.innerHTML = ""; // 기존 미리보기 초기화
 
+  // 기존 이미지 미리보기 (서버에서 가져온 이미지)
+  existingFiles.forEach((file, index) => {
+    fileList.innerHTML += `
+      <div class="image-wrapper">
+        <img class="preview-image" src="/uploads/${file}" />
+        <button class="remove-btn" onclick="removeExistingFile(${index})">X</button>
+      </div>`;
+  });
+
+  // 새로 추가된 이미지 미리보기
   selectedFiles.forEach((file, index) => {
     const reader = new FileReader();
 
@@ -66,7 +78,18 @@ const updatePreview = () => {
   });
 };
 
-// 선택한 파일 삭제
+// 기존 이미지 파일 삭제
+const removeExistingFile = (index) => {
+  console.log("삭제 전 deletedExistingFiles:-----------------------------------", deletedExistingFiles);
+  deletedExistingFiles.push(existingFiles[index]); // 삭제할 이미지 추가
+
+  existingFiles.splice(index, 1); // 기존 이미지 배열에서 삭제
+  console.log("삭제 후 deletedExistingFiles:----------------------------------", deletedExistingFiles);
+
+  updatePreview(); // 미리보기 업데이트
+};
+
+// 새로운 이미지 파일 삭제
 const removeFile = (index) => {
   // 배열에서 파일 삭제
   selectedFiles.splice(index, 1);
@@ -74,7 +97,7 @@ const removeFile = (index) => {
   updatePreview();
 
   // 파일이 3개 미만이면 다시 파일 추가 버튼 보이기
-  if (selectedFiles.length < 3) {
+  if (selectedFiles.length + existingFiles.length < 3) {
     document.querySelector(".btn-upload").style.display = "block";
   }
 };
@@ -84,3 +107,12 @@ const checktitle = () => {
     titleValue.classList.remove("infoColor");
   }
 };
+
+// 이미지 삭제 버튼 클릭 이벤트 확인
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("remove-btn")) {
+    const index = e.target.dataset.index;
+    console.log(`이미지 삭제 버튼 클릭됨: ${index}`);
+    removeExistingFile(index);
+  }
+});

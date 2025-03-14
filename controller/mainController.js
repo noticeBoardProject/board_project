@@ -108,7 +108,7 @@ const getDetailBoard = async (req, res) => {
       userCheck: userId === board.userId, // 작성한 유저와 동일한지 체크
       likedByUser: likedByUser,
     };
-    console.log("해당 상세페이지 확인: ", boardData);
+    // console.log("해당 상세페이지 확인: ", boardData);
 
     // 다음게시물
     const nextBoard = await boardModel.findOne({
