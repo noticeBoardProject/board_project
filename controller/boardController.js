@@ -76,14 +76,10 @@ const deleteBoard = async (req, res) =>{
 const editBoard = async (req, res) =>{
     const { boardId } = req.params;
     const { categoryId, title, content } = req.body;
-    console.log("🔎 받은 삭제 이미지:", req.body["deleteImages[]"]);
-    console.log("🔎 전체 req.body:", req.body);
-
-    // 삭제할 이미지 리스트 (배열 형태로 받아야 함)
-    let deleteImages = req.body["deleteImages[]"] || [];
-    if (!Array.isArray(deleteImages)) {
-        deleteImages =[deleteImages]; // 이미지 한개면 배열로 변환
-    }
+    console.log("전달받은것:", req.body);
+    
+    // 삭제할 이미지 리스트
+    let deleteImages = req.body.deleteImages ? req.body.deleteImages.split(",") : [];
 
     try{
         // 기존 게시글 찾기

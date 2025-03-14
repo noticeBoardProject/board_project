@@ -44,10 +44,15 @@
             <div id="fileList">
 
               <% if(data.img_url!=="" ){ %>
+                <script>
+                  // EJS에서 data.img_url을 JavaScript 변수로 전달
+                  const existingImages = "<%= data.img_url %>".split(","); // 이미지를 쉼표로 구분하여 배열로 변환
+                  console.log(existingImages); // 확인을 위한 콘솔 출력
+                </script>
 
                 <% data.img_url.split(",").forEach((image,i)=>{ %>
                   <div class="image-wrapper">
-                    <img class="preview-image" id="image<%= i %>" src="http://localhost:3000/uploads/<%= image %>"
+                    <img class="ex-preview-image" id="image<%= i %>" src="http://localhost:3000/uploads/<%= image %>"
                       alt="등록된 이미지" />
                     <button class="remove-btn" onclick="removeFile('<%= i %>')">X</button>
                   </div>
@@ -78,7 +83,8 @@
     </main>
     </div>
 </body>
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-<script src="/public/JS/edit.js"></script>
 
 </html>
+
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="/public/JS/edit.js"></script>
