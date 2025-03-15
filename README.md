@@ -2,6 +2,15 @@
 <p>node.js와 JavaScript, CSS를 사용해 만든 '여행 게시판' 입니다.</p>
 <p>MVC 패턴, Axios, MySQL로 데이터 공유 기능을 구현했습니다.</p>
 
+<br>
+
+## 시연영상
+
+> 이미지 클릭
+
+[![여행 게시판](https://img.youtube.com/vi/VVjx3chdV0w/0.jpg)](https://www.youtube.com/watch?v=VVjx3chdV0w)
+
+<br>
 
 <h2>ERD 다이어그램</h2>
 <img src="https://github.com/user-attachments/assets/4278e629-f54b-4df1-ad90-816167b781d0">
