@@ -8,7 +8,7 @@ const moment = require("moment");
 
 // 필요한 데이터 요청
 const getMainBoard = async (req, res) => {
-  const { categoryId, page = 1, limit = 6 } = req.query;
+  const { categoryId, page = 1, limit = 5 } = req.query;
   let userId = null; // 기본값을 null로 설정
   if (req.user) {
     userId = req.user.id;

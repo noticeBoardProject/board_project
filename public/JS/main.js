@@ -1,5 +1,5 @@
 let currentPage = 1; // 기본 페이지 설정
-const postsPerPage = 6; // 한 페이지에 표시할 게시물 수
+const postsPerPage = 5; // 한 페이지에 표시할 게시물 수
 let totalPages = 1; // 총 페이지 수
 let currentCategory = "all"; // 기본 카테고리 설정
 
