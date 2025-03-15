@@ -1,7 +1,21 @@
 main {
+  flex: 1;
+}
+
+.main-wrap {
   padding: 0 18px;
+  display: flex;
+  flex-direction: column;
+  min-height: 61vh;
   max-width: 990px;
   margin: 0 auto;
+}
+
+.foot {
+  width: 100%;
+  max-width: 990px;
+  margin: 0 auto;
+  padding: 0 18px;
 }
 
 .board-info-wrap {

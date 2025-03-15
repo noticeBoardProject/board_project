@@ -63,75 +63,79 @@
           </div>
           <% } %>
 
-            <div class="content">
-              <div class="realcontent">
-                <%= data.content %>
-              </div>
-              <div class="sharebox">
-                <div class="likebox" onclick="countFavorite('<%= data.id %>')">
-                  <% if(data.likedByUser){ %>
-                    <img class="heart" src="/public/image/fillheart.svg" alt="fill" />
-                    <% }else{ %>
-                      <img class="heart" src="/public/image/binheart.svg" alt="bin" />
-                      <% } %>
 
-                        <span>좋아요</span>
-                </div>
-                <img src="/public/image/share.svg" alt="share" onclick="clip()" />
-              </div>
-
+            <div class="realcontent">
+              <%= data.content %>
             </div>
-            <div class="inventorywrap">
-              <div class="inventory">
-                <a href="http://localhost:3000/">목록</a>
-              </div>
 
-              <div class="declaration">
-                신고
-              </div>
-            </div>
-            <% console.log(nextData)%>
-              <div class="directionwrap">
-                <div class="directionbox">
-                  <div class="divback">
-                    <% if(nextData.prevId !==false){ %>
-                      <a href="/main/move/detail/<%= nextData.prevId %>">
-                        <div class="directionbtn prev">
-                          <div class="backarrow">
-                            <img src="/public/image/arrow_back.svg" alt="이전" />
-                          </div>
-                          <div>
-                            <div class="texts">이전 게시물</div>
-                            <div class="titletext">
-                              <%= nextData.prevTitle %>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <% } %>
-                  </div>
-
-                  <div class="divnext">
-                    <% if(nextData.nextId !==false){ %>
-                      <a href="/main/move/detail/<%= nextData.nextId %>">
-                        <div class="directionbtn next">
-                          <div class="infotext">
-                            <div class="texts">다음 게시물</div>
-                            <div class="titletext">
-                              <%= nextData.nextTitle %>
-                            </div>
-                          </div>
-                          <div class="backarrow">
-                            <img src="/public/image/arrow_forward.svg" alt="이전" />
-                          </div>
-                        </div>
-                      </a>
-                      <% } %>
-                  </div>
-                </div>
-              </div>
       </main>
+
     </div>
+    <div class="foot">
+      <div class="content">
+        <div class="sharebox">
+          <div class="likebox" onclick="countFavorite('<%= data.id %>')">
+            <% if(data.likedByUser){ %>
+              <img class="heart" src="/public/image/fillheart.svg" alt="fill" />
+              <% }else{ %>
+                <img class="heart" src="/public/image/binheart.svg" alt="bin" />
+                <% } %>
+
+                  <span>좋아요</span>
+          </div>
+          <img src="/public/image/share.svg" alt="share" onclick="clip()" />
+        </div>
+      </div>
+      <div class="inventorywrap">
+        <div class="inventory">
+          <a href="http://localhost:3000/">목록</a>
+        </div>
+
+        <div class="declaration">
+          신고
+        </div>
+      </div>
+      <div class="directionwrap">
+        <div class="directionbox">
+          <div class="divback">
+            <% if(nextData.prevId !==false){ %>
+              <a href="/main/move/detail/<%= nextData.prevId %>">
+                <div class="directionbtn prev">
+                  <div class="backarrow">
+                    <img src="/public/image/arrow_back.svg" alt="이전" />
+                  </div>
+                  <div>
+                    <div class="texts">이전 게시물</div>
+                    <div class="titletext">
+                      <%= nextData.prevTitle %>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <% } %>
+          </div>
+
+          <div class="divnext">
+            <% if(nextData.nextId !==false){ %>
+              <a href="/main/move/detail/<%= nextData.nextId %>">
+                <div class="directionbtn next">
+                  <div class="infotext">
+                    <div class="texts">다음 게시물</div>
+                    <div class="titletext">
+                      <%= nextData.nextTitle %>
+                    </div>
+                  </div>
+                  <div class="backarrow">
+                    <img src="/public/image/arrow_forward.svg" alt="이전" />
+                  </div>
+                </div>
+              </a>
+              <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </body>
 <script src="/public/JS/detailpage.js"></script>
 
