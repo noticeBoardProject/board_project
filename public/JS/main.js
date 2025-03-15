@@ -112,8 +112,17 @@ const fetchPosts = async () => {
 const updatePagination = () => {
   numberWrap.innerHTML = ""; // 기존 페이지 번호 버튼 초기화
 
+  const maxVisiblePages = 5; // 한 그룹당 페이지 수
+  const totalGroups = Math.ceil(totalPages / maxVisiblePages); // 전체 그룹의 수 계산
+  const currentGroup = Math.ceil(currentPage / maxVisiblePages); // 현재 그룹 번호 계산
+
+  // 그룹의 시작 페이지 번호
+  const startPage = (currentGroup - 1) * maxVisiblePages + 1;
+  // 그룹의 끝 페이지 번호
+  const endPage = Math.min(currentGroup * maxVisiblePages, totalPages);
+
   // 페이지 번호 버튼 추가
-  for (let i = 1; i <= totalPages; i++) {
+  for (let i = startPage; i <= endPage; i++) {
     const pageButton = document.createElement("button");
     pageButton.classList.add("number-btn");
     pageButton.innerText = i;
@@ -131,6 +140,12 @@ const updatePagination = () => {
   document.querySelector(".next-btn").disabled = currentPage === totalPages;
   document.querySelector(".first-btn").disabled = currentPage === 1;
   document.querySelector(".last-btn").disabled = currentPage === totalPages;
+};
+// 그룹 이동 함수
+const goToGroup = (group) => {
+  if (group < 1 || group > Math.ceil(totalPages / 5)) return; // 그룹 번호 범위 체크
+  currentPage = (group - 1) * 5 + 1; // 그룹의 첫 페이지로 이동
+  fetchPosts(); // 페이지 변경 후 게시물 데이터 다시 가져오기
 };
 
 // 페이지 이동
@@ -166,7 +181,6 @@ const goToLastPage = () => {
   currentPage = totalPages;
   fetchPosts(); // 마지막 페이지로 이동 후 게시물 데이터 다시 가져오기
 };
-
 // 페이지 로드 시 카테고리와 게시물 가져오기
 document.addEventListener("DOMContentLoaded", () => {
   getCategory(); // 카테고리 불러오기
