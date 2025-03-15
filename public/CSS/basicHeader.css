@@ -93,3 +93,7 @@ body {
 .usernick {
   font-size: 12px;
 }
+
+.loginicon {
+  cursor: pointer;
+}

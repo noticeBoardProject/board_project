@@ -8,10 +8,11 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
+    <!-- 헤더 -->
+  <%- include("basicHeader") -%>
     <div class="form-container">
         <div class="btnBox">
-            <div class="emailBtn">아이디 찾기</div> 
-            <div class="passwordBtn">비밀번호 재발급</div> 
+            <div class="emailBtn"><b>아이디 찾기</b></div> 
         </div>
 
         <form id="findEmail-form">
@@ -24,6 +25,10 @@
     </div>
 
     <div class="form-container">
+        <div class="btnBox">
+            <div class="passwordBtn"><b>비밀번호 재발급</b></div> 
+        </div>
+
         <form id="resetPassword-form">
             <input type="text" id="username2" placeholder="이름을 입력해주세요" required><br>
             <input type="email" id="email" placeholder="아이디를 입력해주세요" required><br>
