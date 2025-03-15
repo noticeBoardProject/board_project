@@ -101,6 +101,11 @@
   font-size: 23px;
   font-weight: 600;
   margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .contenttext {
