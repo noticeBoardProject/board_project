@@ -100,27 +100,26 @@ const getCategory = () => {
 
 // 게시물 쓰기
 const submitArticle = () => {
-  Swal.fire({
-    title: "게시글을 올릴까요?",
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "네",
-    cancelButtonText: "아니요",
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      const categoryId = selectValue;
-      const title = titleValue.value;
-      if (!categoryId || !title) {
-        if (!categoryId) {
-          document.querySelector(".cateinfo").innerText =
-            "카테고리를 선택해주세요";
-        }
-        if (!title) {
-          titleValue.classList.add("infoColor");
-        }
-      } else {
+  const categoryId = selectValue;
+  const title = titleValue.value;
+  if (!categoryId || !title) {
+    if (!categoryId) {
+      document.querySelector(".cateinfo").innerText = "카테고리를 선택해주세요";
+    }
+    if (!title) {
+      titleValue.classList.add("infoColor");
+    }
+  } else {
+    Swal.fire({
+      title: "게시글을 올릴까요?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "네",
+      cancelButtonText: "아니요",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
         const content = editor.getMarkdown();
         const formData = new FormData();
         selectedFiles.forEach((item) => {
@@ -151,8 +150,8 @@ const submitArticle = () => {
             console.log(e);
           });
       }
-    }
-  });
+    });
+  }
 };
 
 // 카테고리 불러옴

@@ -137,6 +137,7 @@ birthDayEl.addEventListener("focus", function () {
 
 // 회원 정보 수정 요청
 const mypageForm = document.getElementById("mypage-form");
+
 mypageForm.addEventListener("submit", async (event) => {
   event.preventDefault(); // 기본 폼 제출 방지
 
@@ -151,23 +152,30 @@ mypageForm.addEventListener("submit", async (event) => {
     cancelButtonText: "아니요",
   }).then(async (result) => {
     if (result.isConfirmed) {
-      const birthYear = document.getElementById("birth-year") || "";
-      let birthdate;
-      if (birthYear !== "") {
+      const birthYear = document.getElementById("birth-year").value;
+      let birthdate = null;
+
+      // birthYear, birthMonth, birthDay가 모두 입력되지 않았다면 null로 처리
+      if (birthYear) {
         const birthMonth = document
           .getElementById("birth-month")
           .value.padStart(2, "0");
         const birthDay = document
           .getElementById("birth-day")
           .value.padStart(2, "0");
-        birthdate = `${birthYear}-${birthMonth}-${birthDay}`;
+
+        // 연도, 월, 일이 모두 채워지면 birthdate 값 설정
+        if (birthMonth && birthDay) {
+          birthdate = `${birthYear}-${birthMonth}-${birthDay}`;
+        } else {
+          // 월 또는 일이 비어 있으면 null로 설정
+          birthdate = null;
+        }
       }
 
       const gender = document.querySelector('input[name="gender"]:checked')
         ? document.querySelector('input[name="gender"]:checked').value
         : "default";
-
-      birthdate ? birthdate : "''-''-''";
 
       const updateUser = {
         password: document.getElementById("password").value,
@@ -187,6 +195,11 @@ mypageForm.addEventListener("submit", async (event) => {
         Swal.fire({
           title: "내정보 수정 완료",
           icon: "success",
+          confirmButtonText: "확인",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
         });
       } catch (error) {
         console.log("정보 업데이트 오류", error);
@@ -237,8 +250,6 @@ const logout = async () => {
     })
       .then((res) => {
         if (res.data.result === true) {
-          document.querySelector(".loginbox").innerHTML = `
-          <div class="loginicon" onclick="loginModal()">로그인</div>`;
           window.location.href = "http://localhost:3000/";
         }
       })
