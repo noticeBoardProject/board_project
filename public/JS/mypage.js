@@ -214,8 +214,12 @@ const deleteMember = () => {
           title: "탈퇴 완료",
           text: "그동안 이용해주셔서 감사합니다.",
           icon: "success",
+          confirmButtonText: "확인",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            window.location.href = "http://localhost:3000/";
+          }
         });
-        console.log("회원탈퇴", response.data);
       } catch (e) {
         console.log("회원탈퇴 실패", e);
       }
