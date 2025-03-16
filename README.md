@@ -16,12 +16,13 @@
 <img src="https://github.com/user-attachments/assets/4278e629-f54b-4df1-ad90-816167b781d0">
 <br /><br /><br />
 
+
 <h2>👥 기능정의서</h2>
 <div>
   <img src="https://github.com/user-attachments/assets/610818f6-436f-4845-9855-942f4fe5ea93" width="47%">
   <img src="https://github.com/user-attachments/assets/4284c969-81df-4e81-a278-809b09345267" width="47%">
 </div>
-<br /><br /><br />
+<br /><br />
 
 
 <h2>:star: 실행화면</h2>
