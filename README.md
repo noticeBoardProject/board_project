@@ -26,7 +26,7 @@
 <h4>[Main Page]</h4>
 <p>- db에 저장된 카테고리 별 게시글 분류</p>
 <p>- 페이지네이션 구현</p>
-<img src="">
+<img src="https://github.com/user-attachments/assets/d6a512d3-336a-49f1-ba44-ab194f3e306e">
 <br /><br />
 
 <h4>[login Modal]</h4>
@@ -41,6 +41,14 @@
 <p>- 주소 API 구현</p>
 <p>- 각종 유효성 검사 진행</p>
 <img src="https://github.com/user-attachments/assets/3751568d-23bc-46fe-ba95-f97feb42c0ad">
+<br /><br />
+
+<h4>[detail Page]</h4>
+<p>- 게시글 정보 출력</p>
+<p>- 사용자가 작성한 게시글만 수정/삭제 버튼 생성</p>
+<p>- URL 클립보드 복사 구현</p>
+<p>- 이전/다음 페이지 이동</p>
+<img src="https://github.com/user-attachments/assets/c1173855-e612-4398-90eb-bf84773a6e1d">
 <br /><br />
 
 <h4>[Search Page]</h4>
@@ -66,15 +74,15 @@
 </div>
 <br /><br />
 
-<h4>[Mywrite Page]</h4>
-<p>- </p>
-<img src="">
+<h4>[Mywrite Page] / [Mylike Page]</h4>
+<p>- 내가 작성한 / 좋아요한 게시글 모음</p>
+<p>- 게시글 리스트 출력 방식 선택 가능</p>
+<div>
+  <img src="https://github.com/user-attachments/assets/c6db6f61-264e-4a21-9b7c-904336b4a454">
+  <img src="https://github.com/user-attachments/assets/8cfcb1c3-98b4-4b71-863c-c4b1fa9295f4">
+</div>
 <br /><br />
 
-<h4>[Mylike Page]</h4>
-<p>- </p>
-<img src="">
-<br /><br />
 
 
 <h2>📚 Tech Stack</h2>
