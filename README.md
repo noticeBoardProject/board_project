@@ -12,11 +12,11 @@
 
 <br>
 
-<h2>ERD 다이어그램</h2>
+<h2>📋 ERD 다이어그램</h2>
 <img src="https://github.com/user-attachments/assets/4278e629-f54b-4df1-ad90-816167b781d0">
 <br /><br /><br />
 
-<h2>기능정의서</h2>
+<h2>👥 기능정의서</h2>
 <img src="https://github.com/user-attachments/assets/610818f6-436f-4845-9855-942f4fe5ea93">
 <img src="https://github.com/user-attachments/assets/4284c969-81df-4e81-a278-809b09345267">
 <br /><br /><br />
@@ -24,8 +24,6 @@
 
 <h2>:star: 실행화면</h2>
 <h4>[Main Page]</h4>
-> db에 저장된 카테고리 별 게시글 분류
-> 페이지네이션 구현
 <p>- db에 저장된 카테고리 별 게시글 분류</p>
 <p>- 페이지네이션 구현</p>
 <img src="https://github.com/user-attachments/assets/d6a512d3-336a-49f1-ba44-ab194f3e306e">
@@ -84,7 +82,6 @@
   <img src="https://github.com/user-attachments/assets/8cfcb1c3-98b4-4b71-863c-c4b1fa9295f4">
 </div>
 <br /><br />
-
 
 
 <h2>📚 Tech Stack</h2>
