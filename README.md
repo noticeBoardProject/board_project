@@ -65,8 +65,8 @@
 <br /><br />
 
 <h4>[Mypage Page]</h4>
-<p>- 사용자 정보 출력</p>
-<p>- 사용자 정보 수정</p>
+<p>- 사용자 정보 확인 및 수정</p>
+<p>- 주소 API 구현</p>
 <p>- 회원탈퇴 구현</p>
 <div>
   <img src="https://github.com/user-attachments/assets/53f54dc2-3447-4eeb-9492-daa7dcf8eb02">
@@ -75,7 +75,7 @@
 <br /><br />
 
 <h4>[Mywrite Page] / [Mylike Page]</h4>
-<p>- 내가 작성한 / 좋아요한 게시글 모음</p>
+<p>- 내가 작성한/좋아요한 게시글 모음</p>
 <p>- 게시글 리스트 출력 방식 선택 가능</p>
 <div>
   <img src="https://github.com/user-attachments/assets/c6db6f61-264e-4a21-9b7c-904336b4a454">
