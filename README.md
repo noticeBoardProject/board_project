@@ -24,6 +24,8 @@
 
 <h2>:star: 실행화면</h2>
 <h4>[Main Page]</h4>
+> db에 저장된 카테고리 별 게시글 분류
+> 페이지네이션 구현
 <p>- db에 저장된 카테고리 별 게시글 분류</p>
 <p>- 페이지네이션 구현</p>
 <img src="https://github.com/user-attachments/assets/d6a512d3-336a-49f1-ba44-ab194f3e306e">
